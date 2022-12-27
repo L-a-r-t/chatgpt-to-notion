@@ -1,5 +1,5 @@
-import TokenData from "../models/token"
-import api from "config/axios"
+import api from "../../config/axios"
+import TokenData from "../../models/token"
 import { Request, Response } from "express"
 
 export const generate = async (req: Request, res: Response) => {
