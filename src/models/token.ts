@@ -33,7 +33,7 @@ const tokenSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  token: {
+  access_token: {
     type: String,
     required: true,
   },

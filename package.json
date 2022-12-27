@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/server.ts",
     "dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register ./src/server.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",

@@ -8,7 +8,7 @@ export const get = async (req: Request, res: Response) => {
     const data = await TokenData.findOne({ id })
     if (!data) throw new Error("token not found")
     console.log(data)
-    res.status(200).send(data.token)
+    res.status(200).send({ token: data.access_token })
   } catch (err) {
     console.error(err)
     res.status(500).send({
