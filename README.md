@@ -1,33 +1,38 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# notion-sdk-typescript-starter
 
-## Getting Started
+This is a template repository for getting started with the [Notion SDK](https://github.com/makenotion/notion-sdk-js)
+and [TypeScript](https://www.typescriptlang.org/).
 
-First, run the development server:
+To use this template, click the big green "Use this template" button in the upper-right corner. After some questions,
+GitHub will create a new clone under your account, and then you can get started customizing.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## Features
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+- TypeScript for type checking.
+- [Prettier](https://prettier.io/) for code formatting.
+- A minimal GitHub Actions workflow that typechecks your code.
+- [Dotenv](https://www.npmjs.com/package/dotenv) for configuring your Notion API token.
+- [Dependabot](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates)
+  for ensuring your (and this template's!) dependencies are up to date.
+- Our lovely Notion SDK!
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## What to do after duplicating
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+1. Make sure you've [created a Notion integration](https://developers.notion.com/docs/getting-started) and have a secret Notion token.
+2. Add your Notion token to a `.env` file at the root of this repository: `echo "NOTION_TOKEN=[your token here]" > .env`.
+3. Run `npm install`.
+4. Edit the `database_id` in `index.ts` from FIXME to be any database currently shared with your integration.
+5. Run `npm start` to run the script.
 
-## Making production build
+Now you can head over to our [developer documentation](https://developers.notion.com/) for more information on using the Notion API!
 
-Run the following:
+## NPM Scripts
 
-```bash
-pnpm build
-# or
-npm run build
-```
+This template has a few built-in NPM scripts:
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+| Script              | Action                                                                                                                                                                          |
+| - | - |
+| `npm start`         | Run `index.ts`.                                                                                                                                                                 |
+| `npm run typecheck` | Type check using the TypeScript compiler.                                                                                                                                       |
+| `npm run format`    | Format using Prettier (also recommended: the [Prettier VS Code extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) if you're using VS code.) |
+| `npm run build`     | Build JavaScript into the `dist/` directory. You normally shouldn't need this if you're using `npm start`.                                                                      |
