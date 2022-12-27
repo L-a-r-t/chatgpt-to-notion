@@ -1,5 +1,5 @@
+import TokenData from "../models/token"
 import { Request, Response } from "express"
-import TokenData from "models/token"
 
 export const get = async (req: Request, res: Response) => {
   try {
