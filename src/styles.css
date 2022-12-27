@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply py-2 px-6 bg-main text-white font-semibold rounded disabled:bg-gray-400 
+    flex justify-center items-center gap-1
+  }
+
+  .button-outline {
+    @apply py-2 px-6 bg-white text-main border border-main font-semibold rounded disabled:bg-gray-400
+    flex justify-center items-center gap-1
+  }
+
+  .button-small {
+    @apply py-1 px-3 bg-main text-white text-sm font-semibold rounded disabled:bg-gray-400
+    flex justify-center items-center gap-0.5
+  }
+
+  .button-small-outline {
+    @apply py-1 px-2 bg-white text-main text-sm border border-main font-semibold rounded disabled:bg-gray-400
+    flex justify-center items-center gap-0.5
+  }
+
+  .input {
+    @apply w-full py-1 px-2 rounded-md focus-within:outline-2 
+    focus-within:outline-main resize-y bg-white border border-main
+  }
+
+  .link {
+    @apply underline text-gray-700 cursor-pointer
+  }
+
+  .checkbox {
+    @apply w-4 h-4 accent-main
+  }
+}
