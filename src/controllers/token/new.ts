@@ -1,13 +1,19 @@
 import api from "../../config/axios"
 import TokenData from "../../models/token"
+import dotenv from "dotenv"
 import { Request, Response } from "express"
+
+dotenv.config()
 
 export const generate = async (req: Request, res: Response) => {
   try {
     const { code, redirect_uri, grant_type } = req.body
 
-    const client_token = process.env.NOTION_TOKEN
-    if (!client_token) throw new Error("can't find NOTION_TOKEN .env variable")
+    const client_secret = process.env.CLIENT_SECRET
+    if (!client_secret)
+      throw new Error("can't find CLIENT_SECRET .env variable")
+    const client_id = process.env.CLIENT_ID
+    if (!client_id) throw new Error("can't find CLIENT_ID .env variable")
 
     const notionRes = await api.post(
       "/oauth/token",
@@ -19,7 +25,10 @@ export const generate = async (req: Request, res: Response) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(client_token, "base64")}`,
+          Authorization: `Basic ${Buffer.from(
+            `${client_id}:${client_secret}`,
+            "base64"
+          )}`,
         },
       }
     )
