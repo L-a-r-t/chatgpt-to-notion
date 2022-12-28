@@ -2,6 +2,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import "~styles.css"
 
+import { i18n } from "~utils/functions"
 import type { PopupEnum } from "~utils/types"
 
 function WrongPagePopup() {
@@ -14,20 +15,22 @@ function WrongPagePopup() {
   return (
     <>
       <p className="text-center">
-        Go to{" "}
+        {i18n("wrongpage_goTo") + " "}
         <a href="https://chat.openai.com/chat" target="_blank" className="link">
-          ChatGPT's page
-        </a>{" "}
-        to start doing fancy stuff
+          {i18n("wrongpage_chatgpt")}
+        </a>
+        {" " + i18n("wrongpage_toUse")}
       </p>
       <div className="grid gap-3 grid-cols-2">
         <button
           className="button-outline"
           onClick={() => showPopup("settings")}>
-          Settings
+          {i18n("nav_settings")}
         </button>
-        <button className="button-outline" onClick={() => showPopup("about")}>
-          About
+        <button
+          className="button-outline w-max"
+          onClick={() => showPopup("about")}>
+          {i18n("nav_about")}
         </button>
       </div>
     </>

@@ -6,14 +6,16 @@ import { Storage } from "@plasmohq/storage"
 
 dotenv.config()
 
-const storage = new Storage({
-  secretKeyList: ["token"]
-})
+const getNotion = async () => {
+  const storage = new Storage({
+    area: "session",
+    secretKeyList: ["token"]
+  })
+  const token = await storage.get("token")
+  const notion = new Client({
+    auth: token ?? ""
+  })
+  return notion
+}
 
-const token = await storage.get("token")
-
-const notion = new Client({
-  auth: token ?? ""
-})
-
-export default notion
+export default getNotion

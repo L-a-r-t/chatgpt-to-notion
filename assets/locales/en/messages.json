@@ -1,0 +1,106 @@
+{
+  "extensionName": {
+    "message": "ChatGPT to Notion",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Save your discussions with ChatGPT directly into Notion!",
+    "description": "Description of the extension."
+  },
+  "nav_settings": {
+    "message": "Settings",
+    "description": "Settings page title."
+  },
+  "nav_about": {
+    "message": "About",
+    "description": "About page title."
+  },
+  "nav_home": {
+    "message": "Home",
+    "description": "Home page title."
+  },
+  "index_errRegister": {
+    "message": "Please register a database in the settings",
+    "description": "Error message when no database is registered."
+  },
+  "index_saveTo": {
+    "message": "Save to:",
+    "description": "Save to label."
+  },
+  "index_saveFullChat": {
+    "message": "Save full chat",
+    "description": "Save button text."
+  },
+  "index_discussionSaved": {
+    "message": "Discussion saved!",
+    "description": "Success message when discussion is saved."
+  },
+  "save_pageTitle": {
+    "message": "Page title",
+    "description": "Page title label."
+  },
+  "save_prompt": {
+    "message": "Prompt",
+    "description": "Prompt label."
+  },
+  "save_answer": {
+    "message": "Answer",
+    "description": "Answer label."
+  },
+  "save_saveTo": {
+    "message": "Save to:",
+    "description": "Save to label."
+  },
+  "save_save": {
+    "message": "Save",
+    "description": "Save button text."
+  },
+  "save_saved": {
+    "message": "Saved!",
+    "description": "Success message when discussion is saved."
+  },
+  "settings_noLinkedDb": {
+    "message": "No linked DB",
+    "description": "No linked database message."
+  },
+  "settings_linkedDatabases": {
+    "message": "Linked databases",
+    "description": "Linked databases title."
+  },
+  "settings_remove": {
+    "message": "Remove",
+    "description": "Remove"
+  },
+  "settings_searchPlaceholder": {
+    "message": "Search a database",
+    "description": "Search placeholder."
+  },
+  "wrongpage_goTo": {
+    "message": "Go to",
+    "description": "Go to label."
+  },
+  "wrongpage_chatgpt": {
+    "message": "ChatGPT's page",
+    "description": "ChatGPT page label."
+  },
+  "wrongpage_toUse": {
+    "message": "to start doing fancy stuff",
+    "description": "To use this extension label."
+  },
+  "about_extensionBy": {
+    "message": "is an extension developped by",
+    "description": "Extension by label."
+  },
+  "about_suggestionsIssues": {
+    "message": "Got any suggestion/issue to report? Check out the extension's GitHub.",
+    "description": "Suggestion/issue CTA."
+  },
+  "about_pinIcon": {
+    "message": "Pin icon made by",
+    "description": "Pin icon label."
+  },
+  "about_pinLicense": {
+    "message": "is licensed by CC BY 3.0",
+    "description": "Pin icon licence label."
+  }
+}

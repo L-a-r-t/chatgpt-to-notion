@@ -9,6 +9,7 @@ import "~styles.css"
 
 import DropdownPopup from "~common/components/Dropdown"
 import Spinner from "~common/components/Spinner"
+import { i18n } from "~utils/functions"
 
 export default function SavePopup() {
   const [showPopup, setShowPopup] = useStorage<boolean>("showPopup")
@@ -54,20 +55,20 @@ export default function SavePopup() {
 
   return (
     <>
-      <h4 className="font-bold">Page title</h4>
+      <h4 className="font-bold">{i18n("save_pageTitle")}</h4>
       <p className="text-xs">{toBeSaved.title}</p>
-      <h4 className="font-bold">Prompt</h4>
+      <h4 className="font-bold">{i18n("save_prompt")}</h4>
       <p className="text-xs">
         {prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt}
       </p>
-      <h4 className="font-bold">Answer</h4>
+      <h4 className="font-bold">{i18n("save_answer")}</h4>
       <p className="text-xs">
         {answer.length > 80
           ? answer.replace(/(<.+?>)/g, "").substring(0, 80) + "..."
           : answer}
       </p>
       <div className="flex justify-between items-center my-3">
-        <p className="font-bold">Save to :</p>
+        <p className="font-bold">{i18n("save_saveTo")}</p>
         <DropdownPopup
           className="px-1 border border-main rounded"
           position="up"
@@ -83,7 +84,8 @@ export default function SavePopup() {
         disabled={loading || success}
         className="button w-full disabled:bg-main"
         onClick={() => save(databases[selectedDB].id)}>
-        {success ? "Saved!" : "Save"} {loading && <Spinner white small />}
+        {success ? i18n("save_saved") : i18n("save_save")}
+        {loading && <Spinner white small />}
       </button>
     </>
   )

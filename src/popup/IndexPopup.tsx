@@ -9,6 +9,7 @@ import { useState } from "react"
 import { saveChat } from "~api/saveChat"
 import DropdownPopup from "~common/components/Dropdown"
 import Spinner from "~common/components/Spinner"
+import { i18n } from "~utils/functions"
 
 function IndexPopup() {
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
@@ -41,11 +42,11 @@ function IndexPopup() {
   }
 
   return !databases || databases.length == 0 ? (
-    <p>Please register a database in the settings</p>
+    <p>{i18n("index_errRegister")}</p>
   ) : (
     <>
       <div className="flex justify-between items-center mb-3">
-        <p className="font-bold">Save to :</p>
+        <p className="font-bold">{i18n("index_saveTo")}</p>
         <DropdownPopup
           className="px-1 border border-main rounded"
           position="up"
@@ -61,7 +62,7 @@ function IndexPopup() {
         disabled={loading || success}
         className="button disabled:bg-main"
         onClick={handleSave}>
-        {success ? "Discussion saved!" : "Save full chat"}{" "}
+        {success ? i18n("index_discussionSaved") : i18n("index_saveFullChat")}
         {loading && <Spinner white small />}
       </button>
     </>

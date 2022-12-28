@@ -50,8 +50,13 @@ export const getProperty = <T extends PropertyType>(
   return prop[type]
 }
 
-export const getIcon = (icon: IconResponse, mirror?: IconResponse) => {
-  if (!icon) return <span className="text-2xl w-8 h-8">📚</span>
+export const getIcon = (icon: IconResponse) => {
+  if (!icon)
+    return (
+      <span className="text-2xl w-8 h-8 relative">
+        <span className="absolute top-2 left-2 w-4 h-4 border-2 bg-main/25 border-main rounded" />
+      </span>
+    )
   switch (icon.type) {
     case "emoji":
       return <span className="text-2xl w-8 h-8">{icon.emoji}</span>

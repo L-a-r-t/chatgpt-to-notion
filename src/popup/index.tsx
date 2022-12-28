@@ -11,6 +11,8 @@ import "~styles.css"
 
 import { useEffect } from "react"
 
+import { i18n } from "~utils/functions"
+
 import AboutPopup from "./AboutPopup"
 import SettingsPopup from "./SettingsPopup"
 import WrongPagePopup from "./WrongPagePopup"
@@ -18,6 +20,19 @@ import WrongPagePopup from "./WrongPagePopup"
 export default function Wrapper() {
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
   const [popup, setPopup] = useStorage<PopupEnum>("popup", "wrongpage")
+  const [token] = useStorage({ key: "token", area: "session" })
+  const [workspace_id] = useStorage("workspace_id")
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout
+    if (!token && !workspace_id)
+      timeout = setTimeout(() => {
+        chrome.tabs.create({
+          url: "https://api.notion.com/v1/oauth/authorize?client_id=323a93e9-98a0-4f5a-a194-af728f1b817e&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fgithub.com%2FL-a-r-t%2Fchatgpt-to-notion"
+        })
+      }, 100)
+    return () => clearTimeout(timeout)
+  }, [token, workspace_id])
 
   useEffect(() => {
     const handleCurrentTab = async () => {
@@ -48,9 +63,9 @@ export default function Wrapper() {
   }
 
   const nav = {
-    index: "Home",
-    settings: "Settings",
-    about: "About"
+    index: i18n("nav_home"),
+    settings: i18n("nav_settings"),
+    about: i18n("nav_about")
   }
 
   if (databases.length == 0) {
@@ -72,7 +87,7 @@ export default function Wrapper() {
               key={key}
               className={`button-small-outline ${
                 popup === key ? "font-bold" : ""
-              } border-none`}
+              } border-none w-max`}
               onClick={() => showPopup(key as "settings" | "about" | "index")}>
               {nav[key]}
             </button>

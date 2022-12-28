@@ -37,6 +37,7 @@ dist/
 
 # bpp - http://bpp.browser.market/
 keys.json
+key.json
 
 # typescript
 .tsbuildinfo

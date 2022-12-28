@@ -1,8 +1,8 @@
 {
   "name": "chatgpt-to-notion",
-  "displayName": "Chatgpt to notion",
-  "version": "0.0.0",
-  "description": "Save your discussions with ChatGPT directly into Notion!",
+  "displayName": "__MSG_extensionName__",
+  "version": "1.0.0",
+  "description": "__MSG_extensionDescription__",
   "author": "Théo Lartigau",
   "scripts": {
     "dev": "plasmo dev",
@@ -33,6 +33,7 @@
     "typescript": "4.9.3"
   },
   "manifest": {
+    "default_locale": "en",
     "host_permissions": [
       "https://*/*"
     ],

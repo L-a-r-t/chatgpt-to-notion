@@ -9,10 +9,12 @@ import type { StoredDatabase } from "~utils/types"
 
 import "~styles.css"
 
-import type { IconResponse } from "~utils/types/notion"
+import Spinner from "~common/components/Spinner"
+import { i18n } from "~utils/functions"
 
 function SettingsPopup() {
   const [query, setQuery] = useState("")
+  const [fetching, setFetching] = useState(false)
   const [results, setResults] = useState<{
     databases: DatabaseObjectResponse[]
   } | null>(null)
@@ -22,21 +24,20 @@ function SettingsPopup() {
     "databases",
     []
   )
-  const [mirroredDBs, setMirroredDBs] = useState<{
-    [id: string]: IconResponse
-  }>({})
 
   useDebounce(
     async () => {
+      setFetching(true)
       const response = await chrome.runtime.sendMessage({
         type: "search",
         body: {
           query
         }
       })
+      setFetching(false)
       setResults(response)
     },
-    500,
+    600,
     [query]
   )
 
@@ -60,7 +61,9 @@ function SettingsPopup() {
   return (
     <>
       <h3 className="text-lg font-bold">
-        {databases.length === 0 ? "No linked DB" : "Linked Databases"}
+        {databases.length === 0
+          ? i18n("settings_noLinkedDb")
+          : i18n("settings_linkedDatabases")}
       </h3>
       {databases.map((db) => (
         <div key={db.id} className="flex justify-between items-center">
@@ -68,16 +71,25 @@ function SettingsPopup() {
             {db.icon && getIcon(db.icon)}
             <p className="font-bold">{db.title}</p>
           </div>
-          <button onClick={() => handleRemove(db)}>Remove</button>
+          <button onClick={() => handleRemove(db)}>
+            {i18n("settings_remove")}
+          </button>
         </div>
       ))}
-      <input
-        name="search"
-        className="input mt-3"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search DB title"
-      />
+      <div className="relative mt-3">
+        <input
+          name="search"
+          className="input pr-7"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={i18n("settings_searchPlaceholder")}
+        />
+        {fetching && (
+          <div className="absolute inset-y-0 right-2 flex justify-center items-center">
+            <Spinner small />
+          </div>
+        )}
+      </div>
       {results && (
         <div className="mt-1">
           {/* <h3 className="text-lg font-bold">Databases</h3> */}

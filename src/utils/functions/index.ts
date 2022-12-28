@@ -12,3 +12,7 @@ export const HTMLtoMarkdown = (html: string) => {
 export const HTMLtoBlocks = (html: string) => {
   return markdownToBlocks(HTMLtoMarkdown(html)) as any[]
 }
+
+export const i18n = (key: string) => {
+  return chrome.i18n.getMessage(key)
+}
