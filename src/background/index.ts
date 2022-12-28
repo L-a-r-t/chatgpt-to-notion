@@ -54,6 +54,7 @@ const authenticate = async () => {
   // await session.set("token", null)
   // await storage.set("workspace_id", null)
   // await storage.set("user_id", null)
+  // return
   const [workspace_id, user_id] = await Promise.all([
     storage.get("workspace_id"),
     storage.get("user_id")

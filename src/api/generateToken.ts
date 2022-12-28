@@ -17,7 +17,8 @@ export const generateToken = async (code: string) => {
         body: JSON.stringify({
           code,
           grant_type: "authorization_code",
-          redirect_uri: "https://github.com/L-a-r-t/chatgpt-to-notion"
+          redirect_uri:
+            "https://theo-lartigau.notion.site/ChatGPT-to-Notion-af29d9538dca4493a15bb4ed0fde7f91"
         })
       }
     )
@@ -33,6 +34,7 @@ export const generateToken = async (code: string) => {
       storage.set("user_id", user_id),
       storage.set("user", user)
     ])
+    console.log("authenticated")
     return data.user
   } catch (err) {
     console.error(err)
