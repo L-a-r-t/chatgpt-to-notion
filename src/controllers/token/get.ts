@@ -4,7 +4,7 @@ import { Request, Response } from "express"
 export const get = async (req: Request, res: Response) => {
   try {
     const { workspace_id, user_id } = req.body
-    const id = `${workspace_id}-${user_id}`
+    const id = `${workspace_id}:${user_id}`
     const data = await TokenData.findOne({ id })
     if (!data) throw new Error("token not found")
     console.log(data)

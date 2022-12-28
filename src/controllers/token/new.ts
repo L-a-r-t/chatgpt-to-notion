@@ -31,9 +31,8 @@ export const generate = async (req: Request, res: Response) => {
         },
       }
     )
-    console.log(notionRes.status, notionRes.data)
-    const id = `${notionRes.data.workspace_id}-${
-      notionRes.data.owner.workspace ? "x" : notionRes.data.owner.id
+    const id = `${notionRes.data.workspace_id}:${
+      notionRes.data.owner.workspace ? "x" : notionRes.data.owner.user.id
     }`
     await TokenData.create({
       ...notionRes.data,
