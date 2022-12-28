@@ -47,8 +47,10 @@ const authenticate = async () => {
   })
   const storage = new Storage()
   const _token = await session.get("token")
-  console.log("token already exists")
-  if (_token) return
+  if (_token) {
+    console.log("token already exists")
+    return
+  }
   // await session.set("token", null)
   // await storage.set("workspace_id", null)
   // await storage.set("user_id", null)
