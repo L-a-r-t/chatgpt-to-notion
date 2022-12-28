@@ -26,9 +26,8 @@ export const generate = async (req: Request, res: Response) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(
-            `${client_id}:${client_secret}`,
-            "base64"
-          )}`,
+            `${client_id}:${client_secret}`
+          ).toString("base64")}`,
         },
       }
     )
