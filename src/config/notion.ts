@@ -1,10 +1,7 @@
 // initialize notion sdk
 import { Client } from "@notionhq/client"
-import dotenv from "dotenv"
 
 import { Storage } from "@plasmohq/storage"
-
-dotenv.config()
 
 const getNotion = async () => {
   const storage = new Storage({
