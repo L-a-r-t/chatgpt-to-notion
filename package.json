@@ -35,7 +35,8 @@
   "manifest": {
     "default_locale": "en",
     "host_permissions": [
-      "https://*/*"
+      "https://api.notion.com/*",
+      "https://chatgpt-to-notion.onrender.com/*"
     ],
     "permissions": [
       "tabs"
