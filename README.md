@@ -1,33 +1,24 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# ChatGPT to Notion
+ChatGPT to Notion brings the cleverness of ChatGPT into your favorite app!
 
-## Getting Started
+## Overview
+For information about the extension itself more than the code behind it, check out [this notion page](https://theo-lartigau.notion.site/theo-lartigau/ChatGPT-to-Notion-af29d9538dca4493a15bb4ed0fde7f91). This extension was built using the [Plasmo framework](https://www.plasmo.com/) and Typescript. A simple Express server (hosted on a free Render webservice) that can be found on the "server" branch, it allows the secure long-term storage of Notion's access tokens.
 
-First, run the development server:
+## Motive
+While some tools already exist to save a webpage to Notion, and some going as far as allowing the user to save the page's contents, these solutions fall short when trying to save a conversation with ChatGPT. As such, providing a specialized extension to do this work efficiently felt natural.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## Usage
+On ChatGPT's page, you'll notice a new pin icon under each of its answers. You can use it to save specifically that answer and the related prompt to your Notion database of choice. If you want to save the whole discussion, you can do so from the extension popup.
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+You may link as many databases with the extension as you need to, and you can then choose which database to save your discussion at saving time. If a page with the same title already exists in the database, the newly saved content will be appended to the end of said page.
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## Contribution
+As this is my first time building a project that is open to contributions I will need a little time to sort things out and learn the best practices for great collaboration on GitHub. If you want to help (thanks!), please stay patient for a few days.
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+## Roadmap
+These are the things that I plan to work on at some point. It might be a few weeks before these get implemented as I’m currently quite busy, but I hope to have the following (ranked by priority) done in the near future:
 
-## Making production build
-
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+- [ ]  Saving to a page & not only to a database
+- [ ]  Customize the page title upon saving
+- [ ]  Add custom tags when saving
+- [ ]  Upgrade backend (currently a free render webservice) to remove authentication lag
