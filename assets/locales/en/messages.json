@@ -19,6 +19,10 @@
     "message": "Home",
     "description": "Home page title."
   },
+  "authenticating": {
+    "message": "Authenticating to Notion",
+    "description": "Authenticating message."
+  },
   "index_errRegister": {
     "message": "Please register a database in the settings",
     "description": "Error message when no database is registered."
@@ -74,6 +78,10 @@
   "settings_searchPlaceholder": {
     "message": "Search a database",
     "description": "Search placeholder."
+  },
+  "settings_slowSearch": {
+    "message": "Searching pages/DBs can be quite slow...",
+    "description": "Slow search message."
   },
   "wrongpage_goTo": {
     "message": "Go to",

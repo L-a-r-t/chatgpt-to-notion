@@ -46,9 +46,11 @@ const authenticate = async () => {
     secretKeyList: ["token"]
   })
   const storage = new Storage()
+  await storage.set("authenticated", false)
   const _token = await session.get("token")
   if (_token) {
     console.log("token already exists")
+    await storage.set("authenticated", true)
     return
   }
   // await session.set("token", null)
@@ -59,12 +61,16 @@ const authenticate = async () => {
     storage.get("workspace_id"),
     storage.get("user_id")
   ])
-  if (!workspace_id || !user_id) return
+  if (!workspace_id || !user_id) {
+    console.log("no ids found")
+    return
+  }
   const token = await getToken({
     workspace_id,
     user_id
   })
   await session.set("token", token)
+  await storage.set("authenticated", true)
   console.log("authenticated")
 }
 

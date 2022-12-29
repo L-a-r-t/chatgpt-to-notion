@@ -17,6 +17,8 @@ export default function SavePopup() {
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
 
+  const [authenticated, setAuthenticated] = useStorage("authenticated", false)
+
   const [prompt, setPrompt] = useState("")
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
@@ -33,13 +35,13 @@ export default function SavePopup() {
     updateState()
   }, [toBeSaved])
 
-  const save = async (id: string) => {
+  const save = async (database: StoredDatabase) => {
     if (!toBeSaved) return
     setLoading(true)
     await chrome.runtime.sendMessage({
       type: "saveAnswer",
       body: {
-        database_id: id,
+        database,
         ...toBeSaved
       }
     })
@@ -53,7 +55,9 @@ export default function SavePopup() {
 
   if (!toBeSaved) return null
 
-  return (
+  return !databases || databases.length == 0 ? (
+    <p>{i18n("index_errRegister")}</p>
+  ) : (
     <>
       <h4 className="font-bold">{i18n("save_pageTitle")}</h4>
       <p className="text-xs">{toBeSaved.title}</p>
@@ -81,10 +85,16 @@ export default function SavePopup() {
         </DropdownPopup>
       </div>
       <button
-        disabled={loading || success}
+        disabled={loading || success || !authenticated}
         className="button w-full disabled:bg-main"
-        onClick={() => save(databases[selectedDB].id)}>
-        {success ? i18n("save_saved") : i18n("save_save")}
+        onClick={() => save(databases[selectedDB])}>
+        {!authenticated && (
+          <>
+            <span>{i18n("authenticating")}</span>
+            <Spinner white small />
+          </>
+        )}
+        {authenticated && (success ? i18n("save_saved") : i18n("save_save"))}
         {loading && <Spinner white small />}
       </button>
     </>

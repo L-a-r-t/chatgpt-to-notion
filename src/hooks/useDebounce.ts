@@ -15,6 +15,12 @@ const useDebounce = (
       clearTimeout(t)
     }
   }, deps)
+
+  const invoke = () => {
+    callback(undefined, deps)
+  }
+
+  return invoke
 }
 
 export default useDebounce

@@ -18,6 +18,8 @@ function IndexPopup() {
     []
   )
 
+  const [authenticated] = useStorage("authenticated", false)
+
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -31,10 +33,10 @@ function IndexPopup() {
     const chat = await chrome.tabs.sendMessage(currentTab.id, {
       type: "fetchFullChat"
     })
-    const database_id = databases[selectedDB].id
+    const database = databases[selectedDB]
     const req = {
       ...chat,
-      database_id
+      database
     }
     await saveChat(req)
     setSuccess(true)
@@ -59,10 +61,19 @@ function IndexPopup() {
         </DropdownPopup>
       </div>
       <button
-        disabled={loading || success}
+        disabled={loading || success || !authenticated}
         className="button disabled:bg-main"
         onClick={handleSave}>
-        {success ? i18n("index_discussionSaved") : i18n("index_saveFullChat")}
+        {!authenticated && (
+          <>
+            <span>{i18n("authenticating")}</span>
+            <Spinner white small />
+          </>
+        )}
+        {authenticated &&
+          (success
+            ? i18n("index_discussionSaved")
+            : i18n("index_saveFullChat"))}
         {loading && <Spinner white small />}
       </button>
     </>

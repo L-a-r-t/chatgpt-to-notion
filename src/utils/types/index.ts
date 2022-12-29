@@ -12,6 +12,10 @@ export type StoredDatabase = {
   id: string
   title: string
   icon: IconResponse
+  properties: {
+    title: string
+    url: string
+  }
 }
 
 export type PopupEnum = "index" | "save" | "settings" | "about" | "wrongpage"

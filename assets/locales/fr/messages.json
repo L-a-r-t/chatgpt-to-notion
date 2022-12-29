@@ -19,6 +19,10 @@
     "message": "Notion",
     "description": "Home page title."
   },
+  "authenticating": {
+    "message": "Connexion à Notion",
+    "description": "Authenticating message."
+  },
   "index_errRegister": {
     "message": "Enregistez une base de données dans les réglages pour commencer",
     "description": "Error message when no database is registered."
@@ -64,7 +68,7 @@
     "description": "No linked database message."
   },
   "settings_linkedDatabases": {
-    "message": "Base de données",
+    "message": "Bases de données",
     "description": "Linked databases title."
   },
   "settings_remove": {
@@ -74,6 +78,10 @@
   "settings_searchPlaceholder": {
     "message": "Rechercher une BDD",
     "description": "Search placeholder."
+  },
+  "settings_slowSearch": {
+    "message": "La recherche de pages/bases de données peut prendre un certain temps...",
+    "description": "Slow search message."
   },
   "wrongpage_goTo": {
     "message": "Allez sur le site de",

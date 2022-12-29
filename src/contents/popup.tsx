@@ -1,6 +1,7 @@
 import illustration from "data-base64:../../assets/illustration.png"
 import styleText from "data-text:~styles.css"
 import type { PlasmoContentScript, PlasmoGetStyle } from "plasmo"
+import { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 

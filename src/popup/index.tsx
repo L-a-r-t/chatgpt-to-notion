@@ -11,6 +11,7 @@ import "~styles.css"
 
 import { useEffect } from "react"
 
+import Spinner from "~common/components/Spinner"
 import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"

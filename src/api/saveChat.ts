@@ -1,5 +1,6 @@
 import getNotion from "~config/notion"
 import { generateBlocks } from "~utils/functions/notion"
+import type { StoredDatabase } from "~utils/types"
 
 // save new page to notion database
 export const saveChat = async ({
@@ -7,10 +8,11 @@ export const saveChat = async ({
   answers,
   title,
   url,
-  database_id
+  database
 }: SaveChatParams) => {
   try {
     const notion = await getNotion()
+    const { properties } = database
     const blocks = []
     for (let i = 0; i < prompts.length; i++) {
       const { answerBlocks, promptBlocks } = generateBlocks(
@@ -21,7 +23,7 @@ export const saveChat = async ({
     }
 
     const searchRes = await notion.databases.query({
-      database_id,
+      database_id: database.id,
       filter: {
         property: "Name",
         title: {
@@ -41,7 +43,7 @@ export const saveChat = async ({
 
     const response = await notion.pages.create({
       parent: {
-        database_id: database_id
+        database_id: database.id
       },
       icon: {
         type: "external",
@@ -50,7 +52,7 @@ export const saveChat = async ({
         }
       },
       properties: {
-        Name: {
+        [properties.title]: {
           title: [
             {
               text: {
@@ -59,7 +61,7 @@ export const saveChat = async ({
             }
           ]
         },
-        URL: {
+        [properties.url]: {
           url
         }
       },
@@ -82,6 +84,6 @@ type SaveChatParams = {
   prompts: string[]
   answers: string[]
   title: string
-  database_id: string
+  database: StoredDatabase
   url: string
 }
