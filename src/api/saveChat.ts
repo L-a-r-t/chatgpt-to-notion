@@ -25,7 +25,7 @@ export const saveChat = async ({
     const searchRes = await notion.databases.query({
       database_id: database.id,
       filter: {
-        property: "Name",
+        property: properties.title,
         title: {
           equals: title
         }
