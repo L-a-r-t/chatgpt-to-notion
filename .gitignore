@@ -3,3 +3,4 @@ dist
 .env
 .plasmo
 build
+key.json
