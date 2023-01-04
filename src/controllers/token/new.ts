@@ -34,6 +34,12 @@ export const generate = async (req: Request, res: Response) => {
     const id = `${notionRes.data.workspace_id}:${
       notionRes.data.owner.workspace ? "x" : notionRes.data.owner.user.id
     }`
+    // because of the cold start, users may dispatch the request more than once
+    // so we need to delete the old data
+    // this will be fixed by upgrading the backend instance to a paid one
+    await TokenData.deleteMany({
+      id,
+    })
     await TokenData.create({
       ...notionRes.data,
       id,
