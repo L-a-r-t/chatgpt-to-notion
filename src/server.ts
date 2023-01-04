@@ -18,6 +18,9 @@ app.use(bodyParser.json())
 app.use(helmet())
 app.use(cors())
 
+app.get("/keepalive", (req, res) => {
+  res.status(200).send("OK")
+})
 app.use("/token", tokenRouter)
 
 app.listen(5000, () => {
