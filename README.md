@@ -21,4 +21,4 @@ These are the things that I plan to work on at some point. It might be a few wee
 - [ ]  Saving to a page & not only to a database
 - [ ]  Customize the page title upon saving
 - [ ]  Add custom tags when saving
-- [ ]  Upgrade backend (currently a free render webservice) to remove authentication lag
+- [x]  Upgrade backend (free Render webservice, fixed by setting up a keepalive loop)
