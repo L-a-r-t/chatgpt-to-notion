@@ -12,6 +12,8 @@ import PinIcon from "~common/pin"
 
 import "~styles.css"
 
+import { i18n } from "~utils/functions"
+
 export const config: PlasmoContentScript = {
   matches: ["https://chat.openai.com/chat/*"]
 }
@@ -38,8 +40,13 @@ export const render: PlasmoRender = async ({
 const Content = ({ parent }: Props) => {
   const [toBeSaved, setToBeSaved] = useStorage("toBeSaved")
   const [showPopup, setShowPopup] = useStorage("showPopup", false)
+  const [authenticated] = useStorage("authenticated", false)
 
   const handleClick = async () => {
+    if (!authenticated) {
+      alert(i18n("errConnect"))
+      return
+    }
     const answer = await compress(
       (
         parent.querySelector(".markdown") ??

@@ -92,7 +92,11 @@ const refreshIcons = async () => {
   }
 }
 
-authenticate()
-refreshIcons()
+const main = async () => {
+  await authenticate()
+  refreshIcons()
+}
+
+main()
 
 export default {}

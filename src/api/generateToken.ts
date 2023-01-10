@@ -34,6 +34,7 @@ export const generateToken = async (code: string) => {
       storage.set("user_id", user_id),
       storage.set("user", user)
     ])
+    await storage.set("authenticated", true)
     console.log("authenticated")
     return data.user
   } catch (err) {
