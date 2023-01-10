@@ -7,6 +7,10 @@
     "message": "Save your discussions with ChatGPT directly into Notion!",
     "description": "Description of the extension."
   },
+  "errConnect": {
+    "message": "Conntect yourself to Notion by clicking on the extension's icon.",
+    "description": "Error message when user is not connected to Notion."
+  },
   "nav_settings": {
     "message": "Settings",
     "description": "Settings page title."
@@ -82,6 +86,10 @@
   "settings_slowSearch": {
     "message": "Searching pages/DBs can be quite slow...",
     "description": "Slow search message."
+  },
+  "settings_noUrlProperty": {
+    "message": "This DB doesn't have an URL property",
+    "description": "No URL property message."
   },
   "wrongpage_goTo": {
     "message": "Go to",
