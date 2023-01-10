@@ -19,6 +19,7 @@ function SettingsPopup() {
   const [results, setResults] = useState<{
     databases: DatabaseObjectResponse[]
   } | null>(null)
+  const [dbError, setDbError] = useState<string | null>(null)
 
   const [selectedDB, setSelectedDB] = useStorage("selectedDB", 0)
   const [databases, setDatabases] = useStorage<StoredDatabase[]>(
@@ -30,6 +31,7 @@ function SettingsPopup() {
 
   const refreshSearch = useDebounce(
     async () => {
+      setDbError(null)
       setFetching(true)
       const response = await chrome.runtime.sendMessage({
         type: "search",
@@ -45,13 +47,16 @@ function SettingsPopup() {
   )
 
   const handleSelect = async (db: DatabaseObjectResponse) => {
+    setDbError((prev) => null)
     if (databases.map((d) => d.id).includes(db.id)) return
     const titleID = Object.values(db.properties).filter(
       (val) => val.type === "title"
     )[0].id
-    const urlID = Object.values(db.properties).filter(
+    const urls = Object.values(db.properties).filter(
       (val) => val.type === "url"
-    )[0].id
+    )
+    if (urls.length === 0) setDbError((prev) => i18n("settings_noUrlProperty"))
+    const urlID = urls[0].id
     await setDatabases([
       ...databases,
       {
@@ -121,6 +126,7 @@ function SettingsPopup() {
             )}
           </div>
           {fetching && <p>{i18n("settings_slowSearch")}</p>}
+          {dbError && <p className="text-red-500">{dbError}</p>}
           {results && (
             <div className="mt-1">
               {/* <h3 className="text-lg font-bold">Databases</h3> */}
