@@ -77,6 +77,7 @@ const authenticate = async () => {
 const refreshIcons = async () => {
   const storage = new Storage()
   const databases = await storage.get<StoredDatabase[]>("databases")
+  if (!databases) return
   for (let i = 0; i < databases.length; i++) {
     const icon = databases[i].icon
     if (!icon) continue
