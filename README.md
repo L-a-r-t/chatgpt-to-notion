@@ -1,5 +1,5 @@
 # ChatGPT to Notion
-ChatGPT to Notion brings the cleverness of ChatGPT into your favorite app!
+[ChatGPT to Notion](https://chrome.google.com/webstore/detail/chatgpt-to-notion/oojndninaelbpllebamcojkdecjjhcle) brings the cleverness of ChatGPT into your favorite app!
 
 ## Overview
 For information about the extension itself more than the code behind it, check out [this notion page](https://theo-lartigau.notion.site/theo-lartigau/ChatGPT-to-Notion-af29d9538dca4493a15bb4ed0fde7f91). This extension was built using the [Plasmo framework](https://www.plasmo.com/) and Typescript. A simple Express server (hosted on a free Render webservice) that can be found on the "server" branch, it allows the secure long-term storage of Notion's access tokens.
