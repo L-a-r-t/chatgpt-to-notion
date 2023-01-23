@@ -88,7 +88,7 @@
     "description": "Slow search message."
   },
   "settings_noUrlProperty": {
-    "message": "This DB doesn't have an URL property",
+    "message": "Add an URL proprty to this DB inside Notion to use it",
     "description": "No URL property message."
   },
   "wrongpage_goTo": {

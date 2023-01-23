@@ -88,7 +88,7 @@
     "description": "Slow search message."
   },
   "settings_noUrlProperty": {
-    "message": "Cette base de données n'a pas de propriété URL.",
+    "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser",
     "description": "No URL property message."
   },
   "wrongpage_goTo": {

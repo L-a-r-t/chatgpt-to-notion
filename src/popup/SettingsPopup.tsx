@@ -126,7 +126,7 @@ function SettingsPopup() {
             )}
           </div>
           {fetching && <p>{i18n("settings_slowSearch")}</p>}
-          {dbError && <p className="text-red-500">{dbError}</p>}
+          {dbError && <p className="text-red-500 text-sm">{dbError}</p>}
           {results && (
             <div className="mt-1">
               {/* <h3 className="text-lg font-bold">Databases</h3> */}
