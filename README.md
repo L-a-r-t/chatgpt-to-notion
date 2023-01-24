@@ -1,6 +1,6 @@
 # ChatGPT to Notion
 
-ChatGPT to Notion brings the cleverness of ChatGPT into your favorite app!
+[ChatGPT to Notion](https://chrome.google.com/webstore/detail/chatgpt-to-notion/oojndninaelbpllebamcojkdecjjhcle) brings the cleverness of ChatGPT into your favorite app!
 
 ## Overview
 
