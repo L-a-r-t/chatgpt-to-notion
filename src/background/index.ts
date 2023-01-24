@@ -5,6 +5,7 @@ import { getDatabase } from "~api/getDatabase"
 import { getToken } from "~api/getToken"
 import { saveAnswer } from "~api/saveAnswer"
 import { searchNotion } from "~api/search"
+import { formatDB } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 // API calls that can be made from content scripts transit trough the background script
@@ -34,6 +35,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       })
       break
+    case "getDB":
+      getDatabase(message.body.id).then((res) => {
+        sendResponse(res)
+      })
+      break
     default:
       return true
   }
@@ -51,7 +57,7 @@ const authenticate = async () => {
   if (_token) {
     console.log("token already exists")
     await storage.set("authenticated", true)
-    return
+    return true
   }
   // await session.set("token", null)
   // await storage.set("workspace_id", null)
@@ -63,7 +69,7 @@ const authenticate = async () => {
   ])
   if (!workspace_id || !user_id) {
     console.log("no ids found")
-    return
+    return false
   }
   const token = await getToken({
     workspace_id,
@@ -72,6 +78,7 @@ const authenticate = async () => {
   await session.set("token", token)
   await storage.set("authenticated", true)
   console.log("authenticated")
+  return true
 }
 
 const refreshIcons = async () => {
@@ -93,8 +100,36 @@ const refreshIcons = async () => {
   }
 }
 
+const refreshDatabases = async () => {
+  console.log("refreshing databases")
+  const storage = new Storage()
+  const databases = await storage.get<StoredDatabase[]>("databases")
+  if (!databases) return
+
+  const apiCalls = databases.map((db) => getDatabase(db.id))
+  const fullDatabases = await Promise.all(apiCalls)
+
+  let refreshedDatabases: StoredDatabase[] = []
+  for (let i = 0; i < fullDatabases.length; i++) {
+    const db = fullDatabases[i]
+    if (!db) continue
+    const formattedDB = formatDB(db)
+    if (!formattedDB) continue
+    refreshedDatabases.push(formattedDB)
+  }
+
+  const selectedDB = await storage.get<number>("selectedDB")
+  if (!!selectedDB && selectedDB >= refreshedDatabases.length) {
+    await storage.set("selectedDB", 0)
+  }
+  await storage.set("databases", refreshedDatabases)
+  await storage.set("refreshed", true)
+}
+
 const main = async () => {
-  await authenticate()
+  const authenticated = await authenticate()
+  if (!authenticated) return
+  await refreshDatabases()
   refreshIcons()
 }
 

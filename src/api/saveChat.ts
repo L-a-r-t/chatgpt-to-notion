@@ -1,5 +1,5 @@
 import getNotion from "~config/notion"
-import { generateBlocks } from "~utils/functions/notion"
+import { generateBlocks, generateTag } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 // save new page to notion database
@@ -12,7 +12,7 @@ export const saveChat = async ({
 }: SaveChatParams) => {
   try {
     const notion = await getNotion()
-    const { properties } = database
+    const { propertiesIds, tags, tagIndex, tagPropertyIndex } = database
     const blocks = []
     for (let i = 0; i < prompts.length; i++) {
       const { answerBlocks, promptBlocks } = generateBlocks(
@@ -22,10 +22,12 @@ export const saveChat = async ({
       blocks.push(...promptBlocks, ...answerBlocks)
     }
 
+    const tag = generateTag(tags[tagPropertyIndex], tagIndex)
+
     const searchRes = await notion.databases.query({
       database_id: database.id,
       filter: {
-        property: properties.title,
+        property: propertiesIds.title,
         title: {
           equals: title
         }
@@ -52,7 +54,7 @@ export const saveChat = async ({
         }
       },
       properties: {
-        [properties.title]: {
+        [propertiesIds.title]: {
           title: [
             {
               text: {
@@ -61,9 +63,10 @@ export const saveChat = async ({
             }
           ]
         },
-        [properties.url]: {
+        [propertiesIds.url]: {
           url
-        }
+        },
+        [tags[tagPropertyIndex].id]: tag
       },
       children: [
         {

@@ -29,6 +29,7 @@ export type Property<T extends PropertyType> = BaseProperty<T> & Properties[T]
 
 export type BaseProperty<T extends PropertyType> = {
   type: T
+  name: string
   id: string
 }
 
@@ -36,8 +37,8 @@ export type Properties = {
   title: { title: RichTextItemResponse[] }
   rich_text: { rich_text: RichTextItemResponse[] }
   number: { number: number }
-  select: { select: SelectPropertyResponse }
-  multi_select: { multi_select: SelectPropertyResponse[] }
+  select: { select: { options: SelectPropertyResponse[] } }
+  multi_select: { multi_select: { options: SelectPropertyResponse[] } }
   date: { date: DateResponse }
   people: { people: (PartialUserObjectResponse | UserObjectResponse)[] }
   files: { files: FileResponse[] }

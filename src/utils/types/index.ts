@@ -1,4 +1,4 @@
-import type { IconResponse } from "./notion"
+import type { IconResponse, SelectPropertyResponse } from "./notion"
 
 export type ToBeSaved =
   | {
@@ -12,10 +12,24 @@ export type StoredDatabase = {
   id: string
   title: string
   icon: IconResponse
-  properties: {
+  propertiesIds: {
     title: string
     url: string
   }
+  tags: {
+    options: SelectPropertyResponse[]
+    name: string
+    id: string
+    type: "select" | "multi_select"
+  }[]
+  tagIndex: number
+  tagPropertyIndex: number
 }
 
-export type PopupEnum = "index" | "save" | "settings" | "about" | "wrongpage"
+export type PopupEnum =
+  | "index"
+  | "save"
+  | "settings"
+  | "about"
+  | "wrongpage"
+  | "dbsettings"

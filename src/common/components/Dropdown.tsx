@@ -11,10 +11,13 @@ export default function DropdownPopup({
   const pos = { up: "bottom-2", down: "top-2" }
 
   return (
-    <div>
+    <span className="w-fit">
       <Menu>
-        <Menu.Button className={className}>{children}</Menu.Button>
+        <Menu.Button className={`relative ${className}`}>
+          {children}
+        </Menu.Button>
         <Transition
+          className="relative"
           enter="transition duration-100 ease-out"
           enterFrom="transform scale-95 opacity-0"
           enterTo="transform scale-100 opacity-100"
@@ -23,7 +26,7 @@ export default function DropdownPopup({
           leaveTo="transform scale-95 opacity-0">
           <Menu.Items
             className={`absolute flex flex-col bg-white border border-gray-400 
-            rounded shadow ${pos[position]} -right-2 z-10`}>
+            rounded shadow ${pos[position]} -right-2 z-10 max-h-36 overflow-auto`}>
             {items.map((item, idx) => (
               <Menu.Item key={`${keysBase}${idx}`}>
                 {({ active }) => (
@@ -39,7 +42,7 @@ export default function DropdownPopup({
           </Menu.Items>
         </Transition>
       </Menu>
-    </div>
+    </span>
   )
 }
 

@@ -67,6 +67,10 @@
     "message": "Enregistré !",
     "description": "Success message when discussion is saved."
   },
+  "save_noTag": {
+    "message": "Aucun",
+    "description": "No tag label."
+  },
   "settings_noLinkedDb": {
     "message": "Pas de BDD reliée",
     "description": "No linked database message."
@@ -90,6 +94,26 @@
   "settings_noUrlProperty": {
     "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser",
     "description": "No URL property message."
+  },
+  "dbsettings_loading": {
+    "message": "Chargement de la base de données",
+    "description": "Loading database message."
+  },
+  "dbsettings_tagsProperty": {
+    "message": "Propriété des mots clés",
+    "description": "Tags property label."
+  },
+  "dbsettings_tags": {
+    "message": "Mots clés",
+    "description": "Tags label."
+  },
+  "dbsettings_explainer": {
+    "message": "À l'enregistrement d'une discussion, vous pourrez choisir un de ces mots clés pour la page nouvellement créée",
+    "description": "Tags explainer."
+  },
+  "dbsettings_noTags": {
+    "message": "Cette BDD n'a pas de mots clés (propriétés sélection)",
+    "description": "No tags message."
   },
   "wrongpage_goTo": {
     "message": "Allez sur le site de",

@@ -6,8 +6,15 @@ import type {
   PartialPageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints"
 
+import type { StoredDatabase } from "~utils/types"
+
 import { HTMLtoBlocks } from "."
-import type { IconResponse, Property, PropertyType } from "../types/notion"
+import type {
+  IconResponse,
+  Property,
+  PropertyType,
+  SelectPropertyResponse
+} from "../types/notion"
 
 export const parseSearchResponse = (
   res: (
@@ -50,6 +57,35 @@ export const getProperty = <T extends PropertyType>(
   return prop[type]
 }
 
+export const getDBProperty = <T extends PropertyType>(
+  db: DatabaseObjectResponse,
+  property: string,
+  type: T
+): Property<T> | null => {
+  if (!db.properties) return null
+  if (!db.properties[property]) return null
+  const prop = db.properties[property] as any
+  if (prop.type !== type) return null
+  return prop[type]
+}
+
+export const getDBTagsProperties = (
+  db: DatabaseObjectResponse
+): (Property<"select"> | Property<"multi_select">)[] => {
+  if (!db.properties) return []
+  const keys = Object.keys(db.properties)
+  const props = keys.map((key) => {
+    const prop = db.properties[key]
+    return {
+      ...prop,
+      name: key
+    }
+  })
+  return props.filter(
+    (prop) => prop.type === "select" || prop.type === "multi_select"
+  ) as any
+}
+
 export const getIcon = (icon: IconResponse) => {
   if (!icon)
     return (
@@ -67,6 +103,13 @@ export const getIcon = (icon: IconResponse) => {
     default:
       return null
   }
+}
+
+export const getTagColor = (tag: SelectPropertyResponse) => {
+  if (!tag) return ""
+  if (tag.color === "default") return "bg-neutral-100 text-neutral-800"
+  if (tag.color === "brown") return "bg-amber-100 text-amber-800"
+  return `bg-${tag.color}-100 text-${tag.color}-800`
 }
 
 export const generateBlocks = (prompt: string, answer: string) => {
@@ -132,4 +175,59 @@ export const generateBlocks = (prompt: string, answer: string) => {
   ]
 
   return { promptBlocks, answerBlocks }
+}
+
+export const generateTag = (
+  {
+    options,
+    type,
+    id
+  }: {
+    options: SelectPropertyResponse[]
+    name: string
+    id: string
+    type: "select" | "multi_select"
+  },
+  tagIndex: number
+) => {
+  if (tagIndex === -1) return undefined
+  return type === "select"
+    ? { select: { id: options[tagIndex].id } }
+    : {
+        multi_select: [{ id: options[tagIndex].id }]
+      }
+}
+
+export const formatDB = (db: DatabaseObjectResponse): StoredDatabase | null => {
+  const properties = Object.values(db.properties)
+  const titleID = properties.filter((val) => val.type === "title")[0].id
+  const urls = properties.filter((val) => val.type === "url")
+  if (urls.length === 0) return null
+  const urlID = urls[0].id
+  const tags = getDBTagsProperties(db)
+
+  const formattedDB = {
+    id: db.id,
+    title: db.title[0].plain_text,
+    icon: db.icon ?? null,
+    propertiesIds: {
+      title: titleID,
+      url: urlID
+    },
+    tags: tags.map((prop) => {
+      return {
+        name: prop.name,
+        type: prop.type,
+        id: prop.id,
+        options:
+          prop.type === "multi_select"
+            ? prop.multi_select.options
+            : prop.select.options
+      }
+    }),
+    tagPropertyIndex: 0,
+    tagIndex: 0
+  }
+
+  return formattedDB
 }

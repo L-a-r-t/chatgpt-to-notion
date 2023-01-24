@@ -1,8 +1,7 @@
 import { decompress } from "shrink-string"
 
 import getNotion from "~config/notion"
-import Notion from "~config/notion"
-import { generateBlocks } from "~utils/functions/notion"
+import { generateBlocks, generateTag } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 // save new page to notion database
@@ -15,7 +14,7 @@ export const saveAnswer = async ({
 }: SaveAnswerParams) => {
   try {
     const notion = await getNotion()
-    const properties = database.properties
+    const { propertiesIds, tagPropertyIndex, tagIndex, tags } = database
     const decompressedAnswer = await decompress(answer)
     const decompressedPrompt = await decompress(prompt)
     const { answerBlocks, promptBlocks } = generateBlocks(
@@ -23,10 +22,12 @@ export const saveAnswer = async ({
       decompressedAnswer
     )
 
+    const tag = generateTag(tags[tagPropertyIndex], tagIndex)
+
     const searchRes = await notion.databases.query({
       database_id: database.id,
       filter: {
-        property: properties.title,
+        property: propertiesIds.title,
         title: {
           equals: title
         }
@@ -54,7 +55,7 @@ export const saveAnswer = async ({
         }
       },
       properties: {
-        [properties.title]: {
+        [propertiesIds.title]: {
           title: [
             {
               text: {
@@ -63,9 +64,10 @@ export const saveAnswer = async ({
             }
           ]
         },
-        [properties.url]: {
+        [propertiesIds.url]: {
           url
-        }
+        },
+        [tags[tagPropertyIndex].id]: tag
       },
       children: [
         {

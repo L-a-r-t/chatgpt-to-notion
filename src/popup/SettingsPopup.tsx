@@ -4,17 +4,19 @@ import { useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import useDebounce from "~hooks/useDebounce"
-import { getIcon } from "~utils/functions/notion"
-import type { StoredDatabase } from "~utils/types"
+import { formatDB, getDBTagsProperties, getIcon } from "~utils/functions/notion"
+import type { PopupEnum, StoredDatabase } from "~utils/types"
 
 import "~styles.css"
 
 import Spinner from "~common/components/Spinner"
+import GearIcon from "~common/gear"
 import RefreshIcon from "~common/refresh"
 import { i18n } from "~utils/functions"
 
 function SettingsPopup() {
   const [query, setQuery] = useState("")
+  const [popup, setPopup] = useStorage<PopupEnum>("popup", "settings")
   const [fetching, setFetching] = useState(false)
   const [results, setResults] = useState<{
     databases: DatabaseObjectResponse[]
@@ -49,31 +51,14 @@ function SettingsPopup() {
   const handleSelect = async (db: DatabaseObjectResponse) => {
     setDbError((prev) => null)
     if (databases.map((d) => d.id).includes(db.id)) return
-    const titleID = Object.values(db.properties).filter(
-      (val) => val.type === "title"
-    )[0].id
-    const urls = Object.values(db.properties).filter(
-      (val) => val.type === "url"
-    )
-    if (urls.length === 0) setDbError((prev) => i18n("settings_noUrlProperty"))
-    const urlID = urls[0].id
-    await setDatabases([
-      ...databases,
-      {
-        id: db.id,
-        title: db.title[0].plain_text,
-        icon: db.icon ?? null,
-        properties: {
-          title: titleID,
-          url: urlID
-        }
-      }
-    ])
+    const formattedDB = formatDB(db)
+    if (!formattedDB) setDbError(i18n("settings_dbError"))
+    await setDatabases([...databases, formattedDB])
   }
 
-  const handleRemove = async (db: StoredDatabase) => {
-    await setDatabases(databases.filter((d) => d.id !== db.id))
-    setSelectedDB(0)
+  const handleSettings = async (i: number) => {
+    await setSelectedDB(i)
+    setPopup("dbsettings")
   }
 
   return (
@@ -83,14 +68,14 @@ function SettingsPopup() {
           ? i18n("settings_noLinkedDb")
           : i18n("settings_linkedDatabases")}
       </h3>
-      {databases.map((db) => (
+      {databases.map((db, i) => (
         <div key={db.id} className="flex justify-between items-center">
           <div className="flex gap-1 items-center">
             {db.icon && getIcon(db.icon)}
             <p className="font-bold">{db.title}</p>
           </div>
-          <button onClick={() => handleRemove(db)}>
-            {i18n("settings_remove")}
+          <button onClick={() => handleSettings(i)}>
+            <GearIcon />
           </button>
         </div>
       ))}

@@ -9,5 +9,10 @@ module.exports = {
       }
     }
   },
+  safelist: [
+    {
+      pattern: /(bg|text)-(.*)-(100|800)/
+    }
+  ],
   plugins: []
 }

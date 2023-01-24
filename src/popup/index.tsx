@@ -15,6 +15,7 @@ import Spinner from "~common/components/Spinner"
 import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"
+import DatabaseSettingsPopup from "./DatabaseSettings"
 import SettingsPopup from "./SettingsPopup"
 import WrongPagePopup from "./WrongPagePopup"
 
@@ -59,6 +60,7 @@ export default function Wrapper() {
     index: <IndexPopup />,
     save: <SavePopup />,
     settings: <SettingsPopup />,
+    dbsettings: <DatabaseSettingsPopup />,
     about: <AboutPopup />,
     wrongpage: <WrongPagePopup />
   }

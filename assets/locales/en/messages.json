@@ -67,6 +67,10 @@
     "message": "Saved!",
     "description": "Success message when discussion is saved."
   },
+  "save_noTag": {
+    "message": "No tag",
+    "description": "No tag label."
+  },
   "settings_noLinkedDb": {
     "message": "No linked DB",
     "description": "No linked database message."
@@ -90,6 +94,26 @@
   "settings_noUrlProperty": {
     "message": "Add an URL proprty to this DB inside Notion to use it",
     "description": "No URL property message."
+  },
+  "dbsettings_loading": {
+    "message": "Loading database",
+    "description": "Loading database message."
+  },
+  "dbsettings_tagsProperty": {
+    "message": "Tags property",
+    "description": "Tags property label."
+  },
+  "dbsettings_tags": {
+    "message": "Tags",
+    "description": "Tags label."
+  },
+  "dbsettings_explainer": {
+    "message": "Upon saving a chat, you'll be prompted to choose one of these tags for the newly created Notion page",
+    "description": "Tags explainer."
+  },
+  "dbsettings_noTags": {
+    "message": "This database doesn't have any tags (select/multiselect properties)",
+    "description": "No tags message."
   },
   "wrongpage_goTo": {
     "message": "Go to",
