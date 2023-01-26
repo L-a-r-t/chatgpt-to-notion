@@ -226,7 +226,7 @@ export const formatDB = (db: DatabaseObjectResponse): StoredDatabase | null => {
       }
     }),
     tagPropertyIndex: 0,
-    tagIndex: 0
+    tagIndex: -1
   }
 
   return formattedDB
