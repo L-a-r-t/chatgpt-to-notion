@@ -1,4 +1,12 @@
-# 1.2.0
+### 1.2.1
+
+Fixes
+
+- Handle case where a database doesn't have a URL property (was broken by 1.2.0)
+- Add an explainer when search couldn't find any databases
+- Make the refresh function more robust
+
+## 1.2.0
 
 Features
 
