@@ -115,7 +115,7 @@ function SettingsPopup() {
           </div>
           {fetching && <p>{i18n("settings_slowSearch")}</p>}
           {dbError && <p className="text-red-500 text-sm">{dbError}</p>}
-          {results && (
+          {results && results.databases.length > 0 ? (
             <div className="mt-1">
               {/* <h3 className="text-lg font-bold">Databases</h3> */}
               {results.databases.reduce((acc, database) => {
@@ -148,6 +148,10 @@ function SettingsPopup() {
                 ]
               }, [] as JSX.Element[])} */}
             </div>
+          ) : (
+            !fetching && (
+              <p className="mt-1 text-sm">{i18n("settings_noDBFound")}</p>
+            )
           )}
         </>
       )}

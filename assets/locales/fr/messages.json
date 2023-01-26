@@ -91,6 +91,10 @@
     "message": "La recherche de pages/bases de données peut prendre un certain temps...",
     "description": "Slow search message."
   },
+  "settings_noDBFound": {
+    "message": "Aucune base de données trouvée, cela peut être dû au fait que l'intégration n'a pas l'autorisation (dans Notion) d'accéder à vos bases de données ou que Notion n'a pas encore synchronisé vos DBB avec l'intégration.",
+    "description": "No database found message."
+  },
   "settings_noUrlProperty": {
     "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser",
     "description": "No URL property message."

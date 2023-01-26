@@ -91,6 +91,10 @@
     "message": "Searching pages/DBs can be quite slow...",
     "description": "Slow search message."
   },
+  "settings_noDBFound": {
+    "message": "No database found, this might be because the integration isn't allowed to access them or because Notion hasn't synced them with the integration yet.",
+    "description": "No database found message."
+  },
   "settings_noUrlProperty": {
     "message": "Add an URL proprty to this DB inside Notion to use it",
     "description": "No URL property message."
