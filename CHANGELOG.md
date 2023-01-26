@@ -1,3 +1,15 @@
+### 1.2.2
+
+Fixes
+
+- More explainers related to extension usage
+- Default tag option is now no tag
+- Show an error message when saving fails (yes, that wasn't the case already)
+
+Misc
+
+- Enable null type checking (wasn't enabled yet because it isn't supported yet by Plasmo & the Notion SDK)
+
 ### 1.2.1
 
 Fixes
