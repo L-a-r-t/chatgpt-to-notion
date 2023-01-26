@@ -22,6 +22,7 @@ function IndexPopup() {
 
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSave = async () => {
     setLoading(true)
@@ -42,7 +43,12 @@ function IndexPopup() {
       ...chat,
       database
     }
-    await saveChat(req)
+    const res = await saveChat(req)
+    if (!res) {
+      setError(i18n("save_error"))
+      setLoading(false)
+      return
+    }
     setSuccess(true)
     setLoading(false)
   }
@@ -104,16 +110,18 @@ function IndexPopup() {
         disabled={loading || success || !authenticated}
         className="button disabled:bg-main"
         onClick={handleSave}>
-        {!authenticated && (
+        {!authenticated ? (
           <>
             <span>{i18n("authenticating")}</span>
             <Spinner white small />
           </>
+        ) : error ? (
+          i18n("save_error")
+        ) : success ? (
+          i18n("index_discussionSaved")
+        ) : (
+          i18n("index_saveFullChat")
         )}
-        {authenticated &&
-          (success
-            ? i18n("index_discussionSaved")
-            : i18n("index_saveFullChat"))}
         {loading && <Spinner white small />}
       </button>
     </>

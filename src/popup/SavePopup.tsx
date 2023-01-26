@@ -26,6 +26,7 @@ export default function SavePopup() {
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!toBeSaved) return
@@ -41,13 +42,22 @@ export default function SavePopup() {
   const save = async (database: StoredDatabase) => {
     if (!toBeSaved) return
     setLoading(true)
-    await chrome.runtime.sendMessage({
+    const res = await chrome.runtime.sendMessage({
       type: "saveAnswer",
       body: {
         database,
         ...toBeSaved
       }
     })
+    if (!res) {
+      setError(i18n("save_error"))
+      setLoading(false)
+      setTimeout(() => {
+        setShowPopup(false)
+        setToBeSaved(false)
+      }, 3000)
+      return
+    }
     setSuccess(true)
     setLoading(false)
     setTimeout(() => {
@@ -127,13 +137,18 @@ export default function SavePopup() {
         disabled={loading || success || !authenticated}
         className="button w-full disabled:bg-main"
         onClick={() => save(db!)}>
-        {!authenticated && (
+        {!authenticated ? (
           <>
             <span>{i18n("authenticating")}</span>
             <Spinner white small />
           </>
-        )}
-        {authenticated && (success ? i18n("save_saved") : i18n("save_save"))}
+        ) : error ? (
+          i18n("save_error")
+        ) : success ? (
+          i18n("save_saved")
+        ) : (
+          i18n("save_save")
+        )}{" "}
         {loading && <Spinner white small />}
       </button>
     </>

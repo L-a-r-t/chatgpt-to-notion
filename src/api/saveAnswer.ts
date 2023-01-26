@@ -83,6 +83,7 @@ export const saveAnswer = async ({
     return response
   } catch (err) {
     console.error(err)
+    return false
   }
 }
 

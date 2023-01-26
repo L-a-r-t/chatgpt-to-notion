@@ -71,6 +71,10 @@
     "message": "Aucun",
     "description": "No tag label."
   },
+  "save_error": {
+    "message": "Il y a eu une erreur",
+    "description": "Error message when discussion fails to save."
+  },
   "settings_noLinkedDb": {
     "message": "Pas de BDD reliée",
     "description": "No linked database message."

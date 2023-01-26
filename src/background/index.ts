@@ -13,14 +13,18 @@ import type { StoredDatabase } from "~utils/types"
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.type) {
     case "search":
-      searchNotion(message.body.query).then((res) => {
-        sendResponse(res)
-      })
+      searchNotion(message.body.query)
+        .then((res) => {
+          sendResponse(res)
+        })
+        .catch((err) => sendResponse(err))
       break
     case "saveAnswer":
-      saveAnswer(message.body).then((res) => {
-        sendResponse(res)
-      })
+      saveAnswer(message.body)
+        .then((res) => {
+          sendResponse(res)
+        })
+        .catch((err) => sendResponse(false))
       break
     case "generateToken":
       // using two means of checking if user is logged in just to be sure
@@ -36,9 +40,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       })
       break
     case "getDB":
-      getDatabase(message.body.id).then((res) => {
-        sendResponse(res)
-      })
+      getDatabase(message.body.id)
+        .then((res) => {
+          sendResponse(res)
+        })
+        .catch((err) => sendResponse(err))
       break
     default:
       return true
