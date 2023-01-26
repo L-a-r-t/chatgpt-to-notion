@@ -106,7 +106,7 @@ const refreshDatabases = async () => {
   const databases = await storage.get<StoredDatabase[]>("databases")
   if (!databases) return
 
-  const apiCalls = databases.map((db) => getDatabase(db.id))
+  const apiCalls = databases.filter((db) => db).map((db) => getDatabase(db.id))
   const fullDatabases = await Promise.all(apiCalls)
 
   let refreshedDatabases: StoredDatabase[] = []
