@@ -121,13 +121,20 @@ function DatabaseSettingsPopup() {
               </DropdownPopup>
               <h3 className="font-semibold my-2">{i18n("dbsettings_tags")}</h3>
               {currentProp && (
-                <div className="flex flex-row gap-1 flex-wrap">
-                  {currentProp.options.map((tag) => (
-                    <span key={tag.id} className={getTagStyle(tag)}>
-                      {tag.name}
-                    </span>
-                  ))}
-                </div>
+                <>
+                  {currentProp.options.length == 0 && (
+                    <p className="text-sm mb-4">
+                      {i18n("dbsettings_noOptions")}
+                    </p>
+                  )}
+                  <div className="flex flex-row gap-1 flex-wrap">
+                    {currentProp.options.map((tag) => (
+                      <span key={tag.id} className={getTagStyle(tag)}>
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                </>
               )}
               <p className="text-xs text-center">
                 {i18n("dbsettings_explainer")}

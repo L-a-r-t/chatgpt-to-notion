@@ -71,6 +71,14 @@ function SettingsPopup() {
           ? i18n("settings_noLinkedDb")
           : i18n("settings_linkedDatabases")}
       </h3>
+      {databases.length === 0 && (
+        <a
+          className="link text-sm"
+          href="https://theo-lartigau.notion.site/4f096cd095aa422e9ee854c468e737d1?v=f257b6af4eb842428f7b7c413de08b95"
+          target="_blank">
+          {i18n("settings_exampleDB")}
+        </a>
+      )}
       {databases.map((db, i) => (
         <div key={db.id} className="flex justify-between items-center">
           <div className="flex gap-1 items-center">

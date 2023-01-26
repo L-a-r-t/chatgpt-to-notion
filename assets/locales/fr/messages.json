@@ -99,6 +99,10 @@
     "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser",
     "description": "No URL property message."
   },
+  "settings_exampleDB": {
+    "message": "Voir un exemple de base de donnée compatible avec l'extension",
+    "description": "Example database message."
+  },
   "dbsettings_loading": {
     "message": "Chargement de la base de données",
     "description": "Loading database message."
@@ -118,6 +122,10 @@
   "dbsettings_noTags": {
     "message": "Cette BDD n'a pas de mots clés (propriétés sélection)",
     "description": "No tags message."
+  },
+  "dbsettings_noOptions": {
+    "message": "Il n'y a pas de mots-clés associés, vous pouvez néanmoins effectuer vos enregistrements sans mots-clés",
+    "description": "No options message."
   },
   "wrongpage_goTo": {
     "message": "Allez sur le site de",

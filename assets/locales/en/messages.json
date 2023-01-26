@@ -8,7 +8,7 @@
     "description": "Description of the extension."
   },
   "errConnect": {
-    "message": "Conntect yourself to Notion by clicking on the extension's icon.",
+    "message": "Connect yourself to Notion by clicking on the extension's icon.",
     "description": "Error message when user is not connected to Notion."
   },
   "nav_settings": {
@@ -99,6 +99,10 @@
     "message": "Add an URL proprty to this DB inside Notion to use it",
     "description": "No URL property message."
   },
+  "settings_exampleDB": {
+    "message": "Here's an example database compatible with the extension",
+    "description": "Example database message."
+  },
   "dbsettings_loading": {
     "message": "Loading database",
     "description": "Loading database message."
@@ -118,6 +122,10 @@
   "dbsettings_noTags": {
     "message": "This database doesn't have any tags (select/multiselect properties)",
     "description": "No tags message."
+  },
+  "dbsettings_noOptions": {
+    "message": "This tag doesn't have any options, although you can save a discussion without choosing a tag",
+    "description": "No options message."
   },
   "wrongpage_goTo": {
     "message": "Go to",
