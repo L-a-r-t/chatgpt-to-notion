@@ -52,7 +52,10 @@ function SettingsPopup() {
     setDbError((prev) => null)
     if (databases.map((d) => d.id).includes(db.id)) return
     const formattedDB = formatDB(db)
-    if (!formattedDB) setDbError(i18n("settings_dbError"))
+    if (!formattedDB) {
+      setDbError(i18n("settings_noUrlProperty"))
+      return
+    }
     await setDatabases([...databases, formattedDB])
   }
 
