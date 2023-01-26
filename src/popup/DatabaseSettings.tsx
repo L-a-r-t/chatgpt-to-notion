@@ -19,13 +19,13 @@ function DatabaseSettingsPopup() {
     []
   )
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
-  const [db, setCurrentDB] = useState<StoredDatabase>(null)
+  const [db, setCurrentDB] = useState<StoredDatabase | null>(null)
   const [currentProp, setCurrentProp] = useState<{
     options: SelectPropertyResponse[]
     name: string
     id: string
     type: "select" | "multi_select"
-  }>(null)
+  } | null>(null)
 
   const [refreshing, setRefreshing] = useState(false)
 
@@ -46,19 +46,24 @@ function DatabaseSettingsPopup() {
         id: databases[selectedDB].id
       }
     })
-    await setDatabases((prev) => [
-      ...prev.slice(0, selectedDB),
-      formatDB(db),
-      ...prev.slice(selectedDB + 1)
-    ])
+    await setDatabases((prev) =>
+      prev
+        ? [
+            ...prev.slice(0, selectedDB),
+            formatDB(db)!,
+            ...prev.slice(selectedDB + 1)
+          ]
+        : [formatDB(db)!]
+    )
     setRefreshing(false)
   }
 
   const selectTagProp = (index: number) => {
     setDatabases((prev) => {
+      if (!prev) return []
       const newDbs = [...prev]
       newDbs[selectedDB].tagPropertyIndex = index
-      newDbs[selectedDB].tagIndex = 0
+      newDbs[selectedDB].tagIndex = -1
       return newDbs
     })
   }
@@ -112,7 +117,7 @@ function DatabaseSettingsPopup() {
                     {tag.name}
                   </button>
                 ))}>
-                {currentProp.name}
+                {currentProp?.name}
               </DropdownPopup>
               <h3 className="font-semibold my-2">{i18n("dbsettings_tags")}</h3>
               {currentProp && (

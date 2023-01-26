@@ -209,7 +209,7 @@ export const formatDB = (db: DatabaseObjectResponse): StoredDatabase | null => {
   const formattedDB = {
     id: db.id,
     title: db.title[0].plain_text,
-    icon: db.icon ?? null,
+    icon: db.icon,
     propertiesIds: {
       title: titleID,
       url: urlID

@@ -12,14 +12,14 @@ const useTags = () => {
     []
   )
 
-  const [db, setCurrentDB] = useState<StoredDatabase>(null)
+  const [db, setCurrentDB] = useState<StoredDatabase | null>(null)
   const [tagProp, setCurrentTagProp] = useState<{
     options: SelectPropertyResponse[]
     name: string
     id: string
     type: "select" | "multi_select"
-  }>(null)
-  const [tag, setCurrentTag] = useState<SelectPropertyResponse>(null)
+  } | null>(null)
+  const [tag, setCurrentTag] = useState<SelectPropertyResponse | null>(null)
 
   useEffect(() => {
     if (!databases || databases.length == 0) return
@@ -39,15 +39,17 @@ const useTags = () => {
 
   const selectTagProp = (index: number) => {
     setDatabases((prev) => {
+      if (!prev) return []
       const newDbs = [...prev]
       newDbs[selectedDB].tagPropertyIndex = index
-      newDbs[selectedDB].tagIndex = 0
+      newDbs[selectedDB].tagIndex = -1
       return newDbs
     })
   }
 
   const selectTag = (index: number) => {
     setDatabases((prev) => {
+      if (!prev) return []
       const newDatabases = [...prev]
       newDatabases[selectedDB].tagIndex = index
       return newDatabases

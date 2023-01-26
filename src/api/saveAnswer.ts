@@ -44,6 +44,7 @@ export const saveAnswer = async ({
       return response
     }
 
+    // @ts-ignore
     const response = await notion.pages.create({
       parent: {
         database_id: database.id

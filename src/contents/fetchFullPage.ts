@@ -13,14 +13,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const rawAnswers = chat.filter((el, index) => index % 2 === 1)
 
     const prompts = rawPrompts.map(
-      (el) => el.querySelector(".whitespace-pre-wrap").textContent
+      (el) => el.querySelector(".whitespace-pre-wrap")?.textContent
     )
     const answers = rawAnswers.map(
       (el) =>
         (
           el.querySelector(".markdown") ??
           el.querySelector(".dark.text-orange-500")
-        ).innerHTML
+        )?.innerHTML
     )
 
     const url = window.location.href

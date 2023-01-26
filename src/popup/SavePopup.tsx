@@ -8,6 +8,7 @@ import type { StoredDatabase, ToBeSaved } from "~utils/types"
 import "~styles.css"
 
 import DropdownPopup from "~common/components/Dropdown"
+import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
 import { i18n } from "~utils/functions"
@@ -104,19 +105,18 @@ export default function SavePopup() {
               tag === null ? "italic font-bold" : ""
             }`}
             position="up"
-            items={[
-              ...tagProp?.options.map((tag, index) => (
-                <button key={tag.id} onClick={() => selectTag(index)}>
-                  {tag.name}
-                </button>
-              )),
-              <button
-                key={"notag"}
-                className="font-bold"
-                onClick={() => selectTag(-1)}>
-                {i18n("save_noTag")}
-              </button>
-            ]}>
+            items={
+              tagProp
+                ? [
+                    ...tagProp.options.map((tag, index) => (
+                      <button key={tag.id} onClick={() => selectTag(index)}>
+                        {tag.name}
+                      </button>
+                    )),
+                    <NoTagButton selectTag={selectTag} />
+                  ]
+                : [<NoTagButton selectTag={selectTag} />]
+            }>
             {tag === null ? i18n("save_noTag") : tag?.name}
           </DropdownPopup>
         </div>
@@ -126,7 +126,7 @@ export default function SavePopup() {
       <button
         disabled={loading || success || !authenticated}
         className="button w-full disabled:bg-main"
-        onClick={() => save(db)}>
+        onClick={() => save(db!)}>
         {!authenticated && (
           <>
             <span>{i18n("authenticating")}</span>

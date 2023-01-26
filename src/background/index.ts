@@ -93,6 +93,7 @@ const refreshIcons = async () => {
       if (new Date(expiryTime).getTime() < Date.now()) {
         console.log("refreshing icon for", databases[i].title)
         const db = await getDatabase(databases[i].id)
+        if (!db) continue
         databases[i].icon = db.icon
         await storage.set("databases", databases)
       }

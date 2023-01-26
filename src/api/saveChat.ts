@@ -13,7 +13,7 @@ export const saveChat = async ({
   try {
     const notion = await getNotion()
     const { propertiesIds, tags, tagIndex, tagPropertyIndex } = database
-    const blocks = []
+    const blocks: any[] = []
     for (let i = 0; i < prompts.length; i++) {
       const { answerBlocks, promptBlocks } = generateBlocks(
         prompts[i],
@@ -43,6 +43,7 @@ export const saveChat = async ({
       })
     }
 
+    // @ts-ignore
     const response = await notion.pages.create({
       parent: {
         database_id: database.id

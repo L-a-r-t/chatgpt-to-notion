@@ -25,12 +25,14 @@ export const render: PlasmoRender = async ({
   anchor, // the observed anchor, OR document.body.
   createRootContainer // This creates the default root container
 }) => {
+  // @ts-ignore
   const rootContainer = await createRootContainer(anchor)
 
   const root = createRoot(rootContainer) // Any root
   root.render(
     <>
       <Content
+        // @ts-ignore
         parent={anchor.element.parentElement.parentElement.parentElement}
       />
     </>
@@ -48,12 +50,14 @@ const Content = ({ parent }: Props) => {
       return
     }
     const answer = await compress(
+      // @ts-ignore
       (
         parent.querySelector(".markdown") ??
         parent.querySelector(".dark.text-orange-500")
       ).innerHTML
     )
     const prompt = await compress(
+      // @ts-ignore
       parent.previousElementSibling.querySelector(".whitespace-pre-wrap")
         .textContent
     )

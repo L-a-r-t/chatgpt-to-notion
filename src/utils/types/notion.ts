@@ -131,3 +131,4 @@ export type IconResponse =
         expiry_time: string
       }
     }
+  | null

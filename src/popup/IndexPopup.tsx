@@ -8,6 +8,7 @@ import { useState } from "react"
 
 import { saveChat } from "~api/saveChat"
 import DropdownPopup from "~common/components/Dropdown"
+import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
 import { i18n } from "~utils/functions"
@@ -29,6 +30,10 @@ function IndexPopup() {
       currentWindow: true
     })
     const currentTab = tabs[0]
+    if (!currentTab.id) {
+      setLoading(false)
+      return
+    }
     const chat = await chrome.tabs.sendMessage(currentTab.id, {
       type: "fetchFullChat"
     })
@@ -70,26 +75,25 @@ function IndexPopup() {
                 {tag.name}
               </button>
             ))}>
-            {tagProp.name}
+            {tagProp?.name}
           </DropdownPopup>
           <DropdownPopup
             className={`px-2 py-0.5 border border-main rounded ${
               tag === null ? "italic font-bold" : ""
             }`}
             position="up"
-            items={[
-              ...tagProp.options.map((tag, index) => (
-                <button key={tag.id} onClick={() => selectTag(index)}>
-                  {tag.name}
-                </button>
-              )),
-              <button
-                key={"notag"}
-                className="italic font-bold"
-                onClick={() => selectTag(-1)}>
-                {i18n("save_noTag")}
-              </button>
-            ]}>
+            items={
+              tagProp
+                ? [
+                    ...tagProp.options.map((tag, index) => (
+                      <button key={tag.id} onClick={() => selectTag(index)}>
+                        {tag.name}
+                      </button>
+                    )),
+                    <NoTagButton selectTag={selectTag} />
+                  ]
+                : [<NoTagButton selectTag={selectTag} />]
+            }>
             {tag === null ? i18n("save_noTag") : tag?.name}
           </DropdownPopup>
         </div>
