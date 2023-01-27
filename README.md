@@ -22,10 +22,18 @@ As this is my first time building a project that is open to contributions I will
 
 ## Roadmap
 
-These are the things that I plan to work on at some point. It might be a few weeks before these get implemented as I’m currently quite busy, but I hope to have the following (ranked by priority) done in the near future:
+These are the things that I plan to work on at some point. I hope to have the following (ranked by priority) done in the near future:
 
 - [x] Add custom tags when saving
 - [ ] Choose between saving an individual response to a new page or appending it to an existing page
+- [ ] Create an FAQ
 - [ ] Improved tags feature (add tags to the database from the extension, search for tags)
 - [x] Upgrade backend (free Render webservice, fixed by setting up a keepalive loop)
 - [ ] Customize the page title upon saving (will assess if this is truly possible/useful)
+
+## Known issues
+
+The following will be fixed in the next hotfix:
+
+- Extension not being able to regain access to Notion if it lost it (eg. upon reinstallation) & it wasn't revoked inside Notion
+- Unclear error message when saving fails
