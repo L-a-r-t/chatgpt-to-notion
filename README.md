@@ -4,7 +4,7 @@
 
 ## Overview
 
-For information about the extension itself more than the code behind it, check out [this notion page](https://theo-lartigau.notion.site/theo-lartigau/ChatGPT-to-Notion-af29d9538dca4493a15bb4ed0fde7f91). This extension was built using the [Plasmo framework](https://www.plasmo.com/) and Typescript. A simple Express server (hosted on a free Render webservice) that can be found on the "server" branch, it allows the secure long-term storage of Notion's access tokens.
+For information about the extension itself more than the code behind it, check out [this notion page](https://theo-lartigau.notion.site/theo-lartigau/ChatGPT-to-Notion-af29d9538dca4493a15bb4ed0fde7f91) or the [FAQ](https://github.com/L-a-r-t/chatgpt-to-notion/wiki/FAQ). This extension was built using the [Plasmo framework](https://www.plasmo.com/) and Typescript. A simple Express server (hosted on a free Render webservice) that can be found on the "server" branch, it allows the secure long-term storage of Notion's access tokens.
 
 ## Motive
 
@@ -26,7 +26,6 @@ These are the things that I plan to work on at some point. I hope to have the fo
 
 - [x] Add custom tags when saving
 - [ ] Choose between saving an individual response to a new page or appending it to an existing page
-- [ ] Create an FAQ
 - [ ] Improved tags feature (add tags to the database from the extension, search for tags)
 - [x] Upgrade backend (free Render webservice, fixed by setting up a keepalive loop)
 - [ ] Customize the page title upon saving (will assess if this is truly possible/useful)

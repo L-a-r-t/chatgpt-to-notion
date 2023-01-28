@@ -148,8 +148,16 @@
     "description": "Extension by label."
   },
   "about_suggestionsIssues": {
-    "message": "Un problème ou une suggestion ? Rendez-vous sur le GitHub de l'extension.",
+    "message": "Un problème ou une suggestion ?",
     "description": "Suggestion/issue CTA."
+  },
+  "about_FAQ": {
+    "message": "Lire la FAQ.",
+    "description": "FAQ CTA."
+  },
+  "about_github": {
+    "message": "Consulter le GitHub de l'extension.",
+    "description": "GitHub CTA."
   },
   "about_pinIcon": {
     "message": "Icône d'épingle par",

@@ -148,8 +148,16 @@
     "description": "Extension by label."
   },
   "about_suggestionsIssues": {
-    "message": "Got any suggestion/issue to report? Check out the extension's GitHub.",
-    "description": "Suggestion/issue CTA."
+    "message": "Got any suggestion/issue?",
+    "description": "Suggestion/issue label."
+  },
+  "about_FAQ": {
+    "message": "Read the FAQ.",
+    "description": "FAQ CTA."
+  },
+  "about_github": {
+    "message": "Check out the extension's GitHub.",
+    "description": "GitHub CTA."
   },
   "about_pinIcon": {
     "message": "Pin icon made by",
