@@ -34,5 +34,5 @@ These are the things that I plan to work on at some point. I hope to have the fo
 
 The following will be fixed in the next hotfix:
 
-- Extension not being able to regain access to Notion if it lost it (eg. upon reinstallation) & it wasn't revoked inside Notion
+- Saving very long conversations fails
 - Unclear error message when saving fails
