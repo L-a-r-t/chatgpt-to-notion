@@ -18,7 +18,7 @@ Fixes
 
 Misc
 
-- Enable null type checking (wasn't enabled yet because it isn't supported yet by Plasmo & the Notion SDK)
+- Enabled null type checking (wasn't enabled yet because it isn't supported yet by Plasmo & the Notion SDK)
 
 ### 1.2.1
 
@@ -41,7 +41,7 @@ Fixes
 
 Misc
 
-- Refactor some logic into its own functions
+- Refactored some logic into its own functions
 
 ### 1.1.2
 
