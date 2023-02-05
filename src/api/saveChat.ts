@@ -22,6 +22,14 @@ export const saveChat = async ({
       blocks.push(...promptBlocks, ...answerBlocks)
     }
 
+    const chunks: any[][] = []
+    const chunkSize = 80 // We define a chunk size of 80 blocks
+    // Notion API has a limit of 100 blocks per request but we'd rather be conservative
+    const chunksCount = Math.ceil(blocks.length / chunkSize)
+    for (let i = 0; i < chunksCount; i++) {
+      chunks.push(blocks.slice(i * chunkSize, (i + 1) * chunkSize))
+    }
+
     const tag = generateTag(tags[tagPropertyIndex], tagIndex)
 
     const searchRes = await notion.databases.query({
@@ -75,9 +83,15 @@ export const saveChat = async ({
           type: "table_of_contents",
           table_of_contents: {}
         },
-        ...blocks
+        ...chunks[0]
       ]
     })
+    for (let i = 1; i < chunks.length; i++) {
+      await notion.blocks.children.append({
+        block_id: response.id,
+        children: chunks[i]
+      })
+    }
     return response
   } catch (err) {
     console.error(err)
