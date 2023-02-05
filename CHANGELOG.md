@@ -1,3 +1,13 @@
+### 1.2.3
+
+Fixes
+
+- Now able to save long conversations in one batch
+
+Misc
+
+- Added a link to the FAQ in the extension's popup
+
 ### 1.2.2
 
 Fixes
