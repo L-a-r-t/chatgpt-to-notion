@@ -1,3 +1,9 @@
+### 1.2.4
+
+Fixes
+
+- Issue where saving a very long prompt (> 2000 characters) would fail
+
 ### 1.2.3
 
 Fixes
