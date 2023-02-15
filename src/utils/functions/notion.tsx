@@ -114,6 +114,24 @@ export const getTagColor = (tag: SelectPropertyResponse) => {
 
 export const generateBlocks = (prompt: string, answer: string) => {
   const answerBlocks = HTMLtoBlocks(answer)
+
+  const promptText =
+    prompt.length > 2000
+      ? prompt.match(/.{1,2000}/g)?.map((subPrompt) => ({
+          type: "text",
+          text: {
+            content: subPrompt
+          }
+        }))
+      : [
+          {
+            type: "text",
+            text: {
+              content: prompt
+            }
+          }
+        ]
+
   const promptBlocks = [
     {
       object: "block",
@@ -148,14 +166,7 @@ export const generateBlocks = (prompt: string, answer: string) => {
       object: "block",
       type: "paragraph",
       paragraph: {
-        rich_text: [
-          {
-            type: "text",
-            text: {
-              content: prompt
-            }
-          }
-        ]
+        rich_text: promptText
       }
     },
     {
