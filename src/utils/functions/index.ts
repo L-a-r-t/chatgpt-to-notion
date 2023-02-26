@@ -7,6 +7,7 @@ export const HTMLtoMarkdown = (html: string) => {
     .translate(html)
     .replace(/^(Copy code)$/gm, "")
     .replace(/(^\n`)|(`\n$)/gm, "```\n")
+    .replace(/(^\n(?<lang>.*)Copy code\n```)/gm, "\n```$<lang>")
 }
 
 export const HTMLtoBlocks = (html: string) => {
