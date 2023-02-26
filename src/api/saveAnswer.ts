@@ -1,6 +1,7 @@
 import { decompress } from "shrink-string"
 
 import getNotion from "~config/notion"
+import { i18n } from "~utils/functions"
 import { generateBlocks, generateTag } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
@@ -73,9 +74,26 @@ export const saveAnswer = async ({
       children: [
         {
           object: "block",
-          type: "table_of_contents",
-          table_of_contents: {}
+          type: "toggle",
+          toggle: {
+            rich_text: [
+              {
+                type: "text",
+                text: {
+                  content: i18n("notion_tableofcontents")
+                }
+              }
+            ],
+            children: [
+              {
+                object: "block",
+                type: "table_of_contents",
+                table_of_contents: {}
+              }
+            ]
+          }
         },
+        ,
         ...promptBlocks,
         ...answerBlocks
       ]
@@ -83,7 +101,7 @@ export const saveAnswer = async ({
     return response
   } catch (err) {
     console.error(err)
-    return false
+    throw err
   }
 }
 

@@ -26,7 +26,7 @@ export default function SavePopup() {
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<number | null>(null)
 
   useEffect(() => {
     if (!toBeSaved) return
@@ -49,21 +49,23 @@ export default function SavePopup() {
         ...toBeSaved
       }
     })
-    if (!res) {
-      setError(i18n("save_error"))
+    // if res is an error it will be the error code, a number
+    if (isNaN(res)) {
+      setSuccess(true)
       setLoading(false)
       setTimeout(() => {
         setShowPopup(false)
         setToBeSaved(false)
-      }, 3000)
+      }, 1000)
       return
     }
-    setSuccess(true)
+    setError(res)
     setLoading(false)
     setTimeout(() => {
       setShowPopup(false)
       setToBeSaved(false)
-    }, 1000)
+    }, 5000)
+    return
   }
 
   if (!toBeSaved) return null
@@ -143,7 +145,11 @@ export default function SavePopup() {
             <Spinner white small />
           </>
         ) : error ? (
-          i18n("save_error")
+          error === 401 ? (
+            i18n("save_unauthorized")
+          ) : (
+            i18n("save_error")
+          )
         ) : success ? (
           i18n("save_saved")
         ) : (
@@ -151,6 +157,14 @@ export default function SavePopup() {
         )}{" "}
         {loading && <Spinner white small />}
       </button>
+      {error === 401 && (
+        <a
+          className="link text-sm"
+          href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"
+          target="_blank">
+          {i18n("about_FAQ")}
+        </a>
+      )}
     </>
   )
 }

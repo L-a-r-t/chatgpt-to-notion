@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         .then((res) => {
           sendResponse(res)
         })
-        .catch((err) => sendResponse(false))
+        .catch((err) => sendResponse(err.status))
       break
     case "generateToken":
       // using two means of checking if user is logged in just to be sure

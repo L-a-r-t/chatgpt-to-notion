@@ -22,35 +22,40 @@ function IndexPopup() {
 
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<number | null>(null)
 
   const handleSave = async () => {
-    setLoading(true)
-    const tabs = await chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    })
-    const currentTab = tabs[0]
-    if (!currentTab.id) {
+    try {
+      setLoading(true)
+      const tabs = await chrome.tabs.query({
+        active: true,
+        currentWindow: true
+      })
+      const currentTab = tabs[0]
+      if (!currentTab.id) {
+        setLoading(false)
+        return
+      }
+      const chat = await chrome.tabs.sendMessage(currentTab.id, {
+        type: "fetchFullChat"
+      })
+      const database = db
+      const req = {
+        ...chat,
+        database
+      }
+      const res = await saveChat(req)
+      if (!res) {
+        setError(400)
+        setLoading(false)
+        return
+      }
+      setSuccess(true)
       setLoading(false)
-      return
-    }
-    const chat = await chrome.tabs.sendMessage(currentTab.id, {
-      type: "fetchFullChat"
-    })
-    const database = db
-    const req = {
-      ...chat,
-      database
-    }
-    const res = await saveChat(req)
-    if (!res) {
-      setError(i18n("save_error"))
+    } catch (err) {
+      setError(err.status)
       setLoading(false)
-      return
     }
-    setSuccess(true)
-    setLoading(false)
   }
 
   return !databases || databases.length == 0 ? (
@@ -116,7 +121,11 @@ function IndexPopup() {
             <Spinner white small />
           </>
         ) : error ? (
-          i18n("save_error")
+          error === 401 ? (
+            i18n("save_unauthorized")
+          ) : (
+            i18n("save_error")
+          )
         ) : success ? (
           i18n("index_discussionSaved")
         ) : (
@@ -124,6 +133,14 @@ function IndexPopup() {
         )}
         {loading && <Spinner white small />}
       </button>
+      {error === 401 && (
+        <a
+          className="link text-sm"
+          href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"
+          target="_blank">
+          {i18n("about_FAQ")}
+        </a>
+      )}
     </>
   )
 }

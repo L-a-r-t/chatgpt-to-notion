@@ -158,7 +158,15 @@ function SettingsPopup() {
             </div>
           ) : (
             !fetching && (
-              <p className="mt-1 text-sm">{i18n("settings_noDBFound")}</p>
+              <>
+                <p className="mt-1 text-sm">{i18n("settings_noDBFound")}</p>
+                <a
+                  className="link text-sm"
+                  href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"
+                  target="_blank">
+                  {i18n("about_FAQ")}
+                </a>
+              </>
             )
           )}
         </>
