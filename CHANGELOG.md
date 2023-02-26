@@ -1,3 +1,19 @@
+## 1.3.0
+
+Features
+
+- Option to generate headings & table of contents or not upon saving
+- Generated table of contents is now inside a toggleable block
+
+Fixes
+
+- Improved handling of code blocks
+- Improved handling of errors (shows a message if the token is revoked by Notion, more links to the FAQ...)
+
+Misc
+
+- Extended the FAQ
+
 ### 1.2.4
 
 Fixes

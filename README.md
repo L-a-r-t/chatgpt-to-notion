@@ -29,9 +29,3 @@ These are the things that I plan to work on at some point. I hope to have the fo
 - [ ] Improved tags feature (add tags to the database from the extension, search for tags)
 - [x] Upgrade backend (free Render webservice, fixed by setting up a keepalive loop)
 - [ ] Customize the page title upon saving (will assess if this is truly possible/useful)
-
-## Known issues
-
-The following will be fixed in the next hotfix:
-
-- Unclear error message when saving fails
