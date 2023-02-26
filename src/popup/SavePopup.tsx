@@ -18,6 +18,10 @@ export default function SavePopup() {
   const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>("toBeSaved")
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
+  const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
+    "generateHeadings",
+    true
+  )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
   const [authenticated] = useStorage("authenticated", false)
@@ -45,6 +49,7 @@ export default function SavePopup() {
     const res = await chrome.runtime.sendMessage({
       type: "saveAnswer",
       body: {
+        generateHeadings,
         database,
         ...toBeSaved
       }
@@ -157,6 +162,20 @@ export default function SavePopup() {
         )}{" "}
         {loading && <Spinner white small />}
       </button>
+      {!success && !error && !loading && (
+        <div className="mt-1">
+          <input
+            id="generateHeadings"
+            type="checkbox"
+            defaultChecked={generateHeadings}
+            className="mr-2"
+            onChange={(e) => setGenerateHeadings(e.target.checked)}
+          />
+          <label htmlFor="generateHeadings">
+            {i18n("save_generateHeadings")}
+          </label>
+        </div>
+      )}
       {error === 401 && (
         <a
           className="link text-sm"

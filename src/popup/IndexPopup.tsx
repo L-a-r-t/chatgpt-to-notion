@@ -16,6 +16,10 @@ import { i18n } from "~utils/functions"
 function IndexPopup() {
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
+  const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
+    "generateHeadings",
+    true
+  )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
   const [authenticated] = useStorage("authenticated", false)
@@ -42,7 +46,8 @@ function IndexPopup() {
       const database = db
       const req = {
         ...chat,
-        database
+        database,
+        generateHeadings
       }
       const res = await saveChat(req)
       if (!res) {
@@ -133,6 +138,20 @@ function IndexPopup() {
         )}
         {loading && <Spinner white small />}
       </button>
+      {!success && !error && !loading && (
+        <div className="mt-1">
+          <input
+            id="generateHeadings"
+            type="checkbox"
+            defaultChecked={generateHeadings}
+            className="mr-2"
+            onChange={(e) => setGenerateHeadings(e.target.checked)}
+          />
+          <label htmlFor="generateHeadings">
+            {i18n("save_generateHeadings")}
+          </label>
+        </div>
+      )}
       {error === 401 && (
         <a
           className="link text-sm"

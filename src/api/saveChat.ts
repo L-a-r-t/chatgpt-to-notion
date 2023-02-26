@@ -1,3 +1,5 @@
+import { Storage } from "@plasmohq/storage"
+
 import getNotion from "~config/notion"
 import { i18n } from "~utils/functions"
 import { generateBlocks, generateTag } from "~utils/functions/notion"
@@ -9,7 +11,8 @@ export const saveChat = async ({
   answers,
   title,
   url,
-  database
+  database,
+  generateHeadings
 }: SaveChatParams) => {
   try {
     const notion = await getNotion()
@@ -18,7 +21,8 @@ export const saveChat = async ({
     for (let i = 0; i < prompts.length; i++) {
       const { answerBlocks, promptBlocks } = generateBlocks(
         prompts[i],
-        answers[i]
+        answers[i],
+        generateHeadings
       )
       blocks.push(...promptBlocks, ...answerBlocks)
     }
@@ -78,30 +82,32 @@ export const saveChat = async ({
         },
         [tags[tagPropertyIndex].id]: tag
       },
-      children: [
-        {
-          object: "block",
-          type: "toggle",
-          toggle: {
-            rich_text: [
-              {
-                type: "text",
-                text: {
-                  content: i18n("notion_tableofcontents")
-                }
+      children: generateHeadings
+        ? [
+            {
+              object: "block",
+              type: "toggle",
+              toggle: {
+                rich_text: [
+                  {
+                    type: "text",
+                    text: {
+                      content: i18n("notion_tableofcontents")
+                    }
+                  }
+                ],
+                children: [
+                  {
+                    object: "block",
+                    type: "table_of_contents",
+                    table_of_contents: {}
+                  }
+                ]
               }
-            ],
-            children: [
-              {
-                object: "block",
-                type: "table_of_contents",
-                table_of_contents: {}
-              }
-            ]
-          }
-        },
-        ...chunks[0]
-      ]
+            },
+            ...chunks[0]
+          ]
+        : [...chunks[0]]
     })
     for (let i = 1; i < chunks.length; i++) {
       await notion.blocks.children.append({
@@ -122,4 +128,5 @@ type SaveChatParams = {
   title: string
   database: StoredDatabase
   url: string
+  generateHeadings: boolean
 }

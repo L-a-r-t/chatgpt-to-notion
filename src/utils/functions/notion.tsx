@@ -112,7 +112,11 @@ export const getTagColor = (tag: SelectPropertyResponse) => {
   return `bg-${tag.color}-100 text-${tag.color}-800`
 }
 
-export const generateBlocks = (prompt: string, answer: string) => {
+export const generateBlocks = (
+  prompt: string,
+  answer: string,
+  generateHeadings: boolean
+) => {
   const answerBlocks = HTMLtoBlocks(answer)
 
   const promptText =
@@ -133,35 +137,56 @@ export const generateBlocks = (prompt: string, answer: string) => {
         ]
 
   const promptBlocks = [
-    {
-      object: "block",
-      type: "heading_2",
-      heading_2: {
-        rich_text: [
+    ...(generateHeadings
+      ? [
           {
-            type: "text",
-            text: {
-              content:
-                prompt.length > 80 ? prompt.substring(0, 80) + "..." : prompt
+            object: "block",
+            type: "heading_2",
+            heading_2: {
+              rich_text: [
+                {
+                  type: "text",
+                  text: {
+                    content:
+                      prompt.length > 80
+                        ? prompt.substring(0, 80) + "..."
+                        : prompt
+                  }
+                }
+              ]
+            }
+          },
+          {
+            object: "block",
+            type: "heading_3",
+            heading_3: {
+              rich_text: [
+                {
+                  type: "text",
+                  text: {
+                    content: "❓ Prompt"
+                  }
+                }
+              ]
             }
           }
         ]
-      }
-    },
-    {
-      object: "block",
-      type: "heading_3",
-      heading_3: {
-        rich_text: [
+      : [
           {
-            type: "text",
-            text: {
-              content: "❓ Prompt"
+            object: "block",
+            type: "heading_3",
+            heading_3: {
+              rich_text: [
+                {
+                  type: "text",
+                  text: {
+                    content: "❓ Prompt"
+                  }
+                }
+              ]
             }
           }
-        ]
-      }
-    },
+        ]),
     {
       object: "block",
       type: "paragraph",

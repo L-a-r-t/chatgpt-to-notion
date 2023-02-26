@@ -1,5 +1,7 @@
 import { decompress } from "shrink-string"
 
+import { Storage } from "@plasmohq/storage"
+
 import getNotion from "~config/notion"
 import { i18n } from "~utils/functions"
 import { generateBlocks, generateTag } from "~utils/functions/notion"
@@ -11,7 +13,8 @@ export const saveAnswer = async ({
   answer,
   title,
   url,
-  database
+  database,
+  generateHeadings
 }: SaveAnswerParams) => {
   try {
     const notion = await getNotion()
@@ -20,7 +23,8 @@ export const saveAnswer = async ({
     const decompressedPrompt = await decompress(prompt)
     const { answerBlocks, promptBlocks } = generateBlocks(
       decompressedPrompt,
-      decompressedAnswer
+      decompressedAnswer,
+      generateHeadings
     )
 
     const tag = generateTag(tags[tagPropertyIndex], tagIndex)
@@ -71,32 +75,34 @@ export const saveAnswer = async ({
         },
         [tags[tagPropertyIndex].id]: tag
       },
-      children: [
-        {
-          object: "block",
-          type: "toggle",
-          toggle: {
-            rich_text: [
-              {
-                type: "text",
-                text: {
-                  content: i18n("notion_tableofcontents")
-                }
+      children: generateHeadings
+        ? [
+            {
+              object: "block",
+              type: "toggle",
+              toggle: {
+                rich_text: [
+                  {
+                    type: "text",
+                    text: {
+                      content: i18n("notion_tableofcontents")
+                    }
+                  }
+                ],
+                children: [
+                  {
+                    object: "block",
+                    type: "table_of_contents",
+                    table_of_contents: {}
+                  }
+                ]
               }
-            ],
-            children: [
-              {
-                object: "block",
-                type: "table_of_contents",
-                table_of_contents: {}
-              }
-            ]
-          }
-        },
-        ,
-        ...promptBlocks,
-        ...answerBlocks
-      ]
+            },
+            ,
+            ...promptBlocks,
+            ...answerBlocks
+          ]
+        : [...promptBlocks, ...answerBlocks]
     })
     return response
   } catch (err) {
@@ -111,4 +117,5 @@ type SaveAnswerParams = {
   title: string
   database: StoredDatabase
   url: string
+  generateHeadings: boolean
 }
