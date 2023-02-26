@@ -75,6 +75,14 @@
     "message": "Save failed",
     "description": "Error message when discussion fails to save."
   },
+  "save_unauthorized": {
+    "message": "Save unauthorized by Notion",
+    "description": "Unauthorized message."
+  },
+  "save_generateHeadings" : {
+    "message": "Generate headings & table of contents",
+    "description": "Generate headings label."
+  },
   "settings_noLinkedDb": {
     "message": "No linked DB",
     "description": "No linked database message."
@@ -96,7 +104,7 @@
     "description": "Slow search message."
   },
   "settings_noDBFound": {
-    "message": "No database found, this might be because the integration isn't allowed to access them or because Notion hasn't synced them with the integration yet.",
+    "message": "No database found, this might be because Notion hasn't synced them with the integration yet or because the integration isn't allowed to access them.",
     "description": "No database found message."
   },
   "settings_noUrlProperty": {
@@ -166,5 +174,9 @@
   "about_pinLicense": {
     "message": "is licensed by CC BY 3.0",
     "description": "Pin icon licence label."
+  },
+  "notion_tableofcontents": {
+    "message": "Table of contents",
+    "description": "Table of contents label."
   }
 }

@@ -75,6 +75,14 @@
     "message": "Il y a eu une erreur",
     "description": "Error message when discussion fails to save."
   },
+  "save_unauthorized": {
+    "message": "Sauvegarde non autorisée par Notion",
+    "description": "Unauthorized message."
+  },
+  "save_generateHeadings" : {
+    "message": "Générer les titres et le sommaire",
+    "description": "Generate headings label."
+  },
   "settings_noLinkedDb": {
     "message": "Pas de BDD reliée",
     "description": "No linked database message."
@@ -96,7 +104,7 @@
     "description": "Slow search message."
   },
   "settings_noDBFound": {
-    "message": "Aucune base de données trouvée, cela peut être dû au fait que l'intégration n'a pas l'autorisation (dans Notion) d'accéder à vos bases de données ou que Notion n'a pas encore synchronisé vos DBB avec l'intégration.",
+    "message": "Aucune base de données trouvée, cela peut être dû au fait que Notion n'a pas encore synchronisé vos BDD avec l'intégration ou que l'intégration n'a pas l'autorisation (dans Notion) d'accéder à vos bases de données.",
     "description": "No database found message."
   },
   "settings_noUrlProperty": {
@@ -166,5 +174,9 @@
   "about_pinLicense": {
     "message": "sous licence CC BY 3.0",
     "description": "Pin icon licence label."
+  },
+  "notion_tableofcontents": {
+    "message": "Sommaire",
+    "description": "Table of contents label."
   }
 }
