@@ -1,3 +1,13 @@
+### 1.3.1
+
+Fixes
+
+- No longer fails to save individual answers when generating headers & table of contents
+
+Misc
+
+- Pin icon now matches the color theme
+
 ## 1.3.0
 
 Features
