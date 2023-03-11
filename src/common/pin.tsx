@@ -5,7 +5,7 @@ export default function PinIcon() {
       xmlns="http://www.w3.org/2000/svg"
       width={15}
       height={15}
-      fill={"#fff"}
+      fill="currentColor"
       x="0px"
       y="0px"
       viewBox="0 0 1000 1000"

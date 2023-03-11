@@ -77,8 +77,9 @@ const Content = ({ parent }: Props) => {
   return (
     <button
       onClick={handleClick}
+      className="text-gray-800 dark:text-gray-100"
       style={{
-        backgroundColor: "#444654",
+        background: "transparent",
         border: "none",
         marginTop: 10,
         padding: 4,
