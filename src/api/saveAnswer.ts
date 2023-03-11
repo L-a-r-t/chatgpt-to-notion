@@ -98,7 +98,6 @@ export const saveAnswer = async ({
                 ]
               }
             },
-            ,
             ...promptBlocks,
             ...answerBlocks
           ]
