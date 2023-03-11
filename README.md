@@ -16,6 +16,10 @@ On ChatGPT's page, you'll notice a new pin icon under each of its answers. You c
 
 You may link as many databases with the extension as you need to, and you can then choose which database to save your discussion at saving time. If a page with the same title already exists in the database, the newly saved content will be appended to the end of said page.
 
+### Websites access
+
+Please refer to the [FAQ](https://github.com/L-a-r-t/chatgpt-to-notion/wiki/FAQ) for more info about the websites the extensions needs to access.
+
 ## Contribution
 
 As this is my first time building a project that is open to contributions I will need a little time to sort things out and learn the best practices for great collaboration on GitHub. If you want to help (thanks!), please stay patient for a few days.
