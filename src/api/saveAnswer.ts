@@ -57,7 +57,7 @@ export const saveAnswer = async ({
       icon: {
         type: "external",
         external: {
-          url: "https://openai.com/content/images/2022/05/openai-avatar.png"
+          url: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
         }
       },
       properties: {
