@@ -1,3 +1,10 @@
+### 1.3.2
+
+Fixes
+
+- Syntax highlighting finally works as expected in the generated Notion page
+- New generated page icon (previous link was dead)
+
 ### 1.3.1
 
 Fixes
