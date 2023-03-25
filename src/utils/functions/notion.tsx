@@ -126,12 +126,44 @@ export const generateBlocks = (
           text: {
             content: subPrompt
           }
-        }))
+        }))!
       : [
           {
             type: "text",
             text: {
               content: prompt
+            }
+          }
+        ]
+  const promptBlock =
+    promptText.length > 100
+      ? promptText.reduce(
+          (acc, curr, i) => {
+            if (i % 100 === 0)
+              acc.push({
+                object: "block",
+                type: "paragraph",
+                paragraph: {
+                  rich_text: []
+                }
+              })
+            acc[acc.length - 1].paragraph.rich_text.push(curr)
+            return acc
+          },
+          [] as {
+            object: "block"
+            type: "paragraph"
+            paragraph: {
+              rich_text: any[]
+            }
+          }[]
+        )
+      : [
+          {
+            object: "block",
+            type: "paragraph",
+            paragraph: {
+              rich_text: promptText
             }
           }
         ]
@@ -187,13 +219,7 @@ export const generateBlocks = (
             }
           }
         ]),
-    {
-      object: "block",
-      type: "paragraph",
-      paragraph: {
-        rich_text: promptText
-      }
-    },
+    ...promptBlock,
     {
       object: "block",
       type: "heading_3",
