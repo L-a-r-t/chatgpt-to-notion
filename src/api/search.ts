@@ -17,5 +17,6 @@ export const searchNotion = async (query: string) => {
     return parsed
   } catch (err) {
     console.error(err)
+    return err
   }
 }

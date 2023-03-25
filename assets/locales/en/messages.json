@@ -104,7 +104,7 @@
     "description": "Slow search message."
   },
   "settings_noDBFound": {
-    "message": "No database found, this might be because Notion hasn't synced them with the integration yet or because the integration isn't allowed to access them.",
+    "message": "No database found, this might be because Notion hasn't synced them with the integration yet.",
     "description": "No database found message."
   },
   "settings_noUrlProperty": {
@@ -114,6 +114,10 @@
   "settings_exampleDB": {
     "message": "Here's an example database compatible with the extension",
     "description": "Example database message."
+  },
+  "settings_errUnauthorized": {
+    "message": "Access was denied by Notion, please reload the extension (inside chrome://extensions/) or reinstall it (see FAQ)",
+    "description": "Unauthorized message."
   },
   "dbsettings_loading": {
     "message": "Loading database",

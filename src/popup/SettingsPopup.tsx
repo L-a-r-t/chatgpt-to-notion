@@ -41,7 +41,12 @@ function SettingsPopup() {
           query
         }
       })
+      console.log(response)
       setFetching(false)
+      if (response.status && [401, 403].includes(response.status)) {
+        setDbError(i18n("settings_errUnauthorized"))
+        return
+      }
       setResults(response)
     },
     600,
@@ -159,7 +164,9 @@ function SettingsPopup() {
           ) : (
             !fetching && (
               <>
-                <p className="mt-1 text-sm">{i18n("settings_noDBFound")}</p>
+                {!dbError && (
+                  <p className="mt-1 text-sm">{i18n("settings_noDBFound")}</p>
+                )}
                 <a
                   className="link text-sm"
                   href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"

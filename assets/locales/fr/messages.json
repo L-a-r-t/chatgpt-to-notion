@@ -104,7 +104,7 @@
     "description": "Slow search message."
   },
   "settings_noDBFound": {
-    "message": "Aucune base de données trouvée, cela peut être dû au fait que Notion n'a pas encore synchronisé vos BDD avec l'intégration ou que l'intégration n'a pas l'autorisation (dans Notion) d'accéder à vos bases de données.",
+    "message": "Aucune base de données trouvée, cela peut être dû au fait que Notion n'a pas encore synchronisé vos BDD avec l'intégration.",
     "description": "No database found message."
   },
   "settings_noUrlProperty": {
@@ -114,6 +114,10 @@
   "settings_exampleDB": {
     "message": "Voir un exemple de base de donnée compatible avec l'extension",
     "description": "Example database message."
+  },
+  "settings_errUnauthorized": {
+    "message": "Accès refusé par Notion, essayez de relancer l'extension (depuis chrome://extensions/) ou réinstallez-la (cf. la FAQ)",
+    "description": "Unauthorized message."
   },
   "dbsettings_loading": {
     "message": "Chargement de la base de données",
