@@ -28,7 +28,7 @@ export const saveChat = async ({
     }
 
     const chunks: any[][] = []
-    const chunkSize = 80 // We define a chunk size of 80 blocks
+    const chunkSize = 99 // We define a chunk size of 99 blocks
     // Notion API has a limit of 100 blocks per request but we'd rather be conservative
     const chunksCount = Math.ceil(blocks.length / chunkSize)
     for (let i = 0; i < chunksCount; i++) {
