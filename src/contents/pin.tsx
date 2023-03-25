@@ -15,7 +15,7 @@ import "~styles.css"
 import { i18n } from "~utils/functions"
 
 export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/chat/*"]
+  matches: ["https://chat.openai.com/chat*"]
 }
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
