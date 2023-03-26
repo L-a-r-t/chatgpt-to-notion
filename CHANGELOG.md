@@ -1,3 +1,15 @@
+### 1.3.3
+
+Fixes
+
+- Handles very, very long prompts properly
+- Makes less API calls when saving a conversation
+- Handles the "no database found" case in a clearer way
+
+Misc
+
+- Hides the saved prompt under a toggle heading by default
+
 ### 1.3.2
 
 Fixes
