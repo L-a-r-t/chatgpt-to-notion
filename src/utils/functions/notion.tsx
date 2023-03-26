@@ -199,7 +199,9 @@ export const generateBlocks = (
                     content: "❓ Prompt"
                   }
                 }
-              ]
+              ],
+              is_toggleable: true,
+              children: promptBlock
             }
           }
         ]
@@ -215,11 +217,12 @@ export const generateBlocks = (
                     content: "❓ Prompt"
                   }
                 }
-              ]
+              ],
+              is_toggleable: true,
+              children: promptBlock
             }
           }
         ]),
-    ...promptBlock,
     {
       object: "block",
       type: "heading_3",
