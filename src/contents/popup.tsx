@@ -10,7 +10,7 @@ import SettingsPopup from "~popup/SettingsPopup"
 import type { StoredDatabase } from "~utils/types"
 
 export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/chat*"]
+  matches: ["https://chat.openai.com/*"]
 }
 
 export const getStyle: PlasmoGetStyle = () => {
