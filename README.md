@@ -1,5 +1,7 @@
 # ChatGPT to Notion
 
+### ⚠️ **There is currently a known issue that affects saving. It is caused by a change to ChatGPT’s frontend and will be fixed over the weekend** ⚠️
+
 [ChatGPT to Notion](https://chrome.google.com/webstore/detail/chatgpt-to-notion/oojndninaelbpllebamcojkdecjjhcle) brings the cleverness of ChatGPT into your favorite app!
 
 ## Overview
