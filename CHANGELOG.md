@@ -4,6 +4,10 @@ Fixes
 
 - Targets the new ChatGPT url, and should now be future-proof in that regard
 
+Misc
+
+- Bump lockfile version to 6.0
+
 ### 1.3.3
 
 Fixes
