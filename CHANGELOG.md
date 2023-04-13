@@ -1,3 +1,9 @@
+### 1.3.4
+
+Fixes
+
+- Targets the new ChatGPT url, and should now be future-proof in that regard
+
 ### 1.3.3
 
 Fixes
