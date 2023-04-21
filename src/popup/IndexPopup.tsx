@@ -1,3 +1,5 @@
+import banner1 from "data-base64:../../assets/banner-1.png"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
 import type { StoredDatabase } from "~utils/types"
@@ -67,54 +69,72 @@ function IndexPopup() {
     <p>{i18n("index_errRegister")}</p>
   ) : (
     <>
-      <div className="flex justify-between items-center mb-3">
-        <p className="font-bold">{i18n("index_saveTo")}</p>
-        <DropdownPopup
-          className="px-2 py-0.5 border border-main rounded"
-          position="up"
-          items={databases.map((db, index) => (
-            <button key={db.id} onClick={() => setSelectedDB(index)}>
-              {db.title}
-            </button>
-          ))}>
-          {db?.title}
-        </DropdownPopup>
-      </div>
-      <div className="border mb-3" />
-      {db?.tags && db?.tags.length > 0 ? (
-        <div className="flex justify-between items-center mb-3">
-          <DropdownPopup
-            className="font-bold min-w-[4rem] text-left"
-            position="up"
-            items={db.tags.map((tag, index) => (
-              <button key={tag.id} onClick={() => selectTagProp(index)}>
-                {tag.name}
-              </button>
-            ))}>
-            {tagProp?.name}
-          </DropdownPopup>
-          <DropdownPopup
-            className={`px-2 py-0.5 border border-main rounded ${
-              tag === null ? "italic font-bold" : ""
-            }`}
-            position="up"
-            items={
-              tagProp
-                ? [
-                    ...tagProp.options.map((tag, index) => (
-                      <button key={tag.id} onClick={() => selectTag(index)}>
-                        {tag.name}
-                      </button>
-                    )),
-                    <NoTagButton selectTag={selectTag} />
-                  ]
-                : [<NoTagButton selectTag={selectTag} />]
-            }>
-            {tag === null ? i18n("save_noTag") : tag?.name}
-          </DropdownPopup>
+      {success ? (
+        <div className="mb-4">
+          <a
+            className="link block text-center"
+            href="https://theo-lartigau.notion.site/About-sponsors-daa97f9c85f74ceaabb37a68958d4c8a"
+            target="_blank">
+            {i18n("sponsored")}
+          </a>
+          <a
+            href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
+            target="_blank">
+            <img src={banner1} className="w-full aspect-[2]" />
+          </a>
         </div>
       ) : (
-        <p className="text-sm mb-3">{i18n("dbsettings_noTags")}</p>
+        <>
+          <div className="flex justify-between items-center mb-3">
+            <p className="font-bold">{i18n("index_saveTo")}</p>
+            <DropdownPopup
+              className="px-2 py-0.5 border border-main rounded"
+              position="up"
+              items={databases.map((db, index) => (
+                <button key={db.id} onClick={() => setSelectedDB(index)}>
+                  {db.title}
+                </button>
+              ))}>
+              {db?.title}
+            </DropdownPopup>
+          </div>
+          <div className="border mb-3" />
+          {db?.tags && db?.tags.length > 0 ? (
+            <div className="flex justify-between items-center mb-3">
+              <DropdownPopup
+                className="font-bold min-w-[4rem] text-left"
+                position="up"
+                items={db.tags.map((tag, index) => (
+                  <button key={tag.id} onClick={() => selectTagProp(index)}>
+                    {tag.name}
+                  </button>
+                ))}>
+                {tagProp?.name}
+              </DropdownPopup>
+              <DropdownPopup
+                className={`px-2 py-0.5 border border-main rounded ${
+                  tag === null ? "italic font-bold" : ""
+                }`}
+                position="up"
+                items={
+                  tagProp
+                    ? [
+                        ...tagProp.options.map((tag, index) => (
+                          <button key={tag.id} onClick={() => selectTag(index)}>
+                            {tag.name}
+                          </button>
+                        )),
+                        <NoTagButton selectTag={selectTag} />
+                      ]
+                    : [<NoTagButton selectTag={selectTag} />]
+                }>
+                {tag === null ? i18n("save_noTag") : tag?.name}
+              </DropdownPopup>
+            </div>
+          ) : (
+            <p className="text-sm mb-3">{i18n("dbsettings_noTags")}</p>
+          )}
+        </>
       )}
       <button
         disabled={loading || success || !authenticated}

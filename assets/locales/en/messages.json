@@ -27,6 +27,10 @@
     "message": "Authenticating to Notion",
     "description": "Authenticating message."
   },
+  "sponsored": {
+    "message": "Sponsored (?)",
+    "description": "Sponsored message."
+  },
   "index_errRegister": {
     "message": "Please register a database in the settings",
     "description": "Error message when no database is registered."
