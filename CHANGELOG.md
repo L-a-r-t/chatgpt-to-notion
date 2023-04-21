@@ -1,3 +1,10 @@
+### 1.3.5
+
+Misc
+
+- Added sponsored content in non instrusive spots (post successful save, the extension DOES NOT collect any data for this, more info in the FAQ)
+- Updated the type definition for "ToBeSaved"
+
 ### 1.3.4
 
 Fixes
