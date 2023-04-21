@@ -1,12 +1,10 @@
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
-export type ToBeSaved =
-  | {
-      prompt: string
-      answer: string
-      title: string
-    }
-  | false
+export type ToBeSaved = {
+  prompt: string
+  answer: string
+  title: string
+} | null
 
 export type StoredDatabase = {
   id: string

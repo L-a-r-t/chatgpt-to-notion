@@ -25,7 +25,7 @@ const Wrapper = () => {
 
   const hidePopup = async () => {
     await setShowPopup(false)
-    await setToBeSaved(false)
+    await setToBeSaved(null)
   }
 
   return showPopup ? (
