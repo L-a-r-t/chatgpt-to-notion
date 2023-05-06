@@ -1,3 +1,9 @@
+### 1.3.6
+
+Fixes
+
+- Pin icon & individual saving now works again (was broken by a change to ChatGPT's frontend)
+
 ### 1.3.5
 
 Misc

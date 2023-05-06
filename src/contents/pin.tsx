@@ -19,7 +19,7 @@ export const config: PlasmoContentScript = {
 }
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
-  document.querySelectorAll(".flex-col.items-end > .p-1")
+  document.querySelectorAll(".flex-col.items-end > div > .p-1")
 
 export const render: PlasmoRender = async ({
   anchor, // the observed anchor, OR document.body.
@@ -33,7 +33,10 @@ export const render: PlasmoRender = async ({
     <>
       <Content
         // @ts-ignore
-        parent={anchor.element.parentElement.parentElement.parentElement}
+        parent={
+          // @ts-ignore
+          anchor.element.parentElement.parentElement.parentElement.parentElement
+        }
       />
     </>
   )
