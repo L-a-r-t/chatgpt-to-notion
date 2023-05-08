@@ -80,7 +80,11 @@ function IndexPopup() {
           <a
             href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
             target="_blank">
-            <img src={banner1} className="w-full aspect-[2]" />
+            <img
+              src={banner1}
+              className="w-full aspect-[2]"
+              alt="Use ChatGPT.ai today!"
+            />
           </a>
         </div>
       ) : (

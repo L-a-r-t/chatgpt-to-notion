@@ -85,7 +85,15 @@ export default function SavePopup() {
             target="_blank">
             {i18n("sponsored")}
           </a>
-          <img src={banner2} className="w-full aspect-square" />
+          <a
+            href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
+            target="_blank">
+            <img
+              src={banner2}
+              className="w-full aspect-square"
+              alt="Use ChatGPT.ai today!"
+            />
+          </a>
         </div>
       ) : (
         <>
