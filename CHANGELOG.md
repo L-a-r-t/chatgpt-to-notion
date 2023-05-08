@@ -1,3 +1,15 @@
+## 1.4.0
+
+Features
+
+- More control over the generated page's title when saving an individual answer (conversation title, prompt, or custom)
+- More control over saving conflicts (choose between overwriting, appending, or renaming current conversation)
+
+Fixes
+
+- Sponsored image when saving an individual answer now redirects properly
+- Refactored the saving logic to be more customizable (thus the new features) and less monolithic
+
 ### 1.3.6
 
 Fixes
