@@ -1,9 +1,17 @@
+import type {
+  PageObjectResponse,
+  PartialPageObjectResponse
+} from "@notionhq/client/build/src/api-endpoints"
+
+import type { parseSave } from "~api/parseSave"
+
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
 export type ToBeSaved = {
   prompt: string
   answer: string
   title: string
+  url: string
 } | null
 
 export type StoredDatabase = {
@@ -31,3 +39,5 @@ export type PopupEnum =
   | "about"
   | "wrongpage"
   | "dbsettings"
+
+export type SaveBehavior = "override" | "append" | "ignore"
