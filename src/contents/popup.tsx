@@ -29,10 +29,12 @@ const Wrapper = () => {
   }
 
   return showPopup ? (
-    <div className="z-20 fixed top-0 left-0 w-full h-full" onClick={hidePopup}>
+    <div
+      className="z-20 fixed top-0 left-0 w-full h-full"
+      onPointerDown={hidePopup}>
       <div
         className="absolute top-3 right-3 rounded bg-white text-black shadow-lg"
-        onClick={(e) => e.stopPropagation()}>
+        onPointerDown={(e) => e.stopPropagation()}>
         <div className="flex flex-col p-3 w-64 text-base">
           <img src={illustration} alt="ChatGPT to Notion" />
           <Popup />

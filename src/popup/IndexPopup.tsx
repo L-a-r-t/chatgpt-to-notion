@@ -2,18 +2,23 @@ import banner1 from "data-base64:../../assets/banner-1.png"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type { StoredDatabase } from "~utils/types"
+import type { SaveBehavior, StoredDatabase } from "~utils/types"
 
 import "~styles.css"
 
 import { useState } from "react"
+import { compress } from "shrink-string"
 
-import { saveChat } from "~api/saveChat"
+import { checkSaveConflict } from "~api/checkSaveConflict"
+import { parseSave } from "~api/parseSave"
+import { SaveChatParams, saveChat } from "~api/saveChat"
 import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
 import { i18n } from "~utils/functions"
+
+import ConflictPopup from "./ConflictPopup"
 
 function IndexPopup() {
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
@@ -29,6 +34,9 @@ function IndexPopup() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<number | null>(null)
+  const [conflictingPageId, setConflictingPageId] = useState<
+    string | undefined
+  >()
 
   const handleSave = async () => {
     try {
@@ -42,28 +50,87 @@ function IndexPopup() {
         setLoading(false)
         return
       }
-      const chat = await chrome.tabs.sendMessage(currentTab.id, {
+      const database = db!
+      const checkRes = await checkSaveConflict({
+        title: currentTab.title ?? "",
+        database
+      })
+      if (checkRes.conflict) {
+        setError(409)
+        setConflictingPageId(checkRes.conflictingPageId)
+        return
+      }
+      save("override")
+    } catch (err) {
+      setError(err.status ?? 400)
+      setLoading(false)
+    }
+  }
+
+  const save = async (saveBehavior: SaveBehavior) => {
+    try {
+      setError(null)
+      setLoading(true)
+      const tabs = await chrome.tabs.query({
+        active: true,
+        currentWindow: true
+      })
+      const currentTab = tabs[0]
+      if (!currentTab.id) {
+        setConflictingPageId(undefined)
+        setLoading(false)
+        return
+      }
+      const database = db!
+      const chat: {
+        title: string
+        prompts: string[]
+        answers: string[]
+        url: string
+      } = await chrome.tabs.sendMessage(currentTab.id, {
         type: "fetchFullChat"
       })
-      const database = db
       const req = {
         ...chat,
+        // compression helps with having a single saveChat api function
+        // it is very fast and does not affect the user experience
+        prompts: await Promise.all(chat.prompts.map((p) => compress(p))),
+        answers: await Promise.all(chat.answers.map((a) => compress(a))),
         database,
         generateHeadings
       }
-      const res = await saveChat(req)
+      const parsedReq = await parseSave(req)
+      const res = await saveChat({
+        ...parsedReq,
+        conflictingPageId: conflictingPageId,
+        generateHeadings,
+        saveBehavior
+      })
       if (!res) {
         setError(400)
+        setConflictingPageId(undefined)
         setLoading(false)
         return
       }
       setSuccess(true)
-      setLoading(false)
     } catch (err) {
-      setError(err.status)
+      setError(err.status ?? "400")
+    } finally {
+      setConflictingPageId(undefined)
       setLoading(false)
     }
   }
+
+  const handleError = () => {
+    switch (error) {
+      case 401:
+        return i18n("save_unauthorized")
+      default:
+        return i18n("save_error")
+    }
+  }
+
+  if (error === 409) return <ConflictPopup save={save} />
 
   return !databases || databases.length == 0 ? (
     <p>{i18n("index_errRegister")}</p>
@@ -150,11 +217,7 @@ function IndexPopup() {
             <Spinner white small />
           </>
         ) : error ? (
-          error === 401 ? (
-            i18n("save_unauthorized")
-          ) : (
-            i18n("save_error")
-          )
+          handleError()
         ) : success ? (
           i18n("index_discussionSaved")
         ) : (

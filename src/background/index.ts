@@ -1,9 +1,10 @@
 import { Storage } from "@plasmohq/storage"
 
+import { checkSaveConflict } from "~api/checkSaveConflict"
 import { generateToken } from "~api/generateToken"
 import { getDatabase } from "~api/getDatabase"
 import { getToken } from "~api/getToken"
-import { saveAnswer } from "~api/saveAnswer"
+import { saveChat } from "~api/saveChat"
 import { searchNotion } from "~api/search"
 import { formatDB } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
@@ -19,8 +20,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
         .catch((err) => sendResponse(err))
       break
-    case "saveAnswer":
-      saveAnswer(message.body)
+    case "checkSaveConflict":
+      checkSaveConflict(message.body)
+        .then((res) => {
+          sendResponse(res)
+        })
+        .catch((err) => sendResponse(err))
+      break
+    case "saveChat":
+      saveChat(message.body)
         .then((res) => {
           sendResponse(res)
         })

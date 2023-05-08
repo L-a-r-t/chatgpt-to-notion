@@ -51,6 +51,18 @@
     "message": "Page",
     "description": "Page title label."
   },
+  "save_pageDropdown_title": {
+    "message": "Titre",
+    "description": "Dropdown title label."
+  },
+  "save_pageDropdown_prompt": {
+    "message": "Prompt",
+    "description": "Dropdown prompt label."
+  },
+  "save_pageDropdown_custom": {
+    "message": "Personnalisé",
+    "description": "Dropdown custom label."
+  },
   "save_prompt": {
     "message": "Question",
     "description": "Prompt label."
@@ -86,6 +98,30 @@
   "save_generateHeadings" : {
     "message": "Générer les titres et le sommaire",
     "description": "Generate headings label."
+  },
+  "conflict_text": {
+    "message": "Une page dans votre BDD a le même nom que cette conversation",
+    "description": "Conflict label."
+  },
+  "conflict_override": {
+    "message": "Remplacer",
+    "description": "Override label."
+  },
+  "conflict_append": {
+    "message": "Continuer",
+    "description": "Append label."
+  },
+  "conflict_appendInfo": {
+    "message": "(Enregistre au bout de la page existente)",
+    "description": "Append info."
+  },
+  "conflict_rename": {
+    "message": "OU renommer cette conversation dans le menu de gauche",
+    "description": "Rename message."
+  },
+  "conflict_renameFromPin": {
+    "message": "OU choisir un autre nom de page au moment d'enregistrer",
+    "description": "Rename from pin label."
   },
   "settings_noLinkedDb": {
     "message": "Pas de BDD reliée",

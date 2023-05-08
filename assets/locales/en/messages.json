@@ -51,6 +51,18 @@
     "message": "Page title",
     "description": "Page title label."
   },
+  "save_pageDropdown_title": {
+    "message": "Title",
+    "description": "Dropdown title label."
+  },
+  "save_pageDropdown_prompt": {
+    "message": "Prompt",
+    "description": "Dropdown prompt label."
+  },
+  "save_pageDropdown_custom": {
+    "message": "Custom",
+    "description": "Dropdown custom label."
+  },
   "save_prompt": {
     "message": "Prompt",
     "description": "Prompt label."
@@ -86,6 +98,30 @@
   "save_generateHeadings" : {
     "message": "Generate headings & table of contents",
     "description": "Generate headings label."
+  },
+  "conflict_text": {
+    "message": "A page in your database holds the same name as this conversation",
+    "description": "Conflict message."
+  },
+  "conflict_override": {
+    "message": "Override",
+    "description": "Override label."
+  },
+  "conflict_append": {
+    "message": "Append",
+    "description": "Append label."
+  },
+  "conflict_appendInfo": {
+    "message": "(Saves at the end of existing page)",
+    "description": "Append info."
+  },
+  "conflict_rename": {
+    "message": "OR rename the conversation on the left menu",
+    "description": "Rename message."
+  },
+  "conflict_renameFromPin": {
+    "message": "OR choose a different page name upon saving",
+    "description": "Rename from pin label."
   },
   "settings_noLinkedDb": {
     "message": "No linked DB",

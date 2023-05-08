@@ -4,15 +4,19 @@ import { decompress } from "shrink-string"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type { StoredDatabase, ToBeSaved } from "~utils/types"
+import type { SaveBehavior, StoredDatabase, ToBeSaved } from "~utils/types"
 
 import "~styles.css"
 
+import { checkSaveConflict } from "~api/checkSaveConflict"
+import { parseSave } from "~api/parseSave"
 import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
 import { i18n } from "~utils/functions"
+
+import ConflictPopup from "./ConflictPopup"
 
 export default function SavePopup() {
   const [showPopup, setShowPopup] = useStorage<boolean>("showPopup")
@@ -27,11 +31,18 @@ export default function SavePopup() {
 
   const [authenticated] = useStorage("authenticated", false)
 
+  const [titleType, setTitleType] = useState<"title" | "prompt" | "custom">(
+    "title"
+  )
+  const [titleValue, setTitleValue] = useState("")
   const [prompt, setPrompt] = useState("")
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<number | null>(null)
+  const [conflictingPageId, setConflictingPageId] = useState<
+    string | undefined
+  >()
 
   useEffect(() => {
     if (!toBeSaved) return
@@ -44,34 +55,115 @@ export default function SavePopup() {
     updateState()
   }, [toBeSaved])
 
-  const save = async (database: StoredDatabase) => {
-    if (!toBeSaved) return
-    setLoading(true)
-    const res = await chrome.runtime.sendMessage({
-      type: "saveAnswer",
-      body: {
-        generateHeadings,
-        database,
-        ...toBeSaved
+  const handleSave = async (database: StoredDatabase) => {
+    try {
+      if (!toBeSaved) return
+      setLoading(true)
+      // const res = await chrome.runtime.sendMessage({
+      //   type: "saveAnswer",
+      //   body: {
+      //     generateHeadings,
+      //     database,
+      //     ...toBeSaved
+      //   }
+      // })
+      // // if res is an error it will be the error code, a number
+      // if (isNaN(res)) {
+      //   setSuccess(true)
+      //   setLoading(false)
+      //   setToBeSaved(null)
+      //   return
+      // }
+      // setError(res)
+      // setLoading(false)
+      // setTimeout(() => {
+      //   setToBeSaved(null)
+      //   setShowPopup(false)
+      // }, 5000)
+      // return
+      let title = ""
+      if (titleType === "title") title = toBeSaved.title
+      else if (titleType === "prompt")
+        title = prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt
+      else title = titleValue
+
+      const database = db!
+      const checkRes = await chrome.runtime.sendMessage({
+        type: "checkSaveConflict",
+        body: {
+          title,
+          database
+        }
+      })
+      if (checkRes.conflict) {
+        setError(409)
+        setConflictingPageId(checkRes.conflictingPageId)
+        return
       }
-    })
-    // if res is an error it will be the error code, a number
-    if (isNaN(res)) {
-      setSuccess(true)
+      save("override")
+    } catch (err) {
+      setError(err.status ?? 400)
       setLoading(false)
-      setToBeSaved(null)
-      return
     }
-    setError(res)
-    setLoading(false)
-    setTimeout(() => {
-      setToBeSaved(null)
-      setShowPopup(false)
-    }, 5000)
-    return
+  }
+
+  const save = async (saveBehavior: SaveBehavior) => {
+    try {
+      setError(null)
+      setLoading(true)
+      const database = db!
+      let title = ""
+      if (titleType === "title") title = toBeSaved!.title
+      else if (titleType === "prompt")
+        title = prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt
+      else title = titleValue
+
+      const req = {
+        title,
+        // compression helps with having a single saveChat api function
+        // it is very fast and does not affect the user experience
+        prompts: [toBeSaved!.prompt],
+        answers: [toBeSaved!.answer],
+        url: toBeSaved!.url,
+        database,
+        generateHeadings
+      }
+      const parsedReq = await parseSave(req)
+      const res = await chrome.runtime.sendMessage({
+        type: "saveChat",
+        body: {
+          ...parsedReq,
+          conflictingPageId,
+          generateHeadings,
+          saveBehavior
+        }
+      })
+      // if res is an error it will be the error code, a number
+      if (isNaN(res)) {
+        setSuccess(true)
+        setLoading(false)
+        setConflictingPageId(undefined)
+        setToBeSaved(null)
+        return
+      }
+      setError(res)
+      setLoading(false)
+      setTimeout(() => {
+        setToBeSaved(null)
+        setShowPopup(false)
+      }, 5000)
+      return
+    } catch (err) {
+      setError(err.status ?? "400")
+    } finally {
+      setConflictingPageId(undefined)
+      setLoading(false)
+    }
   }
 
   if (!success && !toBeSaved) return null
+
+  if (error === 409) return <ConflictPopup save={save} pin />
 
   return !databases || databases.length == 0 ? (
     <p>{i18n("index_errRegister")}</p>
@@ -97,8 +189,44 @@ export default function SavePopup() {
         </div>
       ) : (
         <>
-          <h4 className="font-bold">{i18n("save_pageTitle")}</h4>
-          <p className="text-xs">{toBeSaved?.title}</p>
+          <div className="flex">
+            <h4 className="font-bold">{i18n("save_pageTitle")}</h4>
+            <DropdownPopup
+              className="px-2 py-[1px] border border-main rounded ml-2 text-sm"
+              position="down"
+              items={[
+                <button onClick={() => setTitleType("title")}>
+                  {i18n("save_pageDropdown_title")}
+                </button>,
+                <button onClick={() => setTitleType("prompt")}>
+                  {i18n("save_pageDropdown_prompt")}
+                </button>,
+                <button
+                  onClick={() => setTitleType("custom")}
+                  className="text-sm">
+                  {i18n("save_pageDropdown_custom")}
+                </button>
+              ]}>
+              {i18n(`save_pageDropdown_${titleType}`)}
+            </DropdownPopup>
+          </div>
+          {titleType === "custom" ? (
+            <input
+              className="input"
+              value={titleValue}
+              onChange={(e) => setTitleValue(e.target.value)}
+              maxLength={60}
+              placeholder={toBeSaved?.title}
+            />
+          ) : (
+            <p className="text-xs">
+              {titleType === "title"
+                ? toBeSaved?.title
+                : prompt.length > 60
+                ? prompt.substring(0, 60) + "..."
+                : prompt}
+            </p>
+          )}
           <h4 className="font-bold">{i18n("save_prompt")}</h4>
           <p className="text-xs">
             {prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt}
@@ -163,7 +291,7 @@ export default function SavePopup() {
       <button
         disabled={loading || success || !authenticated}
         className="button w-full disabled:bg-main"
-        onClick={() => save(db!)}>
+        onClick={() => handleSave(db!)}>
         {!authenticated ? (
           <>
             <span>{i18n("authenticating")}</span>
