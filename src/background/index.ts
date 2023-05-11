@@ -18,21 +18,33 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         .then((res) => {
           sendResponse(res)
         })
-        .catch((err) => sendResponse(err))
+        .catch((err) => sendResponse({ err }))
       break
     case "checkSaveConflict":
       checkSaveConflict(message.body)
         .then((res) => {
           sendResponse(res)
         })
-        .catch((err) => sendResponse(err))
+        .catch((err) => sendResponse({ err }))
       break
     case "saveChat":
       saveChat(message.body)
         .then((res) => {
           sendResponse(res)
         })
-        .catch((err) => sendResponse(err.status))
+        .catch((err) => sendResponse({ err: err.status }))
+      break
+    case "autoSave":
+      const storage = new Storage()
+      saveChat(message.body)
+        .then((res) => {
+          sendResponse(res)
+          storage.set("autosaveStatus", "saved" as AutosaveStatus)
+        })
+        .catch((err) => {
+          storage.set("autosaveStatus", "error" as AutosaveStatus)
+          sendResponse({ err: err.status })
+        })
       break
     case "generateToken":
       // using two means of checking if user is logged in just to be sure
@@ -52,7 +64,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         .then((res) => {
           sendResponse(res)
         })
-        .catch((err) => sendResponse(err))
+        .catch((err) => sendResponse({ err }))
       break
     default:
       return true

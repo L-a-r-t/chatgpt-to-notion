@@ -138,15 +138,14 @@ export default function SavePopup() {
           saveBehavior
         }
       })
-      // if res is an error it will be the error code, a number
-      if (isNaN(res)) {
+      if (res.err) {
         setSuccess(true)
         setLoading(false)
         setConflictingPageId(undefined)
         setToBeSaved(null)
         return
       }
-      setError(res)
+      setError(res.err)
       setLoading(false)
       setTimeout(() => {
         setToBeSaved(null)
