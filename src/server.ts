@@ -1,4 +1,4 @@
-import { tokenRouter } from "./routes"
+import { tokenRouter, premiumRouter } from "./routes"
 import bodyParser from "body-parser"
 import cors from "cors"
 import dotenv from "dotenv"
@@ -22,6 +22,7 @@ app.get("/keepalive", (req, res) => {
   res.status(200).send("OK")
 })
 app.use("/token", tokenRouter)
+app.use("/premium", premiumRouter)
 
 app.listen(5000, () => {
   console.log("Listening on port 5000")

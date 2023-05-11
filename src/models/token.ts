@@ -51,6 +51,9 @@ const tokenSchema = new mongoose.Schema({
   workspace_icon: {
     type: String,
   },
+  license_key: {
+    type: String,
+  },
   owner: ownerSchema,
 })
 
