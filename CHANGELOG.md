@@ -1,3 +1,18 @@
+## 1.5.0
+
+Features
+
+- New autosave feature (on premium subscription)
+- Added a $2/month premium subscription to support the extension's development
+  Please take note that the majority of future features (including important ones) will be available to all nontheless, and previously premium features may become free in the future as more things are added
+
+Fixes
+
+- Fixed a bug where the extension would crash when in the settings popup
+- More robust handling of errors
+- Clearer error messages
+- Small visual & typo fixes
+
 ## 1.4.0
 
 Features
