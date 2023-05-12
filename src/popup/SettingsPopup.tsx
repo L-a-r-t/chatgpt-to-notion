@@ -139,8 +139,8 @@ function SettingsPopup() {
                     <button
                       className="flex gap-1 items-center w-full hover:bg-gray-200"
                       onClick={() => handleSelect(database)}>
-                      {getIcon(database.icon)}
-                      {database.title[0].plain_text}
+                      {getIcon(database?.icon ?? null)}
+                      {database.title[0]?.plain_text ?? "..."}
                     </button>
                   </div>
                 ]
