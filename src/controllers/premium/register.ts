@@ -24,7 +24,7 @@ export const register = async (req: Request, res: Response) => {
     if (gumroadRes.data.success) {
       await TokenData.updateOne({
         id,
-        license_key: gumroadRes.data.success,
+        license_key: license_key,
       })
     }
     res.status(200).send({ success: gumroadRes.data.success })
