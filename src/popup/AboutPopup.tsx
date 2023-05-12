@@ -8,7 +8,10 @@ function AboutPopup() {
       <p className="text-sm">
         <span className="italic">{i18n("extensionName")}</span>
         {" " + i18n("about_extensionBy") + " "}
-        <a className="link" href="https://github.com/L-a-r-t" target="_blank">
+        <a
+          className="link"
+          href="https://twitter.com/lartdoesstuff"
+          target="_blank">
           Théo Lartigau
         </a>
         {". " + i18n("about_suggestionsIssues")}
