@@ -22,7 +22,7 @@ Please refer to the [FAQ](https://github.com/L-a-r-t/chatgpt-to-notion/wiki/FAQ)
 
 ## Contribution
 
-As this is my first time building a project that is open to contributions I will need a little time to sort things out and learn the best practices for great collaboration on GitHub. If you want to help (thanks!), please stay patient for a few days.
+As this is my first time building a project that is open to contributions I will need a little time to sort things out and learn the best practices for great collaboration on GitHub. I'm also busy with some entrance exams until July 1st. If you want to help (thanks!), please stay patient for a few days.
 
 ## Roadmap
 
