@@ -256,7 +256,7 @@
     "description": "Is premium gratitude message."
   },
   "premium_desc": {
-    "message": "Unlock new features, get rid of ads, and more for $2 per month!",
+    "message": "Unlock new features, get rid of ads and support development for $2 per month!",
     "description": "Premium description."
   },
   "premium_trial": {
@@ -278,6 +278,10 @@
   "premium_key_activate_success": {
     "message": "Successfully activated!",
     "description": "Premium activate success message."
+  },
+  "premium_key_activate_desc": {
+    "message": "Already have a key? Enter it here",
+    "description": "Premium activate description."
   },
   "premium_success": {
     "message": "Thanks a lot for your support & purchase! Enjoy autosave and future features as much as you want!",

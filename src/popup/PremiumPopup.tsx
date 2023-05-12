@@ -62,6 +62,9 @@ function PremiumPopup() {
         {keyStatus === "invalid" && i18n("premium_key_activate_error")}
         {loading && <Spinner white small />}
       </button>
+      {keyStatus === "unknown" && (
+        <p className="text-sm">{i18n("premium_key_activate_desc")}</p>
+      )}
       {keyStatus === "valid" && (
         <p className="text-sm">{i18n("premium_success")}</p>
       )}

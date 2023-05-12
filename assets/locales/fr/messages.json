@@ -271,6 +271,10 @@
     "message": "Activation réussie!",
     "description": "Premium activate success message."
   },
+  "premium_key_activate_desc": {
+    "message": "Vous avez déjà une clé ? Entrez-la ici",
+    "description": "Premium activate description."
+  },
   "premium_success": {
     "message": "Merci beaucoup pour votre achat et votre soutien! Profitez des fonctionnalités premium à votre guise!",
     "description": "Premium success message."
