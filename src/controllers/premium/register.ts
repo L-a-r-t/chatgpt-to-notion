@@ -22,10 +22,12 @@ export const register = async (req: Request, res: Response) => {
 
     const id = `${workspace_id}:${user_id}`
     if (gumroadRes.data.success) {
-      await TokenData.updateOne({
-        id,
-        license_key: license_key,
-      })
+      await TokenData.findOneAndUpdate(
+        { id },
+        {
+          license_key: license_key,
+        }
+      )
     }
     res.status(200).send({ success: gumroadRes.data.success })
   } catch (err) {

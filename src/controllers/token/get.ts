@@ -36,38 +36,3 @@ export const get = async (req: Request, res: Response) => {
     })
   }
 }
-
-const nani = {
-  message: "Request failed with status code 404",
-  name: "AxiosError",
-  stack:
-    "AxiosError: Request failed with status code 404\\n    at settle (/opt/render/project/src/node_modules/axios/lib/core/settle.js:19:12)\\n    at BrotliDecompress.handleStreamEnd (/opt/render/project/src/node_modules/axios/lib/adapters/http.js:505:11)\\n    at BrotliDecompress.emit (events.js:388:22)\\n    at BrotliDecompress.emit (domain.js:470:12)\\n    at endReadableNT (internal/streams/readable.js:1336:12)\\n    at processTicksAndRejections (internal/process/task_queues.js:82:21)",
-  config: {
-    transitional: {
-      silentJSONParsing: true,
-      forcedJSONParsing: true,
-      clarifyTimeoutError: false,
-    },
-    adapter: ["xhr", "http"],
-    transformRequest: [null],
-    transformResponse: [null],
-    timeout: 0,
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN",
-    maxContentLength: -1,
-    maxBodyLength: -1,
-    env: { Blob: null },
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-      "User-Agent": "axios/1.2.1",
-      "Content-Length": "62",
-      "Accept-Encoding": "gzip, compress, deflate, br",
-    },
-    method: "post",
-    url: "https://api.gumroad.com/v2/licenses/verify",
-    data: { product_id: "bTPylf33v6gKA_-bXASXSg==", license_key: "true" },
-  },
-  code: "ERR_BAD_REQUEST",
-  status: 404,
-}
