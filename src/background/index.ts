@@ -7,7 +7,7 @@ import { getToken } from "~api/getToken"
 import { saveChat } from "~api/saveChat"
 import { searchNotion } from "~api/search"
 import { formatDB } from "~utils/functions/notion"
-import type { StoredDatabase } from "~utils/types"
+import type { AutosaveStatus, StoredDatabase } from "~utils/types"
 
 // API calls that can be made from content scripts transit trough the background script
 // This is done to prevent CORS errors
@@ -110,11 +110,12 @@ const authenticate = async () => {
     console.log("no ids found")
     return false
   }
-  const token = await getToken({
+  const { token, isPremium } = await getToken({
     workspace_id,
     user_id
   })
   await session.set("token", token)
+  await storage.set("isPremium", isPremium)
   await storage.set("authenticated", true)
   console.log("authenticated")
   return true

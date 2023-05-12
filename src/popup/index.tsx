@@ -11,11 +11,11 @@ import "~styles.css"
 
 import { useEffect } from "react"
 
-import Spinner from "~common/components/Spinner"
 import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"
 import DatabaseSettingsPopup from "./DatabaseSettings"
+import PremiumPopup from "./PremiumPopup"
 import SettingsPopup from "./SettingsPopup"
 import WrongPagePopup from "./WrongPagePopup"
 
@@ -62,7 +62,8 @@ export default function Wrapper() {
     settings: <SettingsPopup />,
     dbsettings: <DatabaseSettingsPopup />,
     about: <AboutPopup />,
-    wrongpage: <WrongPagePopup />
+    wrongpage: <WrongPagePopup />,
+    premium: <PremiumPopup />
   }
 
   const nav = {
@@ -84,13 +85,13 @@ export default function Wrapper() {
     <div className="flex flex-col p-3 w-64 text-base">
       <img src={illustration} alt="ChatGPT to Notion" />
       {popup !== "wrongpage" && (
-        <div className="grid grid-cols-3 gap-1 mb-1">
+        <div className="grid grid-cols-3 mb-1">
           {Object.keys(nav).map((key) => (
             <button
               key={key}
               className={`button-small-outline ${
                 popup === key ? "font-bold" : ""
-              } border-none w-max`}
+              } border-none w-full`}
               onClick={() => showPopup(key as "settings" | "about" | "index")}>
               {nav[key]}
             </button>

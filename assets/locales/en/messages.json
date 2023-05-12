@@ -95,6 +95,14 @@
     "message": "Save unauthorized by Notion",
     "description": "Unauthorized message."
   },
+  "save_notFound": {
+    "message": "DB not found",
+    "description": "DB not found message."
+  },
+  "save_serverError": {
+    "message": "Server error",
+    "description": "Server error message."
+  },
   "save_generateHeadings" : {
     "message": "Generate headings & table of contents",
     "description": "Generate headings label."
@@ -148,7 +156,7 @@
     "description": "No database found message."
   },
   "settings_noUrlProperty": {
-    "message": "Add an URL proprty to this DB inside Notion to use it",
+    "message": "Add an URL property to this DB inside Notion to use it",
     "description": "No URL property message."
   },
   "settings_exampleDB": {
@@ -218,6 +226,146 @@
   "about_pinLicense": {
     "message": "is licensed by CC BY 3.0",
     "description": "Pin icon licence label."
+  },
+  "premium_isPremium": {
+    "message": "You have a premium subscription",
+    "description": "Is premium message."
+  },
+  "premium_isPremium_meaning": {
+    "message": "That means that you have:",
+    "description": "Is premium meaning message."
+  },
+  "premium_isPremium_autosave": {
+    "message": "Autosave",
+    "description": "Is premium autosave message."
+  },
+  "premium_isPremium_future": {
+    "message": "Future premium features",
+    "description": "Is premium future message."
+  },
+  "premium_isPremium_noAds": {
+    "message": "No ads",
+    "description": "Is premium no ads message."
+  },
+  "premium_isPremium_support": {
+    "message": "Priority customer support",
+    "description": "Is premium support message."
+  },
+  "premium_isPremium_gratitude": {
+    "message": "My eternal gratitude",
+    "description": "Is premium gratitude message."
+  },
+  "premium_desc": {
+    "message": "Unlock new features, get rid of ads, and more for $2 per month!",
+    "description": "Premium description."
+  },
+  "premium_trial": {
+    "message": "Get a 1-week free trial",
+    "description": "Premium trial label."
+  },
+  "premium_key_placeholder": {
+    "message": "Your license key",
+    "description": "Premium placeholder."
+  },
+  "premium_key_activate": {
+    "message": "Activate",
+    "description": "Premium activate label."
+  },
+  "premium_key_activate_error": {
+    "message": "Invalid key",
+    "description": "Premium activate error message."
+  },
+  "premium_key_activate_success": {
+    "message": "Successfully activated!",
+    "description": "Premium activate success message."
+  },
+  "premium_success": {
+    "message": "Thanks a lot for your support & purchase! Enjoy autosave and future features as much as you want!",
+    "description": "Premium success message."
+  },
+  "premium_invalid": {
+    "message": "Verify the key you recieved in your email and try again",
+    "description": "Premium invalid key message."
+  },
+  "autosave_enabled": {
+    "message": "Autosave is enabled on this chat!",
+    "description": "Autosave enabled message."
+  },
+  "autosave_enabled_desc": {
+    "message": "You may need to enable it again after changing your Notion database's properties",
+    "description": "Autosave enabled description."
+  },
+  "autosave_enabled_saving": {
+    "message": "Saving...",
+    "description": "Autosave enabled saving message."
+  },
+  "autosave_enabled_error": {
+    "message": "Error: click on the icon",
+    "description": "Autosave enabled error message."
+  },
+  "autosave_enabled_success": {
+    "message": "Saved successfully!",
+    "description": "Autosave enabled success message."
+  },
+  "autosave_enable": {
+    "message": "Enable autosave",
+    "description": "Autosave enable label."
+  },
+  "autosave_disable": {
+    "message": "Disable autosave",
+    "description": "Autosave disable label."
+  },
+  "autosave_wrongpage": {
+    "message": "Start a discussion with ChatGPT and reload the page to use autosave",
+    "description": "Autosave wrong page message."
+  },
+  "autosave_error": {
+    "message": "An error occurred while autosaving the last message",
+    "description": "Autosave error message."
+  },
+  "autosave_error_msg": {
+    "message": "Error message: ",
+    "description": "Autosave error message message."
+  },
+  "autosave_error_code": {
+    "message": "Error code: ",
+    "description": "Autosave error code message."
+  },
+  "autosave_error_desc": {
+    "message": "Try disabling & enabling autosave, ",
+    "description": "Autosave error description message."
+  },
+  "autosave_error_desc_faq": {
+    "message": "read the FAQ",
+    "description": "Autosave error description FAQ message."
+  },
+  "autosave_error_desc_or": {
+    "message": " or ",
+    "description": "Autosave error description or message."
+  },
+  "autosave_error_desc_report": {
+    "message": "report the issue",
+    "description": "Autosave error description report message."
+  },
+  "autosave_errmsg_unauthorized": {
+    "message": "Access to your Notion workspace was denied",
+    "description": "Autosave error message unauthorized message."
+  },
+  "autosave_errmsg_object_not_found": {
+    "message": "Couldn't find the Notion database, either because it was deleted or the extension isn't allowed to access it",
+    "description": "Autosave error message object not found message."
+  },
+  "autosave_errmsg_internal_server_error": {
+    "message": "There was an error on Notion's side",
+    "description": "Autosave error message internal server error message."
+  },
+  "autosave_errmsg_service_unavailable": {
+    "message": "Notion is currently unavailable",
+    "description": "Autosave error message service unavailable message."
+  },
+  "autosave_errmsg_unexpected": {
+    "message": "An unexpected error occured",
+    "description": "Autosave error message unexpected message."
   },
   "notion_tableofcontents": {
     "message": "Table of contents",

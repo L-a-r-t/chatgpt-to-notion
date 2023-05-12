@@ -1,10 +1,3 @@
-import type {
-  PageObjectResponse,
-  PartialPageObjectResponse
-} from "@notionhq/client/build/src/api-endpoints"
-
-import type { parseSave } from "~api/parseSave"
-
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
 export type ToBeSaved = {
@@ -45,5 +38,25 @@ export type PopupEnum =
   | "about"
   | "wrongpage"
   | "dbsettings"
+  | "premium"
+  | "error"
 
 export type SaveBehavior = "override" | "append" | "ignore"
+
+export type ChatConfig = {
+  enabled: boolean
+  targetPageId: string | null
+  database: StoredDatabase | null
+  lastSaveStatus: "success" | "error" | "generating" | null
+  lastError: {
+    message: string | null
+    code: string | null
+  } | null
+}
+
+export type AutosaveStatus =
+  | "generating"
+  | "saving"
+  | "saved"
+  | "error"
+  | "disabled"

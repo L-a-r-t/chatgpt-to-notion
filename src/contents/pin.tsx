@@ -12,7 +12,11 @@ import PinIcon from "~common/pin"
 
 import "~styles.css"
 
-import { i18n } from "~utils/functions"
+import { useCallback, useEffect, useState } from "react"
+
+import LogoIcon from "~common/logo"
+import { getChatConfig, i18n } from "~utils/functions"
+import type { AutosaveStatus, PopupEnum } from "~utils/types"
 
 export const config: PlasmoContentScript = {
   matches: ["https://chat.openai.com/*"]
@@ -29,14 +33,14 @@ export const render: PlasmoRender = async ({
   const rootContainer = await createRootContainer(anchor)
 
   const root = createRoot(rootContainer) // Any root
+  const parent =
+    anchor?.element?.parentElement?.parentElement?.parentElement?.parentElement
+  parent?.classList.add("pin")
   root.render(
     <>
       <Content
         // @ts-ignore
-        parent={
-          // @ts-ignore
-          anchor.element.parentElement.parentElement.parentElement.parentElement
-        }
+        parent={parent}
       />
     </>
   )
@@ -44,8 +48,58 @@ export const render: PlasmoRender = async ({
 
 const Content = ({ parent }: Props) => {
   const [toBeSaved, setToBeSaved] = useStorage("toBeSaved")
-  const [showPopup, setShowPopup] = useStorage("showPopup", false)
+  const [showPopup, setShowPopup] = useStorage<PopupEnum | false>(
+    "showPopup",
+    false
+  )
   const [authenticated] = useStorage("authenticated", false)
+  const [isPremium] = useStorage("isPremium", false)
+  const [chatID] = useStorage("chatID", "")
+  const [status] = useStorage<AutosaveStatus>("autosaveStatus", "generating")
+
+  const [autosaveEnabled, setAutosave] = useState(false)
+  const [isLastMessage, setIsLastMessage] = useState(false)
+
+  useEffect(() => {
+    if (!isPremium || !chatID) return
+    const checkAutosave = async () => {
+      const config = await getChatConfig(chatID)
+      if (!config) return
+      setAutosave(config.enabled)
+    }
+    checkAutosave()
+
+    setIsLastMessage(
+      (() => {
+        const pins = document.querySelectorAll(".pin")
+        const lastPin = pins[pins.length - 1]
+        if (!lastPin) return false
+        // Unelegant way to get the node of an element
+        const parentNode = parent.firstChild?.parentNode
+        if (!parentNode) return false
+        return (
+          lastPin.firstChild?.parentNode?.isSameNode(
+            parent.firstChild?.parentNode
+          ) ?? false
+        )
+      })()
+    )
+  }, [chatID, status])
+
+  const LastMessageIcon = useCallback(() => {
+    switch (status) {
+      case "disabled":
+        return <LogoIcon />
+      case "generating":
+        return <LogoIcon loading />
+      case "saving":
+        return <LogoIcon loading />
+      case "error":
+        return <LogoIcon error />
+      case "saved":
+        return <LogoIcon />
+    }
+  }, [chatID, status])
 
   const handleClick = async () => {
     if (!authenticated) {
@@ -74,13 +128,37 @@ const Content = ({ parent }: Props) => {
       url
     })
 
-    await setShowPopup(true)
+    await setShowPopup("save")
   }
+
+  if (autosaveEnabled)
+    return (
+      <button
+        className="pin"
+        onClick={
+          isLastMessage && status === "error"
+            ? () => setShowPopup("error")
+            : status === "saved"
+            ? handleClick
+            : undefined
+        }
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          background: "transparent",
+          border: "none",
+          marginTop: 10,
+          width: 30,
+          cursor: status !== "generating" ? "pointer" : "default"
+        }}>
+        {isLastMessage ? <LastMessageIcon /> : <LogoIcon />}
+      </button>
+    )
 
   return (
     <button
       onClick={handleClick}
-      className="text-gray-800 dark:text-gray-100"
+      className="text-gray-800 dark:text-gray-100 pin"
       style={{
         background: "transparent",
         border: "none",

@@ -4,7 +4,13 @@ import { decompress } from "shrink-string"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type { SaveBehavior, StoredDatabase, ToBeSaved } from "~utils/types"
+import type {
+  Error,
+  PopupEnum,
+  SaveBehavior,
+  StoredDatabase,
+  ToBeSaved
+} from "~utils/types"
 
 import "~styles.css"
 
@@ -14,12 +20,12 @@ import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
-import { i18n } from "~utils/functions"
+import { getConsiseErrMessage, i18n } from "~utils/functions"
 
 import ConflictPopup from "./ConflictPopup"
 
 export default function SavePopup() {
-  const [showPopup, setShowPopup] = useStorage<boolean>("showPopup")
+  const [showPopup, setShowPopup] = useStorage<PopupEnum | false>("showPopup")
   const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>("toBeSaved")
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
   const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
@@ -30,6 +36,7 @@ export default function SavePopup() {
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
   const [authenticated] = useStorage("authenticated", false)
+  const [isPremium] = useStorage("isPremium", false)
 
   const [titleType, setTitleType] = useState<"title" | "prompt" | "custom">(
     "title"
@@ -39,7 +46,7 @@ export default function SavePopup() {
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState<number | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   const [conflictingPageId, setConflictingPageId] = useState<
     string | undefined
   >()
@@ -74,13 +81,13 @@ export default function SavePopup() {
         }
       })
       if (checkRes.conflict) {
-        setError(409)
+        setError({ status: 409 })
         setConflictingPageId(checkRes.conflictingPageId)
         return
       }
       save("override")
     } catch (err) {
-      setError(err.status ?? 400)
+      setError(err)
       setLoading(false)
     }
   }
@@ -116,7 +123,7 @@ export default function SavePopup() {
           saveBehavior
         }
       })
-      if (res.err) {
+      if (!res.err) {
         setSuccess(true)
         setLoading(false)
         setConflictingPageId(undefined)
@@ -131,7 +138,7 @@ export default function SavePopup() {
       }, 5000)
       return
     } catch (err) {
-      setError(err.status ?? "400")
+      setError(err)
     } finally {
       setConflictingPageId(undefined)
       setLoading(false)
@@ -140,30 +147,34 @@ export default function SavePopup() {
 
   if (!success && !toBeSaved) return null
 
-  if (error === 409) return <ConflictPopup save={save} pin />
+  if (error?.status === 409) return <ConflictPopup save={save} pin />
 
   return !databases || databases.length == 0 ? (
     <p>{i18n("index_errRegister")}</p>
   ) : (
     <>
       {success ? (
-        <div className="mb-4">
-          <a
-            className="link block text-center"
-            href="https://theo-lartigau.notion.site/About-sponsors-daa97f9c85f74ceaabb37a68958d4c8a"
-            target="_blank">
-            {i18n("sponsored")}
-          </a>
-          <a
-            href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
-            target="_blank">
-            <img
-              src={banner2}
-              className="w-full aspect-square"
-              alt="Use ChatGPT.ai today!"
-            />
-          </a>
-        </div>
+        isPremium ? (
+          <div />
+        ) : (
+          <div className="mb-4">
+            <a
+              className="link block text-center"
+              href="https://theo-lartigau.notion.site/About-sponsors-daa97f9c85f74ceaabb37a68958d4c8a"
+              target="_blank">
+              {i18n("sponsored")}
+            </a>
+            <a
+              href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
+              target="_blank">
+              <img
+                src={banner2}
+                className="w-full aspect-square"
+                alt="Use ChatGPT.ai today!"
+              />
+            </a>
+          </div>
+        )
       ) : (
         <>
           <div className="flex">
@@ -212,7 +223,7 @@ export default function SavePopup() {
           <p className="text-xs">
             {answer.length > 80
               ? answer.replace(/(<.+?>)/g, "").substring(0, 80) + "..."
-              : answer}
+              : answer.replace(/(<.+?>)/g, "")}
           </p>
           <div className="flex justify-between items-center my-3">
             <p className="font-bold">{i18n("save_saveTo")}</p>
@@ -275,11 +286,7 @@ export default function SavePopup() {
             <Spinner white small />
           </>
         ) : error ? (
-          error === 401 ? (
-            i18n("save_unauthorized")
-          ) : (
-            i18n("save_error")
-          )
+          getConsiseErrMessage(error)
         ) : success ? (
           i18n("save_saved")
         ) : (
@@ -301,7 +308,10 @@ export default function SavePopup() {
           </label>
         </div>
       )}
-      {error === 401 && (
+      {error?.message && (
+        <p className="text-sm text-red-400">{error.message}</p>
+      )}
+      {error?.status === 401 && (
         <a
           className="link text-sm"
           href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"

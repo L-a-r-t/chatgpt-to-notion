@@ -12,6 +12,7 @@ import "~styles.css"
 import Spinner from "~common/components/Spinner"
 import GearIcon from "~common/gear"
 import RefreshIcon from "~common/refresh"
+import StarIcon from "~common/star"
 import { i18n } from "~utils/functions"
 
 function SettingsPopup() {
@@ -174,6 +175,17 @@ function SettingsPopup() {
                 </a>
               </>
             )
+          )}
+          {databases.length > 0 && (
+            <>
+              <div className="border my-3" />
+              <button
+                onClick={() => setPopup("premium")}
+                className="button-outline text-sm font-normal">
+                <StarIcon />
+                Premium
+              </button>
+            </>
           )}
         </>
       )}

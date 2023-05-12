@@ -13,8 +13,8 @@ export const getToken = async ({ workspace_id, user_id }: GetTokenParams) => {
         })
       }
     )
-    const { token } = await response.json()
-    return token
+    const res = await response.json()
+    return res
   } catch (err) {
     console.error(err)
   }

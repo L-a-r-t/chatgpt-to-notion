@@ -219,6 +219,146 @@
     "message": "sous licence CC BY 3.0",
     "description": "Pin icon licence label."
   },
+  "premium_isPremium": {
+    "message": "Vous avez un abonnement premium",
+    "description": "Is premium message."
+  },
+  "premium_isPremium_meaning": {
+    "message": "Le premium comprend :",
+    "description": "Is premium meaning message."
+  },
+  "premium_isPremium_autosave": {
+    "message": "Sauvegarde auto",
+    "description": "Is premium autosave message."
+  },
+  "premium_isPremium_future": {
+    "message": "Prochaines fonctionnalités premium",
+    "description": "Is premium future message."
+  },
+  "premium_isPremium_noAds": {
+    "message": "Pas de publicité",
+    "description": "Is premium no ads message."
+  },
+  "premium_isPremium_support": {
+    "message": "Service client prioritaire",
+    "description": "Is premium support message."
+  },
+  "premium_isPremium_gratitude": {
+    "message": "Mon éternelle gratitude",
+    "description": "Is premium gratitude message."
+  },
+  "premium_desc": {
+    "message": "Débloquez de nouvelles fonctionnalités, enlevez les pubs et soutenez le développement de l'extension pour 2€/mois !",
+    "description": "Premium description."
+  },
+  "premium_trial": {
+    "message": "Prenez un essai gratuit de 7 jours",
+    "description": "Premium trial label."
+  },
+  "premium_key_placeholder": {
+    "message": "Votre clé de licence",
+    "description": "Premium placeholder."
+  },
+  "premium_key_activate": {
+    "message": "Activer",
+    "description": "Premium activate label."
+  },
+  "premium_key_activate_error": {
+    "message": "Clé invalide",
+    "description": "Premium activate error message."
+  },
+  "premium_key_activate_success": {
+    "message": "Activation réussie!",
+    "description": "Premium activate success message."
+  },
+  "premium_success": {
+    "message": "Merci beaucoup pour votre achat et votre soutien! Profitez des fonctionnalités premium à votre guise!",
+    "description": "Premium success message."
+  },
+  "premium_invalid": {
+    "message": "Vérifiez la clé reçue par mail et essayez à nouveau",
+    "description": "Premium invalid key message."
+  },
+  "autosave_enabled": {
+    "message": "La sauvegarde auto est activée pour ce chat!",
+    "description": "Autosave enabled message."
+  },
+  "autosave_enabled_desc": {
+    "message": "Vous pourriez avoir à l'activer à nouveau si vous changez les propriétés de votre BDD Notion",
+    "description": "Autosave enabled description."
+  },
+  "autosave_enabled_saving": {
+    "message": "Sauvegarde...",
+    "description": "Autosave enabled saving message."
+  },
+  "autosave_enabled_error": {
+    "message": "Erreur: cliquez sur l'icône",
+    "description": "Autosave enabled error message."
+  },
+  "autosave_enabled_success": {
+    "message": "Sauvegarde réussie!",
+    "description": "Autosave enabled success message."
+  },
+  "autosave_enable": {
+    "message": "Sauvegarde auto",
+    "description": "Autosave enable label."
+  },
+  "autosave_disable": {
+    "message": "Désactiver sauvegarde auto",
+    "description": "Autosave disable label."
+  },
+  "autosave_wrongpage": {
+    "message": "Démarrez une conversation avec ChatGPT et actualisez la page",
+    "description": "Autosave wrong page message."
+  },
+  "autosave_error": {
+    "message": "Il y a eu une erreur lors de la sauvegarde du dernier message",
+    "description": "Autosave error message."
+  },
+  "autosave_error_msg": {
+    "message": "Message d'erreur :",
+    "description": "Autosave error message message."
+  },
+  "autosave_error_code": {
+    "message": "Code d'erreur :",
+    "description": "Autosave error code message."
+  },
+  "autosave_error_desc": {
+    "message": "Essayez de désactiver et de réactiver la sauvegarde auto, ",
+    "description": "Autosave error description message."
+  },
+  "autosave_error_desc_faq": {
+    "message": "lisez la FAQ",
+    "description": "Autosave error description FAQ message."
+  },
+  "autosave_error_desc_or": {
+    "message": " ou ",
+    "description": "Autosave error description or message."
+  },
+  "autosave_error_desc_report": {
+    "message": "signalez le problème",
+    "description": "Autosave error description report message."
+  },
+  "autosave_errmsg_unauthorized": {
+    "message": "L'accès à votre espace Notion a été refusé",
+    "description": "Autosave error message unauthorized message."
+  },
+  "autosave_errmsg_object_not_found": {
+    "message": "Impossible de trouver la BDD Notion, soit parcequ'elle a été supprimée ou parce que l'extension n'a pas le droit d'y accéder",
+    "description": "Autosave error message object not found message."
+  },
+  "autosave_errmsg_internal_server_error": {
+    "message": "Il y a eu une erreur du côté de Notion",
+    "description": "Autosave error message internal server error message."
+  },
+  "autosave_errmsg_service_unavailable": {
+    "message": "Notion est actuellement indisponible",
+    "description": "Autosave error message service unavailable message."
+  },
+  "autosave_errmsg_unexpected": {
+    "message": "Une erreur inattendue est survenue",
+    "description": "Autosave error message unexpected message."
+  },
   "notion_tableofcontents": {
     "message": "Sommaire",
     "description": "Table of contents label."
