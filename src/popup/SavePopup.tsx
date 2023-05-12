@@ -59,28 +59,6 @@ export default function SavePopup() {
     try {
       if (!toBeSaved) return
       setLoading(true)
-      // const res = await chrome.runtime.sendMessage({
-      //   type: "saveAnswer",
-      //   body: {
-      //     generateHeadings,
-      //     database,
-      //     ...toBeSaved
-      //   }
-      // })
-      // // if res is an error it will be the error code, a number
-      // if (isNaN(res)) {
-      //   setSuccess(true)
-      //   setLoading(false)
-      //   setToBeSaved(null)
-      //   return
-      // }
-      // setError(res)
-      // setLoading(false)
-      // setTimeout(() => {
-      //   setToBeSaved(null)
-      //   setShowPopup(false)
-      // }, 5000)
-      // return
       let title = ""
       if (titleType === "title") title = toBeSaved.title
       else if (titleType === "prompt")

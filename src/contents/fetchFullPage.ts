@@ -27,7 +27,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const title = document.title
 
     const res = { prompts, answers, url, title }
-    console.log(res)
     sendResponse(res)
   }
 })

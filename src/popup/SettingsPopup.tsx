@@ -41,7 +41,6 @@ function SettingsPopup() {
           query
         }
       })
-      console.log(response)
       setFetching(false)
       if (response.status && [401, 403].includes(response.status)) {
         setDbError(i18n("settings_errUnauthorized"))

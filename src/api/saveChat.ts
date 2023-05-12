@@ -45,7 +45,6 @@ export const saveChat = async ({
     let response: CreatePageResponse | AppendBlockChildrenResponse
     let block_id: string
 
-    // this if/else is redundant but typescript wouldn't let me do otherwise
     if (conflictingPageId && saveBehavior === "append") {
       response = await notion.blocks.children.append({
         block_id: conflictingPageId,
