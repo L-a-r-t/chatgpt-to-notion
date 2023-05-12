@@ -14,6 +14,12 @@ export type ToBeSaved = {
   url: string
 } | null
 
+export type Error = {
+  code?: string | null
+  message?: string | null
+  status?: number | null
+}
+
 export type StoredDatabase = {
   id: string
   title: string
