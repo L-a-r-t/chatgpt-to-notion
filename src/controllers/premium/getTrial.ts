@@ -31,14 +31,16 @@ export const getTrial = async (req: Request, res: Response) => {
       return
     }
 
+    const trialEnd = dayjs().add(7, "day").toDate()
+
     await TokenData.findOneAndUpdate(
       { id },
       {
-        trial_end: dayjs().add(7, "day").toDate(),
+        trial_end: trialEnd,
       }
     )
 
-    res.status(200).send({ success: true, trial_end: Date.now() })
+    res.status(200).send({ success: true, trialEnd })
   } catch (err) {
     console.error(err)
     res.status(500).send({
