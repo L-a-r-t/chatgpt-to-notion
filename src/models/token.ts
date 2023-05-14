@@ -54,6 +54,9 @@ const tokenSchema = new mongoose.Schema({
   license_key: {
     type: String,
   },
+  trial_end: {
+    type: Date,
+  },
   owner: ownerSchema,
 })
 

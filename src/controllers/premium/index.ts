@@ -1,3 +1,4 @@
 import { register } from "./register"
+import { getTrial } from "./getTrial"
 
-export { register }
+export { register, getTrial }

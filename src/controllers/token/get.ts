@@ -1,6 +1,7 @@
 import TokenData from "../../models/token"
 import { Request, Response } from "express"
 import axios from "axios"
+import dayjs from "dayjs"
 
 export const get = async (req: Request, res: Response) => {
   try {
@@ -8,6 +9,11 @@ export const get = async (req: Request, res: Response) => {
     const id = `${workspace_id}:${user_id}`
     const data = await TokenData.findOne({ id })
     if (!data) throw new Error("token not found")
+
+    const activeTrial = data.trial_end
+      ? dayjs(data.trial_end).isAfter(dayjs())
+      : false
+    const trial_end = data.trial_end ? dayjs(data.trial_end).valueOf() : null
 
     let isPremium = false
     const license_key = data.license_key
@@ -27,7 +33,9 @@ export const get = async (req: Request, res: Response) => {
         console.error(err)
       }
     }
-    res.status(200).send({ token: data.access_token, isPremium })
+    res
+      .status(200)
+      .send({ token: data.access_token, isPremium, trial_end, activeTrial })
   } catch (err) {
     console.error(err)
     res.status(500).send({
