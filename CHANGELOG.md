@@ -1,3 +1,9 @@
+## 1.5.1
+
+Fixes
+
+- Free trial for autosave can be activated without going on Gumroad & entering payment info
+
 ## 1.5.0
 
 Features
