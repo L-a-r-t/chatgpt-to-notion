@@ -110,13 +110,17 @@ const authenticate = async () => {
     console.log("no ids found")
     return false
   }
-  const { token, isPremium } = await getToken({
+  const { token, isPremium, activeTrial, trial_end } = await getToken({
     workspace_id,
     user_id
   })
-  await session.set("token", token)
-  await storage.set("isPremium", isPremium)
-  await storage.set("authenticated", true)
+  await Promise.all([
+    session.set("token", token),
+    storage.set("isPremium", isPremium),
+    storage.set("activeTrial", activeTrial && trial_end),
+    storage.set("trialEnd", trial_end ?? 0),
+    storage.set("authenticated", true)
+  ])
   console.log("authenticated")
   return true
 }

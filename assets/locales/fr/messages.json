@@ -251,8 +251,8 @@
     "message": "Débloquez de nouvelles fonctionnalités, enlevez les pubs et soutenez le développement de l'extension pour 2€/mois !",
     "description": "Premium description."
   },
-  "premium_trial": {
-    "message": "Prenez un essai gratuit de 7 jours",
+  "premium_cta": {
+    "message": "Abonnez-vous !",
     "description": "Premium trial label."
   },
   "premium_key_placeholder": {
@@ -287,6 +287,34 @@
     "message": "La sauvegarde auto est activée pour ce chat!",
     "description": "Autosave enabled message."
   },
+  "premium_trial_or": {
+    "message": "OU",
+    "description": "Premium trial or label."
+  },
+  "premium_trial_cta": {
+    "message": "Essai gratuit (7 jour)",
+    "description": "Premium trial label."
+  },
+  "premium_trial_success": {
+    "message": "Essai activé!",
+    "description": "Premium trial success message."
+  },
+  "premium_trial_error": {
+    "message": "Il y a eu une erreur",
+    "description": "Premium trial error message."
+  },
+  "premium_trial_noInfo": {
+    "message": "Pas d'info de paiement requise",
+    "description": "Premium trial no info required message."
+  },
+  "premium_trial_endDate": {
+    "message": "Votre essai se termine le ",
+    "description": "Premium trial end date message."
+  },
+  "premium_trial_over": {
+    "message": "Votre essai est terminé",
+    "description": "Premium trial over message."
+  },
   "autosave_enabled_desc": {
     "message": "Vous pourriez avoir à l'activer à nouveau si vous changez les propriétés de votre BDD Notion",
     "description": "Autosave enabled description."
@@ -302,6 +330,10 @@
   "autosave_enabled_success": {
     "message": "Sauvegarde réussie!",
     "description": "Autosave enabled success message."
+  },
+  "autosave_try": {
+    "message": "Essayer sauvegarde auto",
+    "description": "Autosave try label."
   },
   "autosave_enable": {
     "message": "Sauvegarde auto",

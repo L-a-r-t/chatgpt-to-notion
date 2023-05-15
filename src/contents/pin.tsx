@@ -54,6 +54,7 @@ const Content = ({ parent }: Props) => {
   )
   const [authenticated] = useStorage("authenticated", false)
   const [isPremium] = useStorage("isPremium", false)
+  const [activeTrial] = useStorage("activeTrial", false)
   const [chatID] = useStorage("chatID", "")
   const [status] = useStorage<AutosaveStatus>("autosaveStatus", "generating")
 
@@ -61,7 +62,7 @@ const Content = ({ parent }: Props) => {
   const [isLastMessage, setIsLastMessage] = useState(false)
 
   useEffect(() => {
-    if (!isPremium || !chatID) return
+    if (!(isPremium || activeTrial) || !chatID) return
     const checkAutosave = async () => {
       const config = await getChatConfig(chatID)
       if (!config) return

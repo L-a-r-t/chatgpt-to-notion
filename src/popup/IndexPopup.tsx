@@ -45,6 +45,7 @@ function IndexPopup() {
 
   const [authenticated] = useStorage("authenticated", false)
   const [isPremium] = useStorage("isPremium", false)
+  const [activeTrial] = useStorage("activeTrial", false)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>("autosaveStatus")
   const [chatID] = useStorage("chatID", null)
   const [autoSaveEnabled, setAutoSave] = useState(false)
@@ -209,7 +210,7 @@ function IndexPopup() {
               </div>
             </div>
           </div>
-        ) : isPremium ? (
+        ) : isPremium || activeTrial ? (
           <div />
         ) : (
           <div className="mb-4">
@@ -316,14 +317,18 @@ function IndexPopup() {
             </label>
           </div>
           <button
-            disabled={!chatID && !isPremium}
-            onClick={() => (isPremium ? handleSave(true) : setPopup("premium"))}
+            disabled={!chatID && !(isPremium || activeTrial)}
+            onClick={() =>
+              isPremium || activeTrial ? handleSave(true) : setPopup("premium")
+            }
             className={`button-outline ${
-              !chatID && !isPremium ? "text-sm font-normal" : ""
+              !chatID && !(isPremium || activeTrial)
+                ? "text-sm font-normal"
+                : ""
             }`}>
-            {!isPremium && <StarIcon />}
-            {!isPremium && i18n("autosave_enable")}
-            {isPremium &&
+            {!(isPremium || activeTrial) && <StarIcon />}
+            {!(isPremium || activeTrial) && i18n("autosave_try")}
+            {(isPremium || activeTrial) &&
               (chatID
                 ? autoSaveEnabled
                   ? i18n("autosave_disable")

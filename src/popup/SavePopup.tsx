@@ -37,6 +37,7 @@ export default function SavePopup() {
 
   const [authenticated] = useStorage("authenticated", false)
   const [isPremium] = useStorage("isPremium", false)
+  const [activeTrial] = useStorage("activeTrial", false)
 
   const [titleType, setTitleType] = useState<"title" | "prompt" | "custom">(
     "title"
@@ -154,7 +155,7 @@ export default function SavePopup() {
   ) : (
     <>
       {success ? (
-        isPremium ? (
+        isPremium || activeTrial ? (
           <div />
         ) : (
           <div className="mb-4">

@@ -259,8 +259,8 @@
     "message": "Unlock new features, get rid of ads and support development for $2 per month!",
     "description": "Premium description."
   },
-  "premium_trial": {
-    "message": "Get a 1-week free trial",
+  "premium_cta": {
+    "message": "Subscribe now!",
     "description": "Premium trial label."
   },
   "premium_key_placeholder": {
@@ -291,6 +291,34 @@
     "message": "Verify the key you recieved in your email and try again",
     "description": "Premium invalid key message."
   },
+  "premium_trial_or": {
+    "message": "OR",
+    "description": "Premium trial or label."
+  },
+  "premium_trial_cta": {
+    "message": "Activate free trial (7 days)",
+    "description": "Premium trial label."
+  },
+  "premium_trial_success": {
+    "message": "Trial activated!",
+    "description": "Premium trial success message."
+  },
+  "premium_trial_error": {
+    "message": "An error occured",
+    "description": "Premium trial error message."
+  },
+  "premium_trial_noInfo": {
+    "message": "No payment info required",
+    "description": "Premium trial no info required message."
+  },
+  "premium_trial_endDate": {
+    "message": "Your trial ends on",
+    "description": "Premium trial end date message."
+  },
+  "premium_trial_over": {
+    "message": "Your trial is over",
+    "description": "Premium trial over message."
+  },
   "autosave_enabled": {
     "message": "Autosave is enabled on this chat!",
     "description": "Autosave enabled message."
@@ -310,6 +338,10 @@
   "autosave_enabled_success": {
     "message": "Saved successfully!",
     "description": "Autosave enabled success message."
+  },
+  "autosave_try": {
+    "message": "Try autosave",
+    "description": "Autosave try label."
   },
   "autosave_enable": {
     "message": "Enable autosave",

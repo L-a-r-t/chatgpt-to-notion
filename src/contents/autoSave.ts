@@ -16,8 +16,11 @@ let saving = false
 // This is why we have checks for both the button and the dots, as both show up when generating text
 const callback = async (mutations: MutationRecord[]) => {
   const storage = new Storage()
-  const isPremium = await storage.get("isPremium")
-  if (!isPremium) return
+  const [isPremium, activeTrial] = await Promise.all([
+    storage.get("isPremium"),
+    storage.get("activeTrial")
+  ])
+  if (!(isPremium || activeTrial)) return
   const chatID = await storage.get("chatID")
   const config = await getChatConfig(chatID)
   if (!config) return
@@ -155,8 +158,11 @@ const initialize = async () => {
     )
   }
 
-  const isPremium = await storage.get("isPremium")
-  if (!isPremium) return
+  const [isPremium, activeTrial] = await Promise.all([
+    storage.get("isPremium"),
+    storage.get("activeTrial")
+  ])
+  if (!(isPremium || activeTrial)) return
 
   const element = document.querySelector(
     "form > div > div > .flex.justify-center"
