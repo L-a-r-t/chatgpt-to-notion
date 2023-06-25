@@ -21,7 +21,8 @@ export const HTMLtoBlocks = (html: string) => {
     if (block.type !== "code") {
       acc.push(block)
     } else {
-      block.code.rich_text[0].annotations = undefined
+      if (block.code.rich_text[0])
+        block.code.rich_text[0].annotations = undefined
       acc.push(block)
     }
     return acc

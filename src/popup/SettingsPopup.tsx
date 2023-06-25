@@ -55,7 +55,10 @@ function SettingsPopup() {
 
   const handleSelect = async (db: DatabaseObjectResponse) => {
     setDbError((prev) => null)
-    if (databases.map((d) => d.id).includes(db.id)) return
+    if (databases.map((d) => d.id).includes(db.id)) {
+      setDbError(i18n("settings_alreadyLinked"))
+      return
+    }
     const formattedDB = formatDB(db)
     if (!formattedDB) {
       setDbError(i18n("settings_noUrlProperty"))
