@@ -1,3 +1,14 @@
+## 1.5.2
+
+Fixes
+
+- Fixed two rare bugs that caused saving to fail
+
+Misc
+
+- Updated the sponsor (is now a prompt to leave a rating)
+- I've been busy with a few urgent matters lately, will try to make a new feature release every 2 weeks for the next 2 months
+
 ## 1.5.1
 
 Fixes
