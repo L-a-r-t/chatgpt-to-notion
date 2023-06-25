@@ -30,6 +30,7 @@ These are the things that I plan to work on at some point. I hope to have the fo
 
 - [ ] Support ChatGPT websearch and plugins (might already be the case but I couldn't test it yet)
 - [ ] Document the code properly for anyone who's interested
+- [ ] Keyboard shortcuts
 - [ ] Improved chat formatting on some edge cases
 - [x] Choose between saving an individual response to a new page or appending it to an existing page
 - [x] Possibility to autosave conversations
