@@ -159,19 +159,19 @@ export default function SavePopup() {
           <div />
         ) : (
           <div className="mb-4">
-            <a
+            {/* <a
               className="link block text-center"
               href="https://theo-lartigau.notion.site/About-sponsors-daa97f9c85f74ceaabb37a68958d4c8a"
               target="_blank">
               {i18n("sponsored")}
-            </a>
+            </a> */}
             <a
-              href="https://www.usechatgpt.ai/install?ref=chatgpttonotion"
+              href="https://chrome.google.com/webstore/detail/chatgpt-to-notion/oojndninaelbpllebamcojkdecjjhcle"
               target="_blank">
               <img
                 src={banner2}
                 className="w-full aspect-square"
-                alt="Use ChatGPT.ai today!"
+                alt="Leave a review!"
               />
             </a>
           </div>
