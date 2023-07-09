@@ -85,35 +85,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true
 })
 
-const authenticate = async () => {
-  const session = new Storage({
-    area: "session",
-    secretKeyList: ["token"]
+chrome.runtime.onInstalled.addListener(() => {
+  refreshContentScripts()
+
+  chrome.contextMenus.create({
+    id: "append",
+    title: "Save chat to Notion (append if conflict)",
+    targetUrlPatterns: ["https://chat.openai.com/*"]
   })
-  const storage = new Storage()
-  await storage.set("authenticated", false)
-  const _token = await session.get("token")
-  if (_token) {
-    console.log("token already exists")
-    await storage.set("authenticated", true)
-    return true
-  }
-  // await session.set("token", null)
-  // await storage.set("workspace_id", null)
-  // await storage.set("user_id", null)
-  // return
-  const [workspace_id, user_id] = await Promise.all([
-    storage.get("workspace_id"),
-    storage.get("user_id")
-  ])
-  if (!workspace_id || !user_id) {
-    console.log("no ids found")
-    return false
-  }
-  const { token, isPremium, activeTrial, trial_end } = await getToken({
-    workspace_id,
-    user_id
+  chrome.contextMenus.create({
+    id: "override",
+    title: "Save chat to Notion (override if conflict)",
+    targetUrlPatterns: ["https://chat.openai.com/*"]
   })
+})
   await Promise.all([
     session.set("token", token),
     storage.set("isPremium", isPremium),
@@ -125,51 +110,9 @@ const authenticate = async () => {
   return true
 }
 
-const refreshIcons = async () => {
-  const storage = new Storage()
-  const databases = await storage.get<StoredDatabase[]>("databases")
-  if (!databases) return
-  for (let i = 0; i < databases.length; i++) {
-    const icon = databases[i].icon
-    if (!icon) continue
-    if (icon.type === "file") {
-      const expiryTime = icon.file.expiry_time
-      if (new Date(expiryTime).getTime() < Date.now()) {
-        console.log("refreshing icon for", databases[i].title)
-        const db = await getDatabase(databases[i].id)
-        if (!db) continue
-        databases[i].icon = db.icon
-        await storage.set("databases", databases)
-      }
-    }
-  }
-}
-
-const refreshDatabases = async () => {
-  console.log("refreshing databases")
-  const storage = new Storage()
-  const databases = await storage.get<StoredDatabase[]>("databases")
-  if (!databases) return
-
-  const apiCalls = databases.filter((db) => db).map((db) => getDatabase(db.id))
-  const fullDatabases = await Promise.all(apiCalls)
-
-  let refreshedDatabases: StoredDatabase[] = []
-  for (let i = 0; i < fullDatabases.length; i++) {
-    const db = fullDatabases[i]
-    if (!db) continue
-    const formattedDB = formatDB(db)
-    if (!formattedDB) continue
-    refreshedDatabases.push(formattedDB)
-  }
-
-  const selectedDB = await storage.get<number>("selectedDB")
-  if (!!selectedDB && selectedDB >= refreshedDatabases.length) {
-    await storage.set("selectedDB", 0)
-  }
-  await storage.set("databases", refreshedDatabases)
-  await storage.set("refreshed", true)
-}
+chrome.contextMenus.onClicked.addListener(({ menuItemId }) => {
+  saveFromContextMenu(menuItemId as "append" | "override")
+})
 
 const main = async () => {
   const authenticated = await authenticate()
