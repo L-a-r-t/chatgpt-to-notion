@@ -1,3 +1,18 @@
+## 1.6.0
+
+Features
+
+- Can now save from a context menu (right click on the page)
+
+Fixes
+
+- Fixed the "Receiving end does not exist" error
+- Various small fixes
+
+Misc
+
+- Started refactoring the codebase to make it more maintainable & easier to document
+
 ## 1.5.2
 
 Fixes

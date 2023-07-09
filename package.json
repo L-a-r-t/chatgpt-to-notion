@@ -37,10 +37,13 @@
     "default_locale": "en",
     "host_permissions": [
       "https://api.notion.com/*",
-      "https://chatgpt-to-notion.onrender.com/*"
+      "https://chatgpt-to-notion.onrender.com/*",
+      "https://chat.openai.com/*"
     ],
     "permissions": [
-      "tabs"
+      "tabs",
+      "contextMenus",
+      "scripting"
     ]
   }
 }

@@ -28,10 +28,8 @@ As this is my first time building a project that is open to contributions I will
 
 These are the things that I plan to work on at some point. I hope to have the following (ranked by priority) done in the near future:
 
-- [ ] Support ChatGPT websearch and plugins (might already be the case but I couldn't test it yet)
-- [ ] Document the code properly for anyone who's interested
+- [ ] Extended support for code interpreter & plugins
+- [ ] Document the code properly for anyone who's interested (WIP)
 - [ ] Keyboard shortcuts
 - [ ] Improved chat formatting on some edge cases
-- [x] Choose between saving an individual response to a new page or appending it to an existing page
-- [x] Possibility to autosave conversations
-- [x] Customize the page title upon saving (will assess if this is truly possible/useful)
+- [x] Support ChatGPT websearch and plugins
