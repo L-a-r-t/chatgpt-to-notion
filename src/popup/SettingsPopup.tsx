@@ -1,5 +1,5 @@
 import type { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -30,6 +30,10 @@ function SettingsPopup() {
     []
   )
 
+  useEffect(() => {
+    console.log(databases)
+  }, [databases])
+
   const [authenticated] = useStorage("authenticated", false)
 
   const refreshSearch = useDebounce(
@@ -37,7 +41,7 @@ function SettingsPopup() {
       setDbError(null)
       setFetching(true)
       const response = await chrome.runtime.sendMessage({
-        type: "search",
+        type: "chatgpt-to-notion_search",
         body: {
           query
         }

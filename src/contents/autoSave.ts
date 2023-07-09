@@ -100,7 +100,7 @@ const callback = async (mutations: MutationRecord[]) => {
         const generateHeadings = true
 
         const { conflictingPageId } = await chrome.runtime.sendMessage({
-          type: "checkSaveConflict",
+          type: "chatgpt-to-notion_checkSaveConflict",
           body: {
             title,
             database
@@ -114,7 +114,7 @@ const callback = async (mutations: MutationRecord[]) => {
           conflictingPageId
         }
         const res = await chrome.runtime.sendMessage({
-          type: "autoSave",
+          type: "chatgpt-to-notion_autoSave",
           body: parsedReq
         })
         saving = false

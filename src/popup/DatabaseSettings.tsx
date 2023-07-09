@@ -41,7 +41,7 @@ function DatabaseSettingsPopup() {
   const refreshDatabase = async () => {
     setRefreshing(true)
     const db: DatabaseObjectResponse = await chrome.runtime.sendMessage({
-      type: "getDB",
+      type: "chatgpt-to-notion_getDB",
       body: {
         id: databases[selectedDB].id
       }

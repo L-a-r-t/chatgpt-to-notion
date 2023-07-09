@@ -14,6 +14,10 @@ export const config: PlasmoContentScript = {
   matches: ["https://chat.openai.com/*"]
 }
 
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === "chatgpt-to-notion_alert") alert(message.body)
+})
+
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement("style")
   style.textContent = styleText

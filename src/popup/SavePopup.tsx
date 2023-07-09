@@ -75,7 +75,7 @@ export default function SavePopup() {
 
       const database = db!
       const checkRes = await chrome.runtime.sendMessage({
-        type: "checkSaveConflict",
+        type: "chatgpt-to-notion_checkSaveConflict",
         body: {
           title,
           database
@@ -116,7 +116,7 @@ export default function SavePopup() {
       }
       const parsedReq = await parseSave(req)
       const res = await chrome.runtime.sendMessage({
-        type: "saveChat",
+        type: "chatgpt-to-notion_saveChat",
         body: {
           ...parsedReq,
           conflictingPageId,

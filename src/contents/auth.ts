@@ -12,7 +12,7 @@ export const auth = async () => {
   const code = new URLSearchParams(window.location.search).get("code")
   if (!code) return
   await chrome.runtime.sendMessage({
-    type: "generateToken",
+    type: "chatgpt-to-notion_generateToken",
     body: { code }
   })
 }
