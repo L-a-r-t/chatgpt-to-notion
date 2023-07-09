@@ -3,87 +3,96 @@ import { Storage } from "@plasmohq/storage"
 import { checkSaveConflict } from "~api/checkSaveConflict"
 import { generateToken } from "~api/generateToken"
 import { getDatabase } from "~api/getDatabase"
-import { getToken } from "~api/getToken"
 import { saveChat } from "~api/saveChat"
 import { searchNotion } from "~api/search"
-import { formatDB } from "~utils/functions/notion"
-import type { AutosaveStatus, StoredDatabase } from "~utils/types"
+import type { AutosaveStatus } from "~utils/types"
+
+import {
+  authenticate,
+  refreshContentScripts,
+  refreshDatabases,
+  refreshIcons,
+  saveFromContextMenu
+} from "./functions"
 
 // API calls that can be made from content scripts transit trough the background script
 // This is done to prevent CORS errors
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  switch (message.type) {
-    case "search":
-      searchNotion(message.body.query)
-        .then((res) => {
-          sendResponse(res)
+// Functions here aren't decoupled from the background script because of odd behavior with sendResponse
+chrome.runtime.onMessageExternal.addListener(
+  (message, sender, sendResponse) => {
+    switch (message.type) {
+      case "chatgpt-to-notion_search":
+        searchNotion(message.body.query)
+          .then((res) => {
+            sendResponse(res)
+          })
+          .catch((err) => {
+            console.error(err)
+            sendResponse({ err })
+          })
+        break
+      case "chatgpt-to-notion_checkSaveConflict":
+        checkSaveConflict(message.body)
+          .then((res) => {
+            sendResponse(res)
+          })
+          .catch((err) => {
+            console.error(err)
+            sendResponse({ err })
+          })
+        break
+      case "chatgpt-to-notion_saveChat":
+        saveChat(message.body)
+          .then((res) => {
+            sendResponse(res)
+          })
+          .catch((err) => {
+            console.error(err)
+            sendResponse({ err })
+          })
+        break
+      case "chatgpt-to-notion_autoSave":
+        const storage = new Storage()
+        saveChat(message.body)
+          .then((res) => {
+            sendResponse(res)
+            storage.set("autosaveStatus", "saved" as AutosaveStatus)
+          })
+          .catch((err) => {
+            storage.set("autosaveStatus", "error" as AutosaveStatus)
+            console.error(err)
+            sendResponse({ err })
+          })
+        break
+      case "chatgpt-to-notion_generateToken":
+        // using two means of checking if user is logged in just to be sure
+        const session = new Storage({
+          area: "session",
+          secretKeyList: ["token"]
         })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
+        session.get("token").then((token) => {
+          if (token) return
+          generateToken(message.body.code).then((res) => {
+            sendResponse(res)
+          })
         })
-      break
-    case "checkSaveConflict":
-      checkSaveConflict(message.body)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "saveChat":
-      saveChat(message.body)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "autoSave":
-      const storage = new Storage()
-      saveChat(message.body)
-        .then((res) => {
-          sendResponse(res)
-          storage.set("autosaveStatus", "saved" as AutosaveStatus)
-        })
-        .catch((err) => {
-          storage.set("autosaveStatus", "error" as AutosaveStatus)
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "generateToken":
-      // using two means of checking if user is logged in just to be sure
-      const session = new Storage({
-        area: "session",
-        secretKeyList: ["token"]
-      })
-      session.get("token").then((token) => {
-        if (token) return
-        generateToken(message.body.code).then((res) => {
-          sendResponse(res)
-        })
-      })
-      break
-    case "getDB":
-      getDatabase(message.body.id)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    default:
-      return true
+        break
+      case "chatgpt-to-notion_getDB":
+        getDatabase(message.body.id)
+          .then((res) => {
+            sendResponse(res)
+          })
+          .catch((err) => {
+            console.error(err)
+            sendResponse({ err })
+          })
+        break
+      default:
+        return true
+    }
+    return true
   }
-  return true
-})
+)
 
 chrome.runtime.onInstalled.addListener(() => {
   refreshContentScripts()
@@ -99,16 +108,6 @@ chrome.runtime.onInstalled.addListener(() => {
     targetUrlPatterns: ["https://chat.openai.com/*"]
   })
 })
-  await Promise.all([
-    session.set("token", token),
-    storage.set("isPremium", isPremium),
-    storage.set("activeTrial", activeTrial && trial_end),
-    storage.set("trialEnd", trial_end ?? 0),
-    storage.set("authenticated", true)
-  ])
-  console.log("authenticated")
-  return true
-}
 
 chrome.contextMenus.onClicked.addListener(({ menuItemId }) => {
   saveFromContextMenu(menuItemId as "append" | "override")
