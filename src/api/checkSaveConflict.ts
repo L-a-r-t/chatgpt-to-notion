@@ -15,6 +15,8 @@ export const checkSaveConflict = async ({
   database
 }: CheckConflictParams) => {
   try {
+    if (title === "") throw new Error("Title can't be empty")
+
     const notion = await getNotion()
     const { propertiesIds, tags, tagPropertyIndex, tagIndex } = database
     const tag = generateTag(tags[tagPropertyIndex], tagIndex)
