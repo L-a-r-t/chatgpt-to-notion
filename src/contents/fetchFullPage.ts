@@ -5,7 +5,8 @@ export const config: PlasmoContentScript = {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "fetchFullChat") sendResponse(fetchFullChat())
+  if (message.type === "chatgpt-to-notion_fetchFullChat")
+    sendResponse(fetchFullChat())
 })
 
 const fetchFullChat = () => {

@@ -134,7 +134,7 @@ function IndexPopup() {
         answers: string[]
         url: string
       } = await chrome.tabs.sendMessage(currentTab.id, {
-        type: "fetchFullChat"
+        type: "chatgpt-to-notion_fetchFullChat"
       })
       const req = {
         ...chat,
