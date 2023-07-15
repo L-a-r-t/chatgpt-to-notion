@@ -1,3 +1,9 @@
+# 1.6.1
+
+Fixes
+
+- 1.6.0 made the extension unusable because of an artefact of the refactoring process that shouldn't have been commited, this release fixes that
+
 ## 1.6.0
 
 Features
