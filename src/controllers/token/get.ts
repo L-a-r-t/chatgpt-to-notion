@@ -32,6 +32,23 @@ export const get = async (req: Request, res: Response) => {
       } catch (err) {
         console.error(err)
       }
+      if (!isPremium) {
+        try {
+          const bard_product_id = process.env.BARD_PRODUCT_ID
+          if (!bard_product_id)
+            throw new Error("can't find BARD_PRODUCT_ID .env variable")
+          const gumroadRes = await axios.post(
+            "https://api.gumroad.com/v2/licenses/verify",
+            {
+              product_id: bard_product_id,
+              license_key,
+            }
+          )
+          isPremium = gumroadRes.data.success
+        } catch (err) {
+          console.error(err)
+        }
+      }
     }
     res
       .status(200)
