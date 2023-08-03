@@ -1,4 +1,10 @@
-# 1.6.1
+### 1.6.2
+
+Misc
+
+- Added a redirect to an onInstalled page on first extension install
+
+### 1.6.1
 
 Fixes
 
@@ -19,7 +25,7 @@ Misc
 
 - Started refactoring the codebase to make it more maintainable & easier to document
 
-## 1.5.2
+### 1.5.2
 
 Fixes
 
@@ -30,7 +36,7 @@ Misc
 - Updated the sponsor (is now a prompt to leave a rating)
 - I've been busy with a few urgent matters lately, will try to make a new feature release every 2 weeks for the next 2 months
 
-## 1.5.1
+### 1.5.1
 
 Fixes
 

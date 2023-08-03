@@ -28,7 +28,8 @@ As this is my first time building a project that is open to contributions I will
 
 These are the things that I plan to work on at some point. I hope to have the following (ranked by priority) done in the near future:
 
-- [ ] Extended support for code interpreter & plugins
+- [ ] Extended support for code interpreter & plugins (WIP)
+- [ ] Automated tests
 - [ ] Document the code properly for anyone who's interested (WIP)
 - [ ] Keyboard shortcuts
 - [ ] Improved chat formatting on some edge cases
