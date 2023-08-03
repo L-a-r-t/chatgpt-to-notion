@@ -98,7 +98,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true
 })
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === "install") {
+    chrome.tabs.create({
+      url: "https://www.maxai.me/partners/installed/chatgpt-to-notion"
+    })
+  }
+
   refreshContentScripts()
 
   chrome.contextMenus.create({
