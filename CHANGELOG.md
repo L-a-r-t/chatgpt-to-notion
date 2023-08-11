@@ -1,3 +1,15 @@
+## 1.7.0
+
+Feat
+
+- Improved support of code interpreter
+
+Fixes
+
+- Truncated save when using ChatGPT code interpreter
+- Failing save when answer includes a table in specific cases
+- Failing save when ChatGPT returns a downloadable file
+
 ### 1.6.2
 
 Misc
