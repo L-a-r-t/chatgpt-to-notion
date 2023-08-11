@@ -96,7 +96,7 @@
     "description": "Unauthorized message."
   },
   "save_generateHeadings" : {
-    "message": "Générer les titres et le sommaire",
+    "message": "Titres et sommaire",
     "description": "Generate headings label."
   },
   "conflict_text": {

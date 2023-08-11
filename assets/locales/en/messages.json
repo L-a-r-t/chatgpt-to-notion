@@ -104,7 +104,7 @@
     "description": "Server error message."
   },
   "save_generateHeadings" : {
-    "message": "Generate headings & table of contents",
+    "message": "Headings & table of contents",
     "description": "Generate headings label."
   },
   "conflict_text": {
