@@ -12,6 +12,7 @@ import PinIcon from "~common/pin"
 
 import "~styles.css"
 
+import { cp } from "fs"
 import { useCallback, useEffect, useState } from "react"
 
 import LogoIcon from "~common/logo"
@@ -107,13 +108,30 @@ const Content = ({ parent }: Props) => {
       alert(i18n("errConnect"))
       return
     }
-    const answer = await compress(
-      // @ts-ignore
-      (
-        parent.querySelector(".markdown") ??
-        parent.querySelector(".dark.text-orange-500")
-      ).innerHTML
+
+    const preJoinedAnswer = Array.from(
+      parent.querySelectorAll(".markdown")
+    ).map((el) =>
+      el.parentElement?.classList.contains("mt-3")
+        ? "%%CHATGPT_TO_NOTION_WORK%%" + el.innerHTML
+        : el.innerHTML
     )
+
+    let uncompressedAnswer = preJoinedAnswer[0]
+    if (preJoinedAnswer.length > 1) {
+      uncompressedAnswer = preJoinedAnswer.reduce((acc, curr, i, arr) => {
+        if (i == 0) return curr
+
+        const prev = arr[i - 1]
+        const joint = (curr + prev).includes("%%CHATGPT_TO_NOTION_WORK%%")
+          ? ""
+          : "%%CHATGPT_TO_NOTION_SPLIT%%"
+        return [acc, curr].join(joint)
+      }, "")
+    }
+
+    const answer = await compress(uncompressedAnswer)
+
     const prompt = await compress(
       // @ts-ignore
       parent.previousElementSibling.querySelector(".whitespace-pre-wrap")

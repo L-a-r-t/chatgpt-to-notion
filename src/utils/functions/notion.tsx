@@ -112,6 +112,56 @@ export const getTagColor = (tag: SelectPropertyResponse) => {
   return `bg-${tag.color}-100 text-${tag.color}-800`
 }
 
+export const generateToggle = (content: string, children: any[]) => {
+  return {
+    object: "block" as const,
+    type: "toggle" as const,
+    toggle: {
+      rich_text: [
+        {
+          type: "text" as const,
+          text: {
+            content,
+            link: null
+          },
+          annotations: {
+            bold: true,
+            underline: true,
+            italic: false,
+            strikethrough: false,
+            code: false,
+            color: "default" as const
+          }
+        }
+      ],
+      children: children
+    }
+  }
+}
+
+export const generateCallout = (content: string) => {
+  // I'm aware that I can use 'as const' once but readonly messes up typescript in other places
+  return {
+    object: "block" as const,
+    type: "callout" as const,
+    callout: {
+      icon: {
+        type: "emoji" as const,
+        emoji: "⚙️" as const
+      },
+      rich_text: [
+        {
+          type: "text" as const,
+          text: {
+            content,
+            link: null
+          }
+        }
+      ]
+    }
+  }
+}
+
 export const generateBlocks = (
   prompt: string,
   answer: string,
