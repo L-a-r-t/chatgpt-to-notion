@@ -134,8 +134,9 @@ const Content = ({ parent }: Props) => {
 
     const prompt = await compress(
       // @ts-ignore
-      parent.previousElementSibling.querySelector(".whitespace-pre-wrap")
-        .textContent
+      parent.parentElement.previousElementSibling.querySelector(
+        ".whitespace-pre-wrap"
+      ).textContent
     )
     const title = document.title
     const url = window.location.href
