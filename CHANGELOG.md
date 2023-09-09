@@ -1,3 +1,9 @@
+### 1.7.1
+
+Fixes
+
+- Broken individual chat save because of a change in ChatGPT's frontend
+
 ## 1.7.0
 
 Feat
