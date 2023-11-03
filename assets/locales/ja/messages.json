@@ -1,0 +1,365 @@
+{
+  "extensionName": {
+    "message": "ChatGPT から Notion へ"
+  },
+  "extensionDescription": {
+    "message": "ChatGPT との会話を直接 Notion に保存しましょう！"
+  },
+  "errConnect": {
+    "message": "拡張機能のアイコンをクリックして Notion に接続してください。"
+  },
+  "nav_settings": {
+    "message": "設定"
+  },
+  "nav_about": {
+    "message": "概要"
+  },
+  "nav_home": {
+    "message": "ホーム"
+  },
+  "authenticating": {
+    "message": "Notion に認証中"
+  },
+  "sponsored": {
+    "message": "スポンサード (?)"
+  },
+  "index_errRegister": {
+    "message": "設定でデータベースを登録してください"
+  },
+  "index_saveTo": {
+    "message": "保存先："
+  },
+  "index_saveFullChat": {
+    "message": "全チャットを保存"
+  },
+  "index_discussionSaved": {
+    "message": "会話が保存されました！"
+  },
+  "index_tryPremium": {
+    "message": "プレミアムを試す"
+  },
+  "index_premiumFeatures": {
+    "message": "プレミアム機能を見る"
+  },
+  "save_pageTitle": {
+    "message": "ページタイトル"
+  },
+  "save_pageDropdown_title": {
+    "message": "タイトル"
+  },
+  "save_pageDropdown_prompt": {
+    "message": "プロンプト"
+  },
+  "save_pageDropdown_custom": {
+    "message": "カスタム"
+  },
+  "save_prompt": {
+    "message": "プロンプト"
+  },
+  "save_answer": {
+    "message": "回答"
+  },
+  "save_saveTo": {
+    "message": "保存先："
+  },
+  "save_save": {
+    "message": "保存"
+  },
+  "save_saved": {
+    "message": "保存されました！"
+  },
+  "save_noTag": {
+    "message": "タグなし"
+  },
+  "save_error": {
+    "message": "保存に失敗しました"
+  },
+  "save_unauthorized": {
+    "message": "Notion による保存が許可されていません"
+  },
+  "save_notFound": {
+    "message": "DB が見つかりません"
+  },
+  "save_serverError": {
+    "message": "サーバーエラー"
+  },
+  "save_generateHeadings" : {
+    "message": "見出し & 目次"
+  },
+  "conflict_text": {
+    "message": "データベース内のページに、この会話と同じ名前があります"
+  },
+  "conflict_override": {
+    "message": "上書き"
+  },
+  "conflict_append": {
+    "message": "追記"
+  },
+  "conflict_appendInfo": {
+    "message": "（既存のページの最後に保存します）"
+  },
+  "conflict_rename": {
+    "message": "または、左メニューで会話の名前を変更してください"
+  },
+  "conflict_renameFromPin": {
+    "message": "または、保存時に異なるページ名を選択してください"
+  },
+  "settings_noLinkedDb": {
+    "message": "リンクされたDBがありません"
+  },
+  "settings_linkedDatabases": {
+    "message": "リンクされたデータベース"
+  },
+  "settings_remove": {
+    "message": "削除"
+  },
+  "settings_searchPlaceholder": {
+    "message": "データベースを検索"
+  },
+  "settings_slowSearch": {
+    "message": "ページ/DBの検索には時間がかかることがあります..."
+  },
+  "settings_noDBFound": {
+    "message": "データベースが見つかりませんでした。これはNotionがまだそれらを統合に同期していないためかもしれません。"
+  },
+  "settings_noUrlProperty": {
+    "message": "このDBを使用するためには、Notion内でURLプロパティを追加してください"
+  },
+  "settings_exampleDB": {
+    "message": "こちらは拡張機能と互換性のあるデータベースの例です"
+  },
+  "settings_errUnauthorized": {
+    "message": "Notionによってアクセスが拒否されました。拡張機能を再読み込みしてください（chrome://extensions/ 内）または再インストールしてください（FAQを参照）"
+  },
+  "dbsettings_loading": {
+    "message": "データベースを読み込んでいます"
+  },
+  "dbsettings_tagsProperty": {
+    "message": "タグのプロパティ"
+  },
+  "dbsettings_tags": {
+    "message": "タグ"
+  },
+  "dbsettings_explainer": {
+    "message": "チャットを保存する際、新しく作成されるNotionページのタグをこれらの中から選択するように求められます"
+  },
+  "dbsettings_noTags": {
+    "message": "このデータベースにはタグ（選択/マルチセレクトプロパティ）がありません"
+  },
+  "dbsettings_noOptions": {
+    "message": "このタグにはオプションがありませんが、タグを選択せずに議論を保存することは可能です"
+  },
+  "wrongpage_goTo": {
+    "message": "移動"
+  },
+  "wrongpage_chatgpt": {
+    "message": "ChatGPTのページへ"
+  },
+  "wrongpage_toUse": {
+    "message": "面白いことを始めるには"
+  },
+  "about_extensionBy": {
+    "message": "は、次の開発者による拡張機能です"
+  },
+  "about_suggestionsIssues": {
+    "message": "提案や問題はありますか？"
+  },
+  "about_FAQ": {
+    "message": "FAQを読む。"
+  },
+  "about_github": {
+    "message": "拡張機能のGitHubをチェックしてください。"
+  },
+  "about_pinIcon": {
+    "message": "ピンアイコン制作者："
+  },
+  "about_pinLicense": {
+    "message": "はCC BY 3.0でライセンスされています"
+  },
+  "premium_isPremium": {
+    "message": "プレミアムサブスクリプションを持っています"
+  },
+  "premium_isPremium_meaning": {
+    "message": "それは以下を意味します："
+  },
+  "premium_isPremium_autosave": {
+    "message": "自動保存"
+  },
+  "premium_isPremium_historySave": {
+    "message": "履歴の保存"
+  },
+  "premium_isPremium_future": {
+    "message": "将来のプレミアム機能"
+  },
+  "premium_isPremium_noAds": {
+    "message": "広告なし"
+  },
+  "premium_isPremium_support": {
+    "message": "優先顧客サポート"
+  },
+  "premium_isPremium_gratitude": {
+    "message": "永遠の感謝"
+  },
+  "premium_desc": {
+    "message": "新機能をアンロックし、広告を取り除き、月額$2で開発をサポートしましょう！"
+  },
+  "premium_cta": {
+    "message": "今すぐサブスクライブ！"
+  },
+  "premium_key_placeholder": {
+    "message": "あなたのライセンスキー"
+  },
+  "premium_key_activate": {
+    "message": "有効化"
+  },
+  "premium_key_activate_error": {
+    "message": "無効なキー"
+  },
+  "premium_key_activate_success": {
+    "message": "正常に有効化されました！"
+  },
+  "premium_key_activate_desc": {
+    "message": "すでにキーをお持ちですか？ここに入力してください"
+  },
+  "premium_success": {
+    "message": "サポートと購入をしていただき、ありがとうございます！自動保存と将来の機能を存分に楽しんでください！"
+  },
+  "premium_invalid": {
+    "message": "メールで受け取ったキーを確認して、再試行してください"
+  },
+  "premium_trial_or": {
+    "message": "または"
+  },
+  "premium_trial_cta": {
+    "message": "無料トライアルを開始（7日間）"
+  },
+  "premium_trial_success": {
+    "message": "トライアルが開始されました！"
+  },
+  "premium_trial_error": {
+    "message": "エラーが発生しました"
+  },
+  "premium_trial_noInfo": {
+    "message": "支払い情報は必要ありません"
+  },
+  "premium_trial_endDate": {
+    "message": "トライアルの終了日："
+  },
+  "premium_trial_over": {
+    "message": "トライアル期間が終了しました"
+  },
+  "autosave_enabled": {
+    "message": "このチャットで自動保存が有効になっています！"
+  },
+  "autosave_enabled_desc": {
+    "message": "Notionデータベースのプロパティを変更した後、再度有効にする必要があるかもしれません"
+  },
+  "autosave_enabled_saving": {
+    "message": "保存中..."
+  },
+  "autosave_enabled_error": {
+    "message": "エラー：アイコンをクリックしてください"
+  },
+  "autosave_enabled_success": {
+    "message": "正常に保存されました！"
+  },
+  "autosave_enable": {
+    "message": "自動保存を有効にする"
+  },
+  "autosave_disable": {
+    "message": "自動保存を無効にする"
+  },
+  "autosave_wrongpage": {
+    "message": "ChatGPTとのディスカッションを開始し、ページをリロードして自動保存を使用してください"
+  },
+  "autosave_error": {
+    "message": "最後のメッセージを自動保存中にエラーが発生しました"
+  },
+  "autosave_error_msg": {
+    "message": "エラーメッセージ："
+  },
+  "autosave_error_code": {
+    "message": "エラーコード："
+  },
+  "autosave_error_desc": {
+    "message": "自動保存を無効にしてから有効にしてみてください、"
+  },
+  "autosave_error_desc_faq": {
+    "message": "FAQを読む"
+  },
+  "autosave_error_desc_or": {
+    "message": "または"
+  },
+  "autosave_error_desc_report": {
+    "message": "問題を報告する"
+  },
+  "autosave_errmsg_unauthorized": {
+    "message": "Notionワークスペースへのアクセスが拒否されました"
+  },
+  "autosave_errmsg_object_not_found": {
+    "message": "Notionデータベースが見つからないか、削除されたか、拡張機能がアクセスを許可されていないかのどちらかです"
+  },
+  "autosave_errmsg_internal_server_error": {
+    "message": "Notion側にエラーがありました"
+  },
+  "autosave_errmsg_service_unavailable": {
+    "message": "Notionは現在利用できません"
+  },
+  "autosave_errmsg_unexpected": {
+    "message": "予期しないエラーが発生しました"
+  },
+  "history": {
+    "message": "履歴を保存"
+  },
+  "history_desc": {
+    "message": "ChatGPT to Notionはあなたの完全な会話履歴を保存します。このプロセスには時間がかかる場合があります。"
+  },
+  "history_desc_trial": {
+    "message": "完全な会話履歴を保存できるようにプレミアムトライアルをアップグレードしてください。"
+  },
+  "history_reload": {
+    "message": "まずこのページをリロードしてください"
+  },
+  "history_save": {
+    "message": "保存を開始"
+  },
+  "history_fetching": {
+    "message": "取得中"
+  },
+  "history_dontClose": {
+    "message": "保存中にブラウザを閉じないでください。"
+  },
+  "history_progress": {
+    "message": "会話が保存されました。"
+  },
+  "history_success": {
+    "message": "つの会話が正常に保存されました！"
+  },
+  "history_fail": {
+    "message": "つの会話が保存に失敗しました。"
+  },
+  "history_viewErrors": {
+    "message": "エラーを表示"
+  },
+  "notion_tableofcontents": {
+    "message": "目次"
+  },
+  "notion_prompt": {
+    "message": "プロンプト"
+  },
+  "notion_answer": {
+    "message": "回答"
+  },
+  "notion_expandToSee": {
+    "message": "ChatGPTrsの作業を見るために展開"
+  },
+  "notion_gptWork": {
+    "message": "ChatGPTの作業、保存する前に展開してここに表示"
+  },
+  "notion_dalleWork": {
+    "message": "DALL-E 3の作業を見るために展開"
+  },
+  "notion_dalleExplainer": {
+    "message": "DALL-Eの画像は、プライバシーの理由からOpenAIのサーバー外でホスティングせずに直接保存することはできません。ChatGPTとの会話からダウンロードして後でここに追加できます。"
+  }
+}
