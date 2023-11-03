@@ -1,410 +1,365 @@
 {
   "extensionName": {
-    "message": "ChatGPT to Notion",
-    "description": "Name of the extension."
+    "message": "ChatGPT to Notion"
   },
   "extensionDescription": {
-    "message": "Save your discussions with ChatGPT directly into Notion!",
-    "description": "Description of the extension."
+    "message": "Save your discussions with ChatGPT directly into Notion!"
   },
   "errConnect": {
-    "message": "Connect yourself to Notion by clicking on the extension's icon.",
-    "description": "Error message when user is not connected to Notion."
+    "message": "Connect yourself to Notion by clicking on the extension's icon."
   },
   "nav_settings": {
-    "message": "Settings",
-    "description": "Settings page title."
+    "message": "Settings"
   },
   "nav_about": {
-    "message": "About",
-    "description": "About page title."
+    "message": "About"
   },
   "nav_home": {
-    "message": "Home",
-    "description": "Home page title."
+    "message": "Home"
   },
   "authenticating": {
-    "message": "Authenticating to Notion",
-    "description": "Authenticating message."
+    "message": "Authenticating to Notion"
   },
   "sponsored": {
-    "message": "Sponsored (?)",
-    "description": "Sponsored message."
+    "message": "Sponsored (?)"
   },
   "index_errRegister": {
-    "message": "Please register a database in the settings",
-    "description": "Error message when no database is registered."
+    "message": "Please register a database in the settings"
   },
   "index_saveTo": {
-    "message": "Save to:",
-    "description": "Save to label."
+    "message": "Save to:"
   },
   "index_saveFullChat": {
-    "message": "Save full chat",
-    "description": "Save button text."
+    "message": "Save full chat"
   },
   "index_discussionSaved": {
-    "message": "Discussion saved!",
-    "description": "Success message when discussion is saved."
+    "message": "Discussion saved!"
+  },
+  "index_tryPremium": {
+    "message": "Try Premium"
+  },
+  "index_premiumFeatures": {
+    "message": "See premium features"
   },
   "save_pageTitle": {
-    "message": "Page title",
-    "description": "Page title label."
+    "message": "Page title"
   },
   "save_pageDropdown_title": {
-    "message": "Title",
-    "description": "Dropdown title label."
+    "message": "Title"
   },
   "save_pageDropdown_prompt": {
-    "message": "Prompt",
-    "description": "Dropdown prompt label."
+    "message": "Prompt"
   },
   "save_pageDropdown_custom": {
-    "message": "Custom",
-    "description": "Dropdown custom label."
+    "message": "Custom"
   },
   "save_prompt": {
-    "message": "Prompt",
-    "description": "Prompt label."
+    "message": "Prompt"
   },
   "save_answer": {
-    "message": "Answer",
-    "description": "Answer label."
+    "message": "Answer"
   },
   "save_saveTo": {
-    "message": "Save to:",
-    "description": "Save to label."
+    "message": "Save to:"
   },
   "save_save": {
-    "message": "Save",
-    "description": "Save button text."
+    "message": "Save"
   },
   "save_saved": {
-    "message": "Saved!",
-    "description": "Success message when discussion is saved."
+    "message": "Saved!"
   },
   "save_noTag": {
-    "message": "No tag",
-    "description": "No tag label."
+    "message": "No tag"
   },
   "save_error": {
-    "message": "Save failed",
-    "description": "Error message when discussion fails to save."
+    "message": "Save failed"
   },
   "save_unauthorized": {
-    "message": "Save unauthorized by Notion",
-    "description": "Unauthorized message."
+    "message": "Save unauthorized by Notion"
   },
   "save_notFound": {
-    "message": "DB not found",
-    "description": "DB not found message."
+    "message": "DB not found"
   },
   "save_serverError": {
-    "message": "Server error",
-    "description": "Server error message."
+    "message": "Server error"
   },
   "save_generateHeadings" : {
-    "message": "Headings & table of contents",
-    "description": "Generate headings label."
+    "message": "Headings & table of contents"
   },
   "conflict_text": {
-    "message": "A page in your database holds the same name as this conversation",
-    "description": "Conflict message."
+    "message": "A page in your database holds the same name as this conversation"
   },
   "conflict_override": {
-    "message": "Override",
-    "description": "Override label."
+    "message": "Override"
   },
   "conflict_append": {
-    "message": "Append",
-    "description": "Append label."
+    "message": "Append"
   },
   "conflict_appendInfo": {
-    "message": "(Saves at the end of existing page)",
-    "description": "Append info."
+    "message": "(Saves at the end of existing page)"
   },
   "conflict_rename": {
-    "message": "OR rename the conversation on the left menu",
-    "description": "Rename message."
+    "message": "OR rename the conversation on the left menu"
   },
   "conflict_renameFromPin": {
-    "message": "OR choose a different page name upon saving",
-    "description": "Rename from pin label."
+    "message": "OR choose a different page name upon saving"
   },
   "settings_noLinkedDb": {
-    "message": "No linked DB",
-    "description": "No linked database message."
+    "message": "No linked DB"
   },
   "settings_linkedDatabases": {
-    "message": "Linked databases",
-    "description": "Linked databases title."
+    "message": "Linked databases"
   },
   "settings_remove": {
-    "message": "Remove",
-    "description": "Remove"
+    "message": "Remove"
   },
   "settings_searchPlaceholder": {
-    "message": "Search a database",
-    "description": "Search placeholder."
+    "message": "Search a database"
   },
   "settings_slowSearch": {
-    "message": "Searching pages/DBs can be quite slow...",
-    "description": "Slow search message."
+    "message": "Searching pages/DBs can be quite slow..."
   },
   "settings_noDBFound": {
-    "message": "No database found, this might be because Notion hasn't synced them with the integration yet.",
-    "description": "No database found message."
+    "message": "No database found, this might be because Notion hasn't synced them with the integration yet."
   },
   "settings_noUrlProperty": {
-    "message": "Add an URL property to this DB inside Notion to use it",
-    "description": "No URL property message."
+    "message": "Add an URL property to this DB inside Notion to use it"
   },
   "settings_exampleDB": {
-    "message": "Here's an example database compatible with the extension",
-    "description": "Example database message."
+    "message": "Here's an example database compatible with the extension"
   },
   "settings_errUnauthorized": {
-    "message": "Access was denied by Notion, please reload the extension (inside chrome://extensions/) or reinstall it (see FAQ)",
-    "description": "Unauthorized message."
+    "message": "Access was denied by Notion, please reload the extension (inside chrome://extensions/) or reinstall it (see FAQ)"
   },
   "dbsettings_loading": {
-    "message": "Loading database",
-    "description": "Loading database message."
+    "message": "Loading database"
   },
   "dbsettings_tagsProperty": {
-    "message": "Tags property",
-    "description": "Tags property label."
+    "message": "Tags property"
   },
   "dbsettings_tags": {
-    "message": "Tags",
-    "description": "Tags label."
+    "message": "Tags"
   },
   "dbsettings_explainer": {
-    "message": "Upon saving a chat, you'll be prompted to choose one of these tags for the newly created Notion page",
-    "description": "Tags explainer."
+    "message": "Upon saving a chat, you'll be prompted to choose one of these tags for the newly created Notion page"
   },
   "dbsettings_noTags": {
-    "message": "This database doesn't have any tags (select/multiselect properties)",
-    "description": "No tags message."
+    "message": "This database doesn't have any tags (select/multiselect properties)"
   },
   "dbsettings_noOptions": {
-    "message": "This tag doesn't have any options, although you can save a discussion without choosing a tag",
-    "description": "No options message."
+    "message": "This tag doesn't have any options, although you can save a discussion without choosing a tag"
   },
   "wrongpage_goTo": {
-    "message": "Go to",
-    "description": "Go to label."
+    "message": "Go to"
   },
   "wrongpage_chatgpt": {
-    "message": "ChatGPT's page",
-    "description": "ChatGPT page label."
+    "message": "ChatGPT's page"
   },
   "wrongpage_toUse": {
-    "message": "to start doing fancy stuff",
-    "description": "To use this extension label."
+    "message": "to start doing fancy stuff"
   },
   "about_extensionBy": {
-    "message": "is an extension developped by",
-    "description": "Extension by label."
+    "message": "is an extension developped by"
   },
   "about_suggestionsIssues": {
-    "message": "Got any suggestion/issue?",
-    "description": "Suggestion/issue label."
+    "message": "Got any suggestion/issue?"
   },
   "about_FAQ": {
-    "message": "Read the FAQ.",
-    "description": "FAQ CTA."
+    "message": "Read the FAQ."
   },
   "about_github": {
-    "message": "Check out the extension's GitHub.",
-    "description": "GitHub CTA."
+    "message": "Check out the extension's GitHub."
   },
   "about_pinIcon": {
-    "message": "Pin icon made by",
-    "description": "Pin icon label."
+    "message": "Pin icon made by"
   },
   "about_pinLicense": {
-    "message": "is licensed by CC BY 3.0",
-    "description": "Pin icon licence label."
+    "message": "is licensed by CC BY 3.0"
   },
   "premium_isPremium": {
-    "message": "You have a premium subscription",
-    "description": "Is premium message."
+    "message": "You have a premium subscription"
   },
   "premium_isPremium_meaning": {
-    "message": "That means that you have:",
-    "description": "Is premium meaning message."
+    "message": "That means that you have:"
   },
   "premium_isPremium_autosave": {
-    "message": "Autosave",
-    "description": "Is premium autosave message."
+    "message": "Autosave"
+  },
+  "premium_isPremium_historySave": {
+    "message": "History save"
   },
   "premium_isPremium_future": {
-    "message": "Future premium features",
-    "description": "Is premium future message."
+    "message": "Future premium features"
   },
   "premium_isPremium_noAds": {
-    "message": "No ads",
-    "description": "Is premium no ads message."
+    "message": "No ads"
   },
   "premium_isPremium_support": {
-    "message": "Priority customer support",
-    "description": "Is premium support message."
+    "message": "Priority customer support"
   },
   "premium_isPremium_gratitude": {
-    "message": "My eternal gratitude",
-    "description": "Is premium gratitude message."
+    "message": "My eternal gratitude"
   },
   "premium_desc": {
-    "message": "Unlock new features, get rid of ads and support development for $2 per month!",
-    "description": "Premium description."
+    "message": "Unlock new features, get rid of ads and support development for $2 per month!"
   },
   "premium_cta": {
-    "message": "Subscribe now!",
-    "description": "Premium trial label."
+    "message": "Subscribe now!"
   },
   "premium_key_placeholder": {
-    "message": "Your license key",
-    "description": "Premium placeholder."
+    "message": "Your license key"
   },
   "premium_key_activate": {
-    "message": "Activate",
-    "description": "Premium activate label."
+    "message": "Activate"
   },
   "premium_key_activate_error": {
-    "message": "Invalid key",
-    "description": "Premium activate error message."
+    "message": "Invalid key"
   },
   "premium_key_activate_success": {
-    "message": "Successfully activated!",
-    "description": "Premium activate success message."
+    "message": "Successfully activated!"
   },
   "premium_key_activate_desc": {
-    "message": "Already have a key? Enter it here",
-    "description": "Premium activate description."
+    "message": "Already have a key? Enter it here"
   },
   "premium_success": {
-    "message": "Thanks a lot for your support & purchase! Enjoy autosave and future features as much as you want!",
-    "description": "Premium success message."
+    "message": "Thanks a lot for your support & purchase! Enjoy autosave and future features as much as you want!"
   },
   "premium_invalid": {
-    "message": "Verify the key you recieved in your email and try again",
-    "description": "Premium invalid key message."
+    "message": "Verify the key you recieved in your email and try again"
   },
   "premium_trial_or": {
-    "message": "OR",
-    "description": "Premium trial or label."
+    "message": "OR"
   },
   "premium_trial_cta": {
-    "message": "Activate free trial (7 days)",
-    "description": "Premium trial label."
+    "message": "Activate free trial (7 days)"
   },
   "premium_trial_success": {
-    "message": "Trial activated!",
-    "description": "Premium trial success message."
+    "message": "Trial activated!"
   },
   "premium_trial_error": {
-    "message": "An error occured",
-    "description": "Premium trial error message."
+    "message": "An error occured"
   },
   "premium_trial_noInfo": {
-    "message": "No payment info required",
-    "description": "Premium trial no info required message."
+    "message": "No payment info required"
   },
   "premium_trial_endDate": {
-    "message": "Your trial ends on",
-    "description": "Premium trial end date message."
+    "message": "Your trial ends on"
   },
   "premium_trial_over": {
-    "message": "Your trial is over",
-    "description": "Premium trial over message."
+    "message": "Your trial is over"
   },
   "autosave_enabled": {
-    "message": "Autosave is enabled on this chat!",
-    "description": "Autosave enabled message."
+    "message": "Autosave is enabled on this chat!"
   },
   "autosave_enabled_desc": {
-    "message": "You may need to enable it again after changing your Notion database's properties",
-    "description": "Autosave enabled description."
+    "message": "You may need to enable it again after changing your Notion database's properties"
   },
   "autosave_enabled_saving": {
-    "message": "Saving...",
-    "description": "Autosave enabled saving message."
+    "message": "Saving..."
   },
   "autosave_enabled_error": {
-    "message": "Error: click on the icon",
-    "description": "Autosave enabled error message."
+    "message": "Error: click on the icon"
   },
   "autosave_enabled_success": {
-    "message": "Saved successfully!",
-    "description": "Autosave enabled success message."
-  },
-  "autosave_try": {
-    "message": "Try autosave",
-    "description": "Autosave try label."
+    "message": "Saved successfully!"
   },
   "autosave_enable": {
-    "message": "Enable autosave",
-    "description": "Autosave enable label."
+    "message": "Enable autosave"
   },
   "autosave_disable": {
-    "message": "Disable autosave",
-    "description": "Autosave disable label."
+    "message": "Disable autosave"
   },
   "autosave_wrongpage": {
-    "message": "Start a discussion with ChatGPT and reload the page to use autosave",
-    "description": "Autosave wrong page message."
+    "message": "Start a discussion with ChatGPT and reload the page to use autosave"
   },
   "autosave_error": {
-    "message": "An error occurred while autosaving the last message",
-    "description": "Autosave error message."
+    "message": "An error occurred while autosaving the last message"
   },
   "autosave_error_msg": {
-    "message": "Error message: ",
-    "description": "Autosave error message message."
+    "message": "Error message: "
   },
   "autosave_error_code": {
-    "message": "Error code: ",
-    "description": "Autosave error code message."
+    "message": "Error code: "
   },
   "autosave_error_desc": {
-    "message": "Try disabling & enabling autosave, ",
-    "description": "Autosave error description message."
+    "message": "Try disabling & enabling autosave, "
   },
   "autosave_error_desc_faq": {
-    "message": "read the FAQ",
-    "description": "Autosave error description FAQ message."
+    "message": "read the FAQ"
   },
   "autosave_error_desc_or": {
-    "message": " or ",
-    "description": "Autosave error description or message."
+    "message": " or "
   },
   "autosave_error_desc_report": {
-    "message": "report the issue",
-    "description": "Autosave error description report message."
+    "message": "report the issue"
   },
   "autosave_errmsg_unauthorized": {
-    "message": "Access to your Notion workspace was denied",
-    "description": "Autosave error message unauthorized message."
+    "message": "Access to your Notion workspace was denied"
   },
   "autosave_errmsg_object_not_found": {
-    "message": "Couldn't find the Notion database, either because it was deleted or the extension isn't allowed to access it",
-    "description": "Autosave error message object not found message."
+    "message": "Couldn't find the Notion database, either because it was deleted or the extension isn't allowed to access it"
   },
   "autosave_errmsg_internal_server_error": {
-    "message": "There was an error on Notion's side",
-    "description": "Autosave error message internal server error message."
+    "message": "There was an error on Notion's side"
   },
   "autosave_errmsg_service_unavailable": {
-    "message": "Notion is currently unavailable",
-    "description": "Autosave error message service unavailable message."
+    "message": "Notion is currently unavailable"
   },
   "autosave_errmsg_unexpected": {
-    "message": "An unexpected error occured",
-    "description": "Autosave error message unexpected message."
+    "message": "An unexpected error occured"
+  },
+  "history": {
+    "message": "Save history"
+  },
+  "history_desc": {
+    "message": "ChatGPT to Notion will save your complete conversation history. This process may take some time."
+  },
+  "history_desc_trial": {
+    "message": "Upgrade your premium trial to be able to save your complete conversation history."
+  },
+  "history_reload": {
+    "message": "Reload this page first"
+  },
+  "history_save": {
+    "message": "Start saving"
+  },
+  "history_fetching": {
+    "message": "Fetching"
+  },
+  "history_dontClose": {
+    "message": "Please don't close your browser while the save is occuring."
+  },
+  "history_progress": {
+    "message": "conversations saved."
+  },
+  "history_success": {
+    "message": "conversations were saved successfully!"
+  },
+  "history_fail": {
+    "message": "conversations failed to be saved."
+  },
+  "history_viewErrors": {
+    "message": "View errors"
   },
   "notion_tableofcontents": {
-    "message": "Table of contents",
-    "description": "Table of contents label."
+    "message": "Table of contents"
+  },
+  "notion_prompt": {
+    "message": "Prompt"
+  },
+  "notion_answer": {
+    "message": "Answer"
+  },
+  "notion_expandToSee": {
+    "message": "Expand to see ChatGPTrs work"
+  },
+  "notion_gptWork": {
+    "message": "ChatGPT work, expand it before saving for it to show here"
+  },
+  "notion_dalleWork": {
+    "message": "Expand to see DALL-E 3's work"
+  },
+  "notion_dalleExplainer": {
+    "message": "DALL-E images can't be saved directly without hosting them outside of OpenAI's servers first, which won't be done for privacy reasons. You can download them from your conversation with ChatGPT and add them here later."
   }
 }

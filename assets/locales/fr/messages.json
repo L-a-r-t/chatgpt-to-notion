@@ -1,402 +1,362 @@
 {
   "extensionName": {
-    "message": "ChatGPT vers Notion",
-    "description": "Name of the extension."
+    "message": "ChatGPT vers Notion"
   },
   "extensionDescription": {
-    "message": "Sauvegardez vos discussions avec ChatGPT directement dans Notion!",
-    "description": "Description of the extension."
+    "message": "Sauvegardez vos discussions avec ChatGPT directement dans Notion!"
   },
   "errConnect": {
-    "message": "Conntectez-vous à notion en cliquant sur l'icône de l'extension.",
-    "description": "Error message when user is not connected to Notion."
+    "message": "Conntectez-vous à notion en cliquant sur l'icône de l'extension."
   },
   "nav_settings": {
-    "message": "Réglages",
-    "description": "Settings page title."
+    "message": "Réglages"
   },
   "nav_about": {
-    "message": "A propos",
-    "description": "About page title."
+    "message": "A propos"
   },
   "nav_home": {
-    "message": "Notion",
-    "description": "Home page title."
+    "message": "Notion"
   },
   "authenticating": {
-    "message": "Connexion à Notion",
-    "description": "Authenticating message."
+    "message": "Connexion à Notion"
   },
   "sponsored": {
-    "message": "Sponsor (?)",
-    "description": "Sponsored message."
+    "message": "Sponsor (?)"
   },
   "index_errRegister": {
-    "message": "Enregistez une base de données dans les réglages pour commencer",
-    "description": "Error message when no database is registered."
+    "message": "Enregistez une base de données dans les réglages pour commencer"
   },
   "index_saveTo": {
-    "message": "Enregistrer sous",
-    "description": "Save to label."
+    "message": "Enregistrer sous"
   },
   "index_saveFullChat": {
-    "message": "Enregistrer la page",
-    "description": "Save button text."
+    "message": "Enregistrer la page"
   },
   "index_discussionSaved": {
-    "message": "Enregistré !",
-    "description": "Success message when discussion is saved."
+    "message": "Enregistré !"
   },
+  "index_tryPremium": {
+    "message": "Essayer Premium"
+  },
+  "index_premiumFeatures": {
+    "message": "Voir fonctionnalités premium"
+  },  
   "save_pageTitle": {
-    "message": "Page",
-    "description": "Page title label."
+    "message": "Page"
   },
   "save_pageDropdown_title": {
-    "message": "Titre",
-    "description": "Dropdown title label."
+    "message": "Titre"
   },
   "save_pageDropdown_prompt": {
-    "message": "Prompt",
-    "description": "Dropdown prompt label."
+    "message": "Prompt"
   },
   "save_pageDropdown_custom": {
-    "message": "Personnalisé",
-    "description": "Dropdown custom label."
+    "message": "Personnalisé"
   },
   "save_prompt": {
-    "message": "Question",
-    "description": "Prompt label."
+    "message": "Question"
   },
   "save_answer": {
-    "message": "Réponse",
-    "description": "Answer label."
+    "message": "Réponse"
   },
   "save_saveTo": {
-    "message": "Enregistrer sous",
-    "description": "Save to label."
+    "message": "Enregistrer sous"
   },
   "save_save": {
-    "message": "Enregistrer",
-    "description": "Save button text."
+    "message": "Enregistrer"
   },
   "save_saved": {
-    "message": "Enregistré !",
-    "description": "Success message when discussion is saved."
+    "message": "Enregistré !"
   },
   "save_noTag": {
-    "message": "Aucun",
-    "description": "No tag label."
+    "message": "Aucun"
   },
   "save_error": {
-    "message": "Il y a eu une erreur",
-    "description": "Error message when discussion fails to save."
+    "message": "Il y a eu une erreur"
   },
   "save_unauthorized": {
-    "message": "Sauvegarde non autorisée par Notion",
-    "description": "Unauthorized message."
+    "message": "Sauvegarde non autorisée par Notion"
   },
   "save_generateHeadings" : {
-    "message": "Titres et sommaire",
-    "description": "Generate headings label."
+    "message": "Titres et sommaire"
   },
   "conflict_text": {
-    "message": "Une page dans votre BDD a le même nom que cette conversation",
-    "description": "Conflict label."
+    "message": "Une page dans votre BDD a le même nom que cette conversation"
   },
   "conflict_override": {
-    "message": "Remplacer",
-    "description": "Override label."
+    "message": "Remplacer"
   },
   "conflict_append": {
-    "message": "Continuer",
-    "description": "Append label."
+    "message": "Continuer"
   },
   "conflict_appendInfo": {
-    "message": "(Enregistre au bout de la page existente)",
-    "description": "Append info."
+    "message": "(Enregistre au bout de la page existente)"
   },
   "conflict_rename": {
-    "message": "OU renommer cette conversation dans le menu de gauche",
-    "description": "Rename message."
+    "message": "OU renommer cette conversation dans le menu de gauche"
   },
   "conflict_renameFromPin": {
-    "message": "OU choisir un autre nom de page au moment d'enregistrer",
-    "description": "Rename from pin label."
+    "message": "OU choisir un autre nom de page au moment d'enregistrer"
   },
   "settings_noLinkedDb": {
-    "message": "Pas de BDD reliée",
-    "description": "No linked database message."
+    "message": "Pas de BDD reliée"
   },
   "settings_linkedDatabases": {
-    "message": "Bases de données",
-    "description": "Linked databases title."
+    "message": "Bases de données"
   },
   "settings_remove": {
-    "message": "Suppr",
-    "description": "Remove"
+    "message": "Suppr"
   },
   "settings_searchPlaceholder": {
-    "message": "Rechercher une BDD",
-    "description": "Search placeholder."
+    "message": "Rechercher une BDD"
   },
   "settings_slowSearch": {
-    "message": "La recherche de pages/bases de données peut prendre un certain temps...",
-    "description": "Slow search message."
+    "message": "La recherche de pages/bases de données peut prendre un certain temps..."
   },
   "settings_noDBFound": {
-    "message": "Aucune base de données trouvée, cela peut être dû au fait que Notion n'a pas encore synchronisé vos BDD avec l'intégration.",
-    "description": "No database found message."
+    "message": "Aucune base de données trouvée, cela peut être dû au fait que Notion n'a pas encore synchronisé vos BDD avec l'intégration."
   },
   "settings_noUrlProperty": {
-    "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser",
-    "description": "No URL property message."
+    "message": "Ajoutez une propriété URL à cette BDD dans Notion pour l'utiliser"
   },
   "settings_exampleDB": {
-    "message": "Voir un exemple de base de donnée compatible avec l'extension",
-    "description": "Example database message."
+    "message": "Voir un exemple de base de donnée compatible avec l'extension"
   },
   "settings_errUnauthorized": {
-    "message": "Accès refusé par Notion, essayez de relancer l'extension (depuis chrome://extensions/) ou réinstallez-la (cf. la FAQ)",
-    "description": "Unauthorized message."
+    "message": "Accès refusé par Notion, essayez de relancer l'extension (depuis chrome://extensions/) ou réinstallez-la (cf. la FAQ)"
   },
   "dbsettings_loading": {
-    "message": "Chargement de la base de données",
-    "description": "Loading database message."
+    "message": "Chargement de la base de données"
   },
   "dbsettings_tagsProperty": {
-    "message": "Propriété des mots clés",
-    "description": "Tags property label."
+    "message": "Propriété des mots clés"
   },
   "dbsettings_tags": {
-    "message": "Mots clés",
-    "description": "Tags label."
+    "message": "Mots clés"
   },
   "dbsettings_explainer": {
-    "message": "À l'enregistrement d'une discussion, vous pourrez choisir un de ces mots clés pour la page nouvellement créée",
-    "description": "Tags explainer."
+    "message": "À l'enregistrement d'une discussion, vous pourrez choisir un de ces mots clés pour la page nouvellement créée"
   },
   "dbsettings_noTags": {
-    "message": "Cette BDD n'a pas de mots clés (propriétés sélection)",
-    "description": "No tags message."
+    "message": "Cette BDD n'a pas de mots clés (propriétés sélection)"
   },
   "dbsettings_noOptions": {
-    "message": "Il n'y a pas de mots-clés associés, vous pouvez néanmoins effectuer vos enregistrements sans mots-clés",
-    "description": "No options message."
+    "message": "Il n'y a pas de mots-clés associés, vous pouvez néanmoins effectuer vos enregistrements sans mots-clés"
   },
   "wrongpage_goTo": {
-    "message": "Allez sur le site de",
-    "description": "Go to label."
+    "message": "Allez sur le site de"
   },
   "wrongpage_chatgpt": {
-    "message": "ChatGPT",
-    "description": "ChatGPT page label."
+    "message": "ChatGPT"
   },
   "wrongpage_toUse": {
-    "message": "pour utiliser cette extension",
-    "description": "To use this extension label."
+    "message": "pour utiliser cette extension"
   },
   "about_extensionBy": {
-    "message": "est une extension développée par",
-    "description": "Extension by label."
+    "message": "est une extension développée par"
   },
   "about_suggestionsIssues": {
-    "message": "Un problème ou une suggestion ?",
-    "description": "Suggestion/issue CTA."
+    "message": "Un problème ou une suggestion ?"
   },
   "about_FAQ": {
-    "message": "Lire la FAQ.",
-    "description": "FAQ CTA."
+    "message": "Lire la FAQ."
   },
   "about_github": {
-    "message": "Consulter le GitHub de l'extension.",
-    "description": "GitHub CTA."
+    "message": "Consulter le GitHub de l'extension."
   },
   "about_pinIcon": {
-    "message": "Icône d'épingle par",
-    "description": "Pin icon label."
+    "message": "Icône d'épingle par"
   },
   "about_pinLicense": {
-    "message": "sous licence CC BY 3.0",
-    "description": "Pin icon licence label."
+    "message": "sous licence CC BY 3.0"
   },
   "premium_isPremium": {
-    "message": "Vous avez un abonnement premium",
-    "description": "Is premium message."
+    "message": "Vous avez un abonnement premium"
   },
   "premium_isPremium_meaning": {
-    "message": "Le premium comprend :",
-    "description": "Is premium meaning message."
+    "message": "Le premium comprend :"
   },
   "premium_isPremium_autosave": {
-    "message": "Sauvegarde auto",
-    "description": "Is premium autosave message."
+    "message": "Sauvegarde auto"
+  },
+  "premium_isPremium_historySave": {
+    "message": "Sauvegarde complète"
   },
   "premium_isPremium_future": {
-    "message": "Prochaines fonctionnalités premium",
-    "description": "Is premium future message."
+    "message": "Prochaines fonctionnalités premium"
   },
   "premium_isPremium_noAds": {
-    "message": "Pas de publicité",
-    "description": "Is premium no ads message."
+    "message": "Pas de publicité"
   },
   "premium_isPremium_support": {
-    "message": "Service client prioritaire",
-    "description": "Is premium support message."
+    "message": "Service client prioritaire"
   },
   "premium_isPremium_gratitude": {
-    "message": "Mon éternelle gratitude",
-    "description": "Is premium gratitude message."
+    "message": "Mon éternelle gratitude"
   },
   "premium_desc": {
-    "message": "Débloquez de nouvelles fonctionnalités, enlevez les pubs et soutenez le développement de l'extension pour 2€/mois !",
-    "description": "Premium description."
+    "message": "Débloquez de nouvelles fonctionnalités, enlevez les pubs et soutenez le développement de l'extension pour 2€/mois !"
   },
   "premium_cta": {
-    "message": "Abonnez-vous !",
-    "description": "Premium trial label."
+    "message": "Abonnez-vous !"
   },
   "premium_key_placeholder": {
-    "message": "Votre clé de licence",
-    "description": "Premium placeholder."
+    "message": "Votre clé de licence"
   },
   "premium_key_activate": {
-    "message": "Activer",
-    "description": "Premium activate label."
+    "message": "Activer"
   },
   "premium_key_activate_error": {
-    "message": "Clé invalide",
-    "description": "Premium activate error message."
+    "message": "Clé invalide"
   },
   "premium_key_activate_success": {
-    "message": "Activation réussie!",
-    "description": "Premium activate success message."
+    "message": "Activation réussie!"
   },
   "premium_key_activate_desc": {
-    "message": "Vous avez déjà une clé ? Entrez-la ici",
-    "description": "Premium activate description."
+    "message": "Vous avez déjà une clé ? Entrez-la ici"
   },
   "premium_success": {
-    "message": "Merci beaucoup pour votre achat et votre soutien! Profitez des fonctionnalités premium à votre guise!",
-    "description": "Premium success message."
+    "message": "Merci beaucoup pour votre achat et votre soutien! Profitez des fonctionnalités premium à votre guise!"
   },
   "premium_invalid": {
-    "message": "Vérifiez la clé reçue par mail et essayez à nouveau",
-    "description": "Premium invalid key message."
+    "message": "Vérifiez la clé reçue par mail et essayez à nouveau"
   },
   "autosave_enabled": {
-    "message": "La sauvegarde auto est activée pour ce chat!",
-    "description": "Autosave enabled message."
+    "message": "La sauvegarde auto est activée pour ce chat!"
   },
   "premium_trial_or": {
-    "message": "OU",
-    "description": "Premium trial or label."
+    "message": "OU"
   },
   "premium_trial_cta": {
-    "message": "Essai gratuit (7 jour)",
-    "description": "Premium trial label."
+    "message": "Essai gratuit (7 jour)"
   },
   "premium_trial_success": {
-    "message": "Essai activé!",
-    "description": "Premium trial success message."
+    "message": "Essai activé!"
   },
   "premium_trial_error": {
-    "message": "Il y a eu une erreur",
-    "description": "Premium trial error message."
+    "message": "Il y a eu une erreur"
   },
   "premium_trial_noInfo": {
-    "message": "Pas d'info de paiement requise",
-    "description": "Premium trial no info required message."
+    "message": "Pas d'info de paiement requise"
   },
   "premium_trial_endDate": {
-    "message": "Votre essai se termine le ",
-    "description": "Premium trial end date message."
+    "message": "Votre essai se termine le "
   },
   "premium_trial_over": {
-    "message": "Votre essai est terminé",
-    "description": "Premium trial over message."
+    "message": "Votre essai est terminé"
   },
   "autosave_enabled_desc": {
-    "message": "Vous pourriez avoir à l'activer à nouveau si vous changez les propriétés de votre BDD Notion",
-    "description": "Autosave enabled description."
+    "message": "Vous pourriez avoir à l'activer à nouveau si vous changez les propriétés de votre BDD Notion"
   },
   "autosave_enabled_saving": {
-    "message": "Sauvegarde...",
-    "description": "Autosave enabled saving message."
+    "message": "Sauvegarde..."
   },
   "autosave_enabled_error": {
-    "message": "Erreur: cliquez sur l'icône",
-    "description": "Autosave enabled error message."
+    "message": "Erreur: cliquez sur l'icône"
   },
   "autosave_enabled_success": {
-    "message": "Sauvegarde réussie!",
-    "description": "Autosave enabled success message."
+    "message": "Sauvegarde réussie!"
   },
   "autosave_try": {
-    "message": "Essayer sauvegarde auto",
-    "description": "Autosave try label."
+    "message": "Essayer sauvegarde auto"
   },
   "autosave_enable": {
-    "message": "Sauvegarde auto",
-    "description": "Autosave enable label."
+    "message": "Sauvegarde auto"
   },
   "autosave_disable": {
-    "message": "Désactiver sauvegarde auto",
-    "description": "Autosave disable label."
+    "message": "Désactiver sauvegarde auto"
   },
   "autosave_wrongpage": {
-    "message": "Démarrez une conversation avec ChatGPT et actualisez la page",
-    "description": "Autosave wrong page message."
+    "message": "Démarrez une conversation avec ChatGPT et actualisez la page"
   },
   "autosave_error": {
-    "message": "Il y a eu une erreur lors de la sauvegarde du dernier message",
-    "description": "Autosave error message."
+    "message": "Il y a eu une erreur lors de la sauvegarde du dernier message"
   },
   "autosave_error_msg": {
-    "message": "Message d'erreur :",
-    "description": "Autosave error message message."
+    "message": "Message d'erreur :"
   },
   "autosave_error_code": {
-    "message": "Code d'erreur :",
-    "description": "Autosave error code message."
+    "message": "Code d'erreur :"
   },
   "autosave_error_desc": {
-    "message": "Essayez de désactiver et de réactiver la sauvegarde auto, ",
-    "description": "Autosave error description message."
+    "message": "Essayez de désactiver et de réactiver la sauvegarde auto, "
   },
   "autosave_error_desc_faq": {
-    "message": "lisez la FAQ",
-    "description": "Autosave error description FAQ message."
+    "message": "lisez la FAQ"
   },
   "autosave_error_desc_or": {
-    "message": " ou ",
-    "description": "Autosave error description or message."
+    "message": " ou "
   },
   "autosave_error_desc_report": {
-    "message": "signalez le problème",
-    "description": "Autosave error description report message."
+    "message": "signalez le problème"
   },
   "autosave_errmsg_unauthorized": {
-    "message": "L'accès à votre espace Notion a été refusé",
-    "description": "Autosave error message unauthorized message."
+    "message": "L'accès à votre espace Notion a été refusé"
   },
   "autosave_errmsg_object_not_found": {
-    "message": "Impossible de trouver la BDD Notion, soit parcequ'elle a été supprimée ou parce que l'extension n'a pas le droit d'y accéder",
-    "description": "Autosave error message object not found message."
+    "message": "Impossible de trouver la BDD Notion, soit parcequ'elle a été supprimée ou parce que l'extension n'a pas le droit d'y accéder"
   },
   "autosave_errmsg_internal_server_error": {
-    "message": "Il y a eu une erreur du côté de Notion",
-    "description": "Autosave error message internal server error message."
+    "message": "Il y a eu une erreur du côté de Notion"
   },
   "autosave_errmsg_service_unavailable": {
-    "message": "Notion est actuellement indisponible",
-    "description": "Autosave error message service unavailable message."
+    "message": "Notion est actuellement indisponible"
   },
   "autosave_errmsg_unexpected": {
-    "message": "Une erreur inattendue est survenue",
-    "description": "Autosave error message unexpected message."
+    "message": "Une erreur inattendue est survenue"
+  },
+  "history": {
+    "message": "Sauvegarde complète"
+  },
+  "history_desc": {
+    "message": "ChatGPT vers Notion va enregistrer l'entièreté de votre historique de conversations. Cela prendra un certain temps."
+  },
+  "history_desc_trial": {
+    "message": "Passez à la version premium pour pourvoir enregistrer toutes vos conversations d'un coup."
+  },
+  "history_reload": {
+    "message": "Actualisez la page"
+  },
+  "history_save": {
+    "message": "Commencer"
+  },
+  "history_fetching": {
+    "message": "Récupération des conversations"
+  },
+  "history_dontClose": {
+    "message": "Veuillez ne pas fermer votre navigateur pendant la sauvegarde."
+  },
+  "history_progress": {
+    "message": "conversations enregistrées."
+  },
+  "history_success": {
+    "message": "conversations ont été enregistrées!"
+  },
+  "history_fail": {
+    "message": "conversations n'ont pas pu être enregistrées."
+  },
+  "history_viewErrors": {
+    "message": "Voir les erreurs"
   },
   "notion_tableofcontents": {
-    "message": "Sommaire",
-    "description": "Table of contents label."
-  }
+    "message": "Sommaire"
+  },
+  "notion_prompt": {
+    "message": "Question"
+  },
+  "notion_answer": {
+    "message": "Réponse"
+  },
+  "notion_expandToSee": {
+    "message": "Voir le code utilisé par ChatGPT"
+  },
+  "notion_gptWork": {
+    "message": "Code d'interpréteur python, affichez-le avant d'enregistrer pour l'afficher ici"
+  },
+  "notion_dalleWork": {
+    "message": "Voir le travail effectué par DALL-E 3"
+  },
+  "notion_dalleExplainer": {
+    "message": "Les images de DALL-E ne peuvent être enregistrées directement sans les héberger hors des serveurs d'OpenAI au préalable, ce qui ne sera pas fait par respect pour vos données. Vous pouvez télécharger les images depuis votre conversation avec ChatGPT puis les ajouter ici à postériori."
+  }  
 }
