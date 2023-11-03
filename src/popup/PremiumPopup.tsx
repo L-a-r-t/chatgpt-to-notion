@@ -72,6 +72,7 @@ function PremiumPopup() {
         <p className="text-sm">{i18n("premium_isPremium_meaning")}</p>
         <ul>
           <li className="text-sm">- {i18n("premium_isPremium_autosave")}</li>
+          <li className="text-sm">- {i18n("premium_isPremium_historySave")}</li>
           <li className="text-sm">- {i18n("premium_isPremium_future")}</li>
           <li className="text-sm">- {i18n("premium_isPremium_noAds")}</li>
           <li className="text-sm">- {i18n("premium_isPremium_support")}</li>

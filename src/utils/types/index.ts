@@ -39,6 +39,7 @@ export type PopupEnum =
   | "wrongpage"
   | "dbsettings"
   | "premium"
+  | "history"
   | "error"
 
 export type SaveBehavior = "override" | "append" | "ignore"
@@ -60,3 +61,34 @@ export type AutosaveStatus =
   | "saved"
   | "error"
   | "disabled"
+
+// ChatGPT conversation as returned by the API
+// We won't type more than we need obviously
+export type Conversation = {
+  title: string
+  conversation_id: string
+  mapping: Record<string, Message>
+}
+
+export type Message = {
+  message?: {
+    create_time: number
+    author?: {
+      role: string
+      name: string
+    }
+    content: {
+      content_type: string
+      parts?: any[]
+      text?: string
+    }
+    end_turn?: true
+  }
+  children?: string[]
+}
+
+export type HistorySaveError = {
+  url: string
+  title: string
+  message: string
+}

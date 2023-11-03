@@ -2,7 +2,12 @@ import illustration from "data-base64:../../assets/illustration.png"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type { PopupEnum, StoredDatabase, ToBeSaved } from "~utils/types"
+import type {
+  HistorySaveError,
+  PopupEnum,
+  StoredDatabase,
+  ToBeSaved
+} from "~utils/types"
 
 import IndexPopup from "./IndexPopup"
 import SavePopup from "./SavePopup"
@@ -15,6 +20,7 @@ import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"
 import DatabaseSettingsPopup from "./DatabaseSettings"
+import HistorySavePopup from "./HistorySavePopup"
 import PremiumPopup from "./PremiumPopup"
 import SettingsPopup from "./SettingsPopup"
 import WrongPagePopup from "./WrongPagePopup"
@@ -24,6 +30,12 @@ export default function Wrapper() {
   const [popup, setPopup] = useStorage<PopupEnum>("popup", "wrongpage")
   const [token] = useStorage({ key: "token", area: "session" })
   const [workspace_id] = useStorage("workspace_id")
+  const [historySaveProgress] = useStorage("historySaveProgress", -1)
+  const [historySaveErrors] = useStorage<HistorySaveError[]>(
+    "historySaveErrors",
+    []
+  )
+  const [historyLength] = useStorage("historyLength", 0)
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -37,6 +49,13 @@ export default function Wrapper() {
   }, [token, workspace_id])
 
   useEffect(() => {
+    if (
+      historySaveProgress !== -1 &&
+      historySaveProgress + historySaveErrors.length < historyLength
+    ) {
+      if (popup !== "history") setPopup("history")
+      return
+    }
     const handleCurrentTab = async () => {
       const tabs = await chrome.tabs.query({
         active: true,
@@ -63,7 +82,8 @@ export default function Wrapper() {
     dbsettings: <DatabaseSettingsPopup />,
     about: <AboutPopup />,
     wrongpage: <WrongPagePopup />,
-    premium: <PremiumPopup />
+    premium: <PremiumPopup />,
+    history: <HistorySavePopup />
   }
 
   const nav = {

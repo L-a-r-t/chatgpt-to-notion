@@ -9,11 +9,19 @@ import type { AutosaveStatus } from "~utils/types"
 
 import {
   authenticate,
+  fetchHistory,
   refreshContentScripts,
   refreshDatabases,
   refreshIcons,
-  saveFromContextMenu
+  saveFromContextMenu,
+  saveHistory
 } from "./functions"
+
+const storage = new Storage()
+const session = new Storage({
+  area: "session",
+  secretKeyList: ["token", "cacheHeaders"]
+})
 
 // API calls that can be made from content scripts transit trough the background script
 // This is done to prevent CORS errors
@@ -51,7 +59,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       break
     case "chatgpt-to-notion_autoSave":
-      const storage = new Storage()
       saveChat(message.body)
         .then((res) => {
           sendResponse(res)
@@ -65,10 +72,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break
     case "chatgpt-to-notion_generateToken":
       // using two means of checking if user is logged in just to be sure
-      const session = new Storage({
-        area: "session",
-        secretKeyList: ["token"]
-      })
       session.get("token").then((token) => {
         if (token) return
         generateToken(message.body.code)
@@ -92,6 +95,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ err })
         })
       break
+    case "chatgpt-to-notion_saveHistory":
+      session.get<any>("cacheHeaders").then((cacheHeaders) => {
+        fetchHistory(cacheHeaders).then((history) => {
+          saveHistory(history, cacheHeaders)
+        })
+      })
+      break
+    case "chatgpt-to-notion_getCurrentTab":
+      chrome.tabs
+        .query({
+          active: true,
+          currentWindow: true
+        })
+        .then((tabs) => {
+          const tabId = tabs[0].id!
+          sendResponse(tabId)
+        })
+      break
+    case "chatgpt-to-notion_bg-fetchFullChat":
+      chrome.tabs
+        .sendMessage(message.body.tabId, "chatgpt-to-notion_fetchFullChat")
+        .then((res) => sendResponse(res))
+
     default:
       return true
   }
@@ -128,8 +154,49 @@ const main = async () => {
   if (!authenticated) return
   await refreshDatabases()
   refreshIcons()
+  const storage = new Storage()
+  storage.set("historyLength", 0)
+  storage.set("historySaveProgress", -1)
 }
 
 main()
+
+let cacheHeaders: chrome.webRequest.HttpHeader[]
+
+chrome.webRequest.onSendHeaders.addListener(
+  (res) => {
+    if (
+      res.method == "POST" &&
+      res.url == "https://chat.openai.com/backend-api/conversation"
+    ) {
+      storage.set("generatingAnswer", true)
+      return
+    }
+
+    if (
+      cacheHeaders ||
+      !res.requestHeaders ||
+      !res.requestHeaders.some((h) => h.name === "Authorization")
+    )
+      return
+
+    cacheHeaders = res.requestHeaders
+    session.set("cacheHeaders", cacheHeaders)
+  },
+  { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] },
+  ["requestHeaders", "extraHeaders"]
+)
+
+chrome.webRequest.onCompleted.addListener(
+  (res) => {
+    if (
+      res.method != "POST" ||
+      res.url != "https://chat.openai.com/backend-api/conversation"
+    )
+      return
+    storage.set("generatingAnswer", false)
+  },
+  { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] }
+)
 
 export default {}

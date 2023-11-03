@@ -18,6 +18,7 @@ import { compress } from "shrink-string"
 import { checkSaveConflict } from "~api/checkSaveConflict"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
+import Disclosure from "~common/components/Disclosure"
 import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
@@ -39,7 +40,7 @@ function IndexPopup() {
   const [databases] = useStorage<StoredDatabase[]>("databases", [])
   const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
     "generateHeadings",
-    true
+    () => true
   )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
@@ -47,7 +48,7 @@ function IndexPopup() {
   const [isPremium] = useStorage("isPremium", false)
   const [activeTrial] = useStorage("activeTrial", false)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>("autosaveStatus")
-  const [chatID] = useStorage("chatID", null)
+  const [chatID] = useStorage<string | null>("chatID", null)
   const [autoSaveEnabled, setAutoSave] = useState(false)
 
   const [loading, setLoading] = useState(false)
@@ -316,25 +317,33 @@ function IndexPopup() {
               {i18n("save_generateHeadings")}
             </label>
           </div>
-          <button
-            disabled={!chatID && !(isPremium || activeTrial)}
-            onClick={() =>
-              isPremium || activeTrial ? handleSave(true) : setPopup("premium")
-            }
-            className={`button-outline ${
-              !chatID && !(isPremium || activeTrial)
-                ? "text-sm font-normal"
-                : ""
-            }`}>
-            {!(isPremium || activeTrial) && <StarIcon />}
-            {!(isPremium || activeTrial) && i18n("autosave_try")}
-            {(isPremium || activeTrial) &&
-              (chatID
-                ? autoSaveEnabled
-                  ? i18n("autosave_disable")
-                  : i18n("autosave_enable")
-                : i18n("autosave_wrongpage"))}
-          </button>
+          {!(isPremium || activeTrial) ? (
+            <button
+              onClick={() => setPopup("premium")}
+              className="button-outline text-sm font-normal">
+              {i18n("index_tryPremium")}
+            </button>
+          ) : (
+            <Disclosure
+              title={i18n("index_premiumFeatures")}
+              className="my-2 text-yellow-500 font-semibold bg-yellow-50 rounded">
+              <button
+                disabled={!chatID}
+                className="button-outline text-sm font-normal my-2 w-full"
+                onClick={() => handleSave(true)}>
+                {chatID
+                  ? autoSaveEnabled
+                    ? i18n("autosave_disable")
+                    : i18n("autosave_enable")
+                  : i18n("autosave_wrongpage")}
+              </button>
+              <button
+                className="button-outline text-sm font-normal w-full"
+                onClick={() => setPopup("history")}>
+                {i18n("history")}
+              </button>
+            </Disclosure>
+          )}
         </>
       )}
       {error?.message && (
