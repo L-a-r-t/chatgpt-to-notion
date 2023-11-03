@@ -15,17 +15,18 @@ import type { SaveBehavior, StoredDatabase } from "~utils/types"
 import type { parseSave } from "./parseSave"
 
 // save new page to notion database
-export const saveChat = async ({
-  title,
-  url,
-  database,
-  chunks,
-  generateHeadings,
-  conflictingPageId,
-  saveBehavior
-}: SaveChatParams) => {
+export const saveChat = async (params: SaveChatParams) => {
   try {
     const notion = await getNotion()
+    let {
+      title,
+      url,
+      database,
+      chunks,
+      generateHeadings,
+      conflictingPageId,
+      saveBehavior
+    } = params
     const { propertiesIds, tags, tagPropertyIndex, tag } = database
 
     if (conflictingPageId) {
@@ -92,6 +93,7 @@ export const saveChat = async ({
     }
     return response
   } catch (err) {
+    console.log("Error occured when saving the following:", params)
     console.error(err)
     throw err
   }

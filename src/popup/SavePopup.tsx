@@ -39,7 +39,8 @@ export default function SavePopup() {
   const [isPremium] = useStorage("isPremium", false)
   const [activeTrial] = useStorage("activeTrial", false)
 
-  const [titleType, setTitleType] = useState<"title" | "prompt" | "custom">(
+  const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
+    "pinTitleType",
     "title"
   )
   const [titleValue, setTitleValue] = useState("")
@@ -146,6 +147,13 @@ export default function SavePopup() {
     }
   }
 
+  const formatAnswer = (answer: string) => {
+    return answer
+      .replace(/(<.+?>)/g, "")
+      .replace(/%%CHATGPT_TO_NOTION_WORK(.*)%%/g, "[ChatGPT code]")
+      .replace(/%%CHATGPT_TO_NOTION_IMAGE(.*)%%/g, "[DALL-E 3 Image]")
+  }
+
   if (!success && !toBeSaved) return null
 
   if (error?.status === 409) return <ConflictPopup save={save} pin />
@@ -223,8 +231,8 @@ export default function SavePopup() {
           <h4 className="font-bold">{i18n("save_answer")}</h4>
           <p className="text-xs">
             {answer.length > 80
-              ? answer.replace(/(<.+?>)/g, "").substring(0, 80) + "..."
-              : answer.replace(/(<.+?>)/g, "")}
+              ? formatAnswer(answer).substring(0, 80) + "..."
+              : formatAnswer(answer)}
           </p>
           <div className="flex justify-between items-center my-3">
             <p className="font-bold">{i18n("save_saveTo")}</p>

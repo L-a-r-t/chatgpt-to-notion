@@ -8,36 +8,32 @@ import type { ChatConfig, Error } from "~utils/types"
 
 import { generateCallout, generateToggle } from "./notion"
 
-export const HTMLtoMarkdown = (html: string) => {
-  return nhm
-    .translate(html)
-    .replace(/^(Copy code)$/gm, "")
-    .replace(/(^\n`)|(`\n$)/gm, "```\n")
-    .replace(/(^\n(?<lang>.*)Copy code\n```)/gm, "\n```$<lang>")
-    .replace(/\|\n(?=[^\s\|])/gm, "|\n\n") // edge cases making me crazy
-    .replace(/\]\(\/mnt/gm, "](https://chat.openai.com/mnt")
-    .replace(
-      // Custom tags works with minimal changes to the codebase so I'm definitely keeping it that way
-      /(%%CHATGPT\\_TO\\_NOTION\\_SPLIT%%)/gm,
-      "> WORK"
-    )
-    .replace(/(%%CHATGPT\\_TO\\_NOTION\\_WORK%%)/gm, "> TOGGLE")
+export const HTMLtoBlocks = (html: string) => {
+  const md = nhm.translate(html)
+
+  return mdToBlocks(md, true)
 }
 
-export const HTMLtoBlocks = (html: string) => {
-  const md = HTMLtoMarkdown(html)
+export const mdToBlocks = (_md: string, fromHTML: boolean) => {
+  const md = parseMarkdown(_md, fromHTML)
   // console.log("md", md)
+
   const _blocks = markdownToBlocks(md)
 
   // console.log("_blocks", _blocks)
 
+  let toggleChild = 0
+
   const blocks = _blocks.reduce((acc, block, i, arr) => {
     const blockType = block.type
 
+    if (toggleChild > 0) {
+      toggleChild--
+      return acc
+    }
+
     switch (blockType) {
       case "code":
-        if (isToggle(arr[i - 1])) return acc
-
         if (block.code.rich_text[0])
           block.code.rich_text[0].annotations = undefined
         acc.push(block)
@@ -46,18 +42,28 @@ export const HTMLtoBlocks = (html: string) => {
       case "quote":
         const content = getQuoteContent(block)
 
+        const length = Number(content[0])
+        const childs = isNaN(length)
+          ? []
+          : new Array(length).fill(0).map((_, idx) => arr[i + idx + 1])
         if (content.includes("TOGGLE")) {
-          const toggle = generateToggle("Expand to see ChatGPT's work", [
-            arr[i + 1]
-          ])
+          const toggle = generateToggle(i18n("notion_expandToSee"), childs)
           toggle.toggle.children[0].code.rich_text[0].annotations = undefined
           acc.push(toggle)
+          toggleChild = length
         }
         if (content.includes("WORK")) {
-          const callout = generateCallout(
-            "ChatGPT work, expand it before saving for it to show here"
-          )
+          const callout = generateCallout(i18n("notion_gptWork"))
           acc.push(callout)
+        }
+        if (content.includes("IMAGE")) {
+          const callout = generateCallout(i18n("notion_dalleExplainer"))
+          const toggle =
+            length > 0
+              ? generateToggle(i18n("notion_dalleWork"), [callout, ...childs])
+              : callout
+          acc.push(toggle)
+          toggleChild = length
         }
 
         return acc
@@ -69,6 +75,35 @@ export const HTMLtoBlocks = (html: string) => {
   }, [] as BlockObjectRequest[])
   // console.log("blocks", blocks)
   return blocks as any[]
+}
+
+const parseMarkdown = (md: string, fromHTML: boolean) => {
+  return fromHTML
+    ? md
+        .replace(/^(Copy code)$/gm, "")
+        .replace(/(^\n`)|(`\n$)/gm, "```\n")
+        .replace(/(^\n(?<lang>.*)Copy code\n```)/gm, "\n```$<lang>")
+        .replace(/\]\(\/mnt/gm, "](https://chat.openai.com/mnt")
+        .replace(/\|\n(?=[^\s\|])/gm, "|\n\n") // edge cases making me crazy
+        .replace(
+          // Custom tags works with minimal changes to the codebase so I'm definitely keeping it that way
+          /(%%CHATGPT\\_TO\\_NOTION\\_SPLIT(?<len>.*)%%)/gm,
+          "> $<len>WORK"
+        )
+        .replace(
+          /(%%CHATGPT\\_TO\\_NOTION\\_WORK(?<len>.*)%%)/gm,
+          "> $<len>TOGGLE"
+        )
+        .replace(
+          /(%%CHATGPT\\_TO\\_NOTION\\_IMAGE(?<len>.*)%%)/gm,
+          "> $<len>IMAGE\n"
+        )
+    : md
+        .replace(/\|\n(?=[^\s\|])/gm, "|\n\n")
+        .replace(/\]\(sandbox:\/mnt/gm, "](https://chat.openai.com/mnt")
+        .replace(/(%%CHATGPT_TO_NOTION_SPLIT(?<len>.*)%%)/gm, "> $<len>WORK")
+        .replace(/(%%CHATGPT_TO_NOTION_WORK(?<len>.*)%%)/gm, "> $<len>TOGGLE")
+        .replace(/(%%CHATGPT_TO_NOTION_IMAGE(?<len>.*)%%)/gm, "> $<len>IMAGE\n")
 }
 
 const getQuoteContent = (quoteBlock: any) => {
@@ -113,4 +148,11 @@ export const getConsiseErrMessage = (error: Error) => {
     default:
       return i18n("save_error")
   }
+}
+
+export const convertHeaders = (raw: { name: string; value?: string }[]) => {
+  return raw.reduce(
+    (acc, header) => ({ ...acc, [header.name]: header.value }),
+    {} as any
+  )
 }

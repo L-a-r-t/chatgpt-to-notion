@@ -8,7 +8,7 @@ import type {
 
 import type { StoredDatabase } from "~utils/types"
 
-import { HTMLtoBlocks } from "."
+import { HTMLtoBlocks, i18n, mdToBlocks } from "."
 import type {
   IconResponse,
   Property,
@@ -165,9 +165,16 @@ export const generateCallout = (content: string) => {
 export const generateBlocks = (
   prompt: string,
   answer: string,
-  generateHeadings: boolean
+  generateHeadings: boolean,
+  isMarkdown: boolean = false
 ) => {
-  const answerBlocks = HTMLtoBlocks(answer)
+  let answerBlocks: any[]
+
+  if (isMarkdown) {
+    answerBlocks = mdToBlocks(answer, false)
+  } else {
+    answerBlocks = HTMLtoBlocks(answer)
+  }
 
   const promptText =
     prompt.length > 2000
@@ -246,7 +253,7 @@ export const generateBlocks = (
                 {
                   type: "text",
                   text: {
-                    content: "❓ Prompt"
+                    content: "❓ " + i18n("notion_prompt")
                   }
                 }
               ],
@@ -264,7 +271,7 @@ export const generateBlocks = (
                 {
                   type: "text",
                   text: {
-                    content: "❓ Prompt"
+                    content: "❓ " + i18n("notion_prompt")
                   }
                 }
               ],
@@ -281,7 +288,7 @@ export const generateBlocks = (
           {
             type: "text",
             text: {
-              content: "💬 Answer"
+              content: "💬 " + i18n("notion_answer")
             }
           }
         ]

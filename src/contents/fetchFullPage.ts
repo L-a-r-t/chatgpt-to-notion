@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true
 })
 
-const fetchFullChat = async () => {
+export const fetchFullChat = async () => {
   await expandChatGPTWork()
 
   const matches = document.querySelectorAll(".group.w-full")
@@ -20,26 +20,42 @@ const fetchFullChat = async () => {
   const rawAnswers = chat.filter((el, index) => index % 2 === 1)
 
   const prompts = rawPrompts.map(
-    (el) => el.querySelector(".whitespace-pre-wrap")?.textContent
+    (el) => el.querySelector('[data-message-author-role="user"]')?.textContent
   )
-  const preJoinedAnswers = rawAnswers.map((el) =>
-    Array.from(el.querySelectorAll(".markdown")).map((el) =>
+  const preFormattedAnswers = rawAnswers.map((el) => ({
+    images: Array.from(el.querySelectorAll("img") || []),
+    text: Array.from(el.querySelectorAll(".markdown")).map((el) =>
       el.parentElement?.classList.contains("mt-3")
-        ? "%%CHATGPT_TO_NOTION_WORK%%" + el.innerHTML
+        ? "%%CHATGPT_TO_NOTION_WORK1%%" + el.innerHTML
         : el.innerHTML
     )
-  )
-  const answers = preJoinedAnswers.map((arr) => {
-    if (arr.length == 1) return arr[0]
-    if (arr.some((el) => el.includes("%%CHATGPT_TO_NOTION_WORK%%")))
-      return arr.join("")
-    return arr.join("%%CHATGPT_TO_NOTION_SPLIT%%")
+  }))
+
+  const answers = preFormattedAnswers.map((ans) => {
+    const { text, images } = ans
+    if (images.length == 0) return formatTextAnswer(text)
+    const imagesToBeSaved = images
+      .map((el) => el.parentElement?.innerHTML)
+      .join("")
+    return (
+      `%%CHATGPT_TO_NOTION_IMAGE${images.length}%%` +
+      imagesToBeSaved +
+      "\n" +
+      formatTextAnswer(text)
+    )
   })
 
   const url = window.location.href
   const title = document.title
 
   return { prompts, answers, url, title }
+}
+
+const formatTextAnswer = (text: string[]) => {
+  if (text.length == 1) return text[0]
+  if (text.some((el) => el.includes("%%CHATGPT_TO_NOTION_WORK2%%")))
+    return text.join("")
+  return text.join("%%CHATGPT_TO_NOTION_SPLIT%%")
 }
 
 const expandChatGPTWork = async () => {

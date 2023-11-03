@@ -8,27 +8,36 @@ import { generateBlocks, generateTag } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 // save new page to notion database
-export const parseSave = async ({
-  prompts,
-  answers,
-  title,
-  url,
-  database,
-  generateHeadings
-}: ParseSaveParams) => {
+export const parseSave = async (
+  params: ParseSaveParams,
+  { compressed, isMarkdown }: { compressed: boolean; isMarkdown: boolean } = {
+    compressed: true,
+    isMarkdown: false
+  }
+) => {
   try {
+    let { prompts, answers, title, url, database, generateHeadings } = params
     const { propertiesIds, tagPropertyIndex, tagIndex, tags } = database
 
     const blocks: any[] = []
     for (let i = 0; i < prompts.length; i++) {
-      const [decompressedAnswer, decompressedPrompt] = await Promise.all([
-        decompress(answers[i]),
-        decompress(prompts[i])
-      ])
+      let decompressedAnswer: string
+      let decompressedPrompt: string
+      if (compressed) {
+        ;[decompressedAnswer, decompressedPrompt] = await Promise.all([
+          decompress(answers[i]),
+          decompress(prompts[i])
+        ])
+      } else {
+        decompressedAnswer = answers[i]
+        decompressedPrompt = prompts[i]
+      }
+
       const { answerBlocks, promptBlocks } = generateBlocks(
         decompressedPrompt,
         decompressedAnswer,
-        generateHeadings
+        generateHeadings,
+        isMarkdown
       )
       blocks.push(...promptBlocks, ...answerBlocks)
     }
@@ -56,6 +65,7 @@ export const parseSave = async ({
       title
     }
   } catch (err) {
+    console.log("Parsing failed for the following", params)
     console.error(err)
     throw err
   }

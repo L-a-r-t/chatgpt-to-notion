@@ -109,28 +109,33 @@ const Content = ({ parent }: Props) => {
       return
     }
 
-    const preJoinedAnswer = Array.from(
-      parent.querySelectorAll(".markdown")
-    ).map((el) =>
+    const images = Array.from(parent.querySelectorAll("img") || [])
+    const text = Array.from(parent.querySelectorAll(".markdown")).map((el) =>
       el.parentElement?.classList.contains("mt-3")
-        ? "%%CHATGPT_TO_NOTION_WORK%%" + el.innerHTML
+        ? "%%CHATGPT_TO_NOTION_WORK1%%" + el.innerHTML
         : el.innerHTML
     )
 
-    let uncompressedAnswer = preJoinedAnswer[0]
-    if (preJoinedAnswer.length > 1) {
-      uncompressedAnswer = preJoinedAnswer.reduce((acc, curr, i, arr) => {
+    console.log(text)
+
+    let uncompressedAnswer = text[0]
+    if (text.length > 1) {
+      uncompressedAnswer = text.reduce((acc, curr, i, arr) => {
         if (i == 0) return curr
 
         const prev = arr[i - 1]
-        const joint = (curr + prev).includes("%%CHATGPT_TO_NOTION_WORK%%")
+        const joint = (curr + prev).includes("%%CHATGPT_TO_NOTION_WORK2%%")
           ? ""
           : "%%CHATGPT_TO_NOTION_SPLIT%%"
         return [acc, curr].join(joint)
       }, "")
     }
 
-    const answer = await compress(uncompressedAnswer)
+    const preCompressionAnswer =
+      images.length > 0
+        ? "%%CHATGPT_TO_NOTION_IMAGE%%" + uncompressedAnswer
+        : uncompressedAnswer
+    const answer = await compress(preCompressionAnswer)
 
     const prompt = await compress(
       // @ts-ignore
@@ -168,7 +173,7 @@ const Content = ({ parent }: Props) => {
           background: "transparent",
           border: "none",
           marginTop: 10,
-          width: 30,
+          width: "100%",
           cursor: status !== "generating" ? "pointer" : "default"
         }}>
         {isLastMessage ? <LastMessageIcon /> : <LogoIcon />}
@@ -185,7 +190,7 @@ const Content = ({ parent }: Props) => {
         marginTop: 10,
         padding: 4,
         borderRadius: 4,
-        width: 30,
+        width: "100%",
         cursor: "pointer"
       }}>
       <PinIcon />
