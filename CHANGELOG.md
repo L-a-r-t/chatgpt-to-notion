@@ -1,3 +1,16 @@
+## 1.8.0
+
+Features
+
+- Complete conversation history save (premium)
+- More comprehensive support of code interpreter & dall-e
+- Japanese locale support
+
+Fixes
+
+- Autosave is back & more resilient than ever
+- Many small fixes
+
 ### 1.7.1
 
 Fixes
@@ -6,7 +19,7 @@ Fixes
 
 ## 1.7.0
 
-Feat
+Features
 
 - Improved support of code interpreter
 
