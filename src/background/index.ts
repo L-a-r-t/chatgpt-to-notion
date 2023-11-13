@@ -3,9 +3,7 @@ import { Storage } from "@plasmohq/storage"
 import { checkSaveConflict } from "~api/checkSaveConflict"
 import { generateToken } from "~api/generateToken"
 import { getDatabase } from "~api/getDatabase"
-import { saveChat } from "~api/saveChat"
 import { searchNotion } from "~api/search"
-import type { AutosaveStatus } from "~utils/types"
 
 import {
   authenticate,
@@ -13,7 +11,7 @@ import {
   refreshContentScripts,
   refreshDatabases,
   refreshIcons,
-  saveFromContextMenu,
+  save,
   saveHistory
 } from "./functions"
 
@@ -27,9 +25,10 @@ const session = new Storage({
 // This is done to prevent CORS errors
 // Functions here aren't decoupled from the background script because of odd behavior with sendResponse
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  const body = message.body
   switch (message.type) {
     case "chatgpt-to-notion_search":
-      searchNotion(message.body.query)
+      searchNotion(body.query)
         .then((res) => {
           sendResponse(res)
         })
@@ -39,7 +38,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       break
     case "chatgpt-to-notion_checkSaveConflict":
-      checkSaveConflict(message.body)
+      checkSaveConflict(body)
         .then((res) => {
           sendResponse(res)
         })
@@ -48,33 +47,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ err })
         })
       break
-    case "chatgpt-to-notion_saveChat":
-      saveChat(message.body)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "chatgpt-to-notion_autoSave":
-      saveChat(message.body)
-        .then((res) => {
-          sendResponse(res)
-          storage.set("autosaveStatus", "saved" as AutosaveStatus)
-        })
-        .catch((err) => {
-          storage.set("autosaveStatus", "error" as AutosaveStatus)
-          console.error(err)
-          sendResponse({ err })
-        })
+    case "chatgpt-to-notion_save":
+      session.get<any>("cacheHeaders").then((cacheHeaders) => {
+        save(
+          body.convId,
+          cacheHeaders,
+          body.turn,
+          body.saveBehavior,
+          body.conflictingPageId
+        )
+          .then((res) => {
+            sendResponse(res)
+          })
+          .catch((err) => {
+            sendResponse({
+              err
+            })
+          })
+      })
       break
     case "chatgpt-to-notion_generateToken":
       // using two means of checking if user is logged in just to be sure
       session.get("token").then((token) => {
         if (token) return
-        generateToken(message.body.code)
+        generateToken(body.code)
           .then((res) => {
             console.log(res)
             sendResponse(res)
@@ -86,7 +82,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       })
       break
     case "chatgpt-to-notion_getDB":
-      getDatabase(message.body.id)
+      getDatabase(body.id)
         .then((res) => {
           sendResponse(res)
         })
@@ -115,7 +111,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break
     case "chatgpt-to-notion_bg-fetchFullChat":
       chrome.tabs
-        .sendMessage(message.body.tabId, "chatgpt-to-notion_fetchFullChat")
+        .sendMessage(body.tabId, "chatgpt-to-notion_fetchFullChat")
         .then((res) => sendResponse(res))
 
     default:
@@ -132,21 +128,6 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 
   refreshContentScripts()
-
-  chrome.contextMenus.create({
-    id: "append",
-    title: "Save chat to Notion (append if conflict)",
-    targetUrlPatterns: ["https://chat.openai.com/*"]
-  })
-  chrome.contextMenus.create({
-    id: "override",
-    title: "Save chat to Notion (override if conflict)",
-    targetUrlPatterns: ["https://chat.openai.com/*"]
-  })
-})
-
-chrome.contextMenus.onClicked.addListener(({ menuItemId }) => {
-  saveFromContextMenu(menuItemId as "append" | "override")
 })
 
 const main = async () => {

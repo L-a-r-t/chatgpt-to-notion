@@ -7,6 +7,7 @@ import type {
   Error,
   PopupEnum,
   SaveBehavior,
+  SaveStatus,
   StoredDatabase
 } from "~utils/types"
 
@@ -48,6 +49,7 @@ function IndexPopup() {
   const [isPremium] = useStorage("isPremium", false)
   const [activeTrial] = useStorage("activeTrial", false)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>("autosaveStatus")
+  const [saveStatus] = useStorage<SaveStatus>("saveStatus")
   const [chatID] = useStorage<string | null>("chatID", null)
   const [autoSaveEnabled, setAutoSave] = useState(false)
 
@@ -67,6 +69,10 @@ function IndexPopup() {
     }
     checkAutosave()
   }, [chatID])
+
+  useEffect(() => {
+    setLoading(saveStatus == "fetching" || saveStatus == "saving")
+  }, [saveStatus])
 
   const handleSave = async (autosave?: boolean) => {
     try {
@@ -118,50 +124,29 @@ function IndexPopup() {
     try {
       setError(null)
       setLoading(true)
-      const tabs = await chrome.tabs.query({
-        active: true,
-        currentWindow: true
+      const res = await chrome.runtime.sendMessage({
+        type: "chatgpt-to-notion_save",
+        body: {
+          saveBehavior,
+          conflictingPageId: conflictingPageId,
+          convId: chatID
+        }
       })
-      const currentTab = tabs[0]
-      if (!currentTab.id) {
-        setConflictingPageId(undefined)
-        setLoading(false)
-        return
-      }
-      const database = db!
-      const chat: {
-        title: string
-        prompts: string[]
-        answers: string[]
-        url: string
-      } = await chrome.tabs.sendMessage(currentTab.id, {
-        type: "chatgpt-to-notion_fetchFullChat"
-      })
-      const req = {
-        ...chat,
-        // compression helps with having a single saveChat api function
-        // it is very fast and does not affect the user experience
-        prompts: await Promise.all(chat.prompts.map((p) => compress(p))),
-        answers: await Promise.all(chat.answers.map((a) => compress(a))),
-        database,
-        generateHeadings
-      }
-      const parsedReq = await parseSave(req)
-      const res = await saveChat({
-        ...parsedReq,
-        conflictingPageId: conflictingPage ?? conflictingPageId,
-        generateHeadings,
-        saveBehavior
-      })
+
+      console.log(res)
       if (!res) {
         setError({ status: 400 })
-        setConflictingPageId(undefined)
-        setLoading(false)
+        return
+      }
+      if (res.err) {
+        setError({
+          ...res.err,
+          message: res.err.message ?? JSON.parse(res.err.body ?? "").message
+        })
         return
       }
 
       if (autosave) {
-        const chatID = currentTab?.url?.split("/c/").pop()
         if (!chatID) return
 
         updateChatConfig(chatID, {
@@ -169,7 +154,7 @@ function IndexPopup() {
           targetPageId: res.object == "page" ? res.id : conflictingPage,
           lastSaveStatus: "success",
           lastError: null,
-          database
+          database: databases[selectedDB]
         })
 
         setAutoSave(true)
@@ -178,7 +163,10 @@ function IndexPopup() {
 
       setSuccess(true)
     } catch (err) {
-      setError(err)
+      setError({
+        ...err,
+        message: err.message ?? JSON.parse(err.body ?? "").message
+      })
     } finally {
       setConflictingPageId(undefined)
       setLoading(false)
@@ -347,7 +335,7 @@ function IndexPopup() {
         </>
       )}
       {error?.message && (
-        <p className="text-sm text-red-400">{error.message}</p>
+        <p className="text-sm text-red-400">{error?.message}</p>
       )}
       {error?.status === 401 && (
         <a

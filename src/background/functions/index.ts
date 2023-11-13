@@ -3,15 +3,15 @@ import fetchHistory from "./fetchHistory"
 import refreshContentScripts from "./refreshContentScripts"
 import refreshDatabases from "./refreshDatabases"
 import refreshIcons from "./refreshIcons"
-import saveFromContextMenu from "./saveFromContextMenu"
+import save from "./save"
 import saveHistory from "./saveHistory"
 
 export {
   authenticate,
   refreshDatabases,
   refreshIcons,
-  saveFromContextMenu,
   refreshContentScripts,
   fetchHistory,
-  saveHistory
+  saveHistory,
+  save
 }

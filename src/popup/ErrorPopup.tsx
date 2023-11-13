@@ -8,6 +8,7 @@ import type { ChatConfig } from "~utils/types"
 
 function ErrorPopup() {
   const [chatID] = useStorage("chatID")
+  const [error, setError] = useStorage("error")
   const [loading, setLoading] = useState(false)
   const [config, setConfig] = useState<ChatConfig | undefined>()
   const [errorMessage, setErrorMessage] = useState("")
@@ -17,13 +18,19 @@ function ErrorPopup() {
     if (!chatID) return
     ;(async () => {
       const _config = await getChatConfig(chatID)
-      if (!_config) return
-      setConfig(_config)
-      setErrorCode(_config.lastError?.code ?? "400")
-      setErrorMessage(
-        _config.lastError?.message ??
-          interpretErrorCode(_config.lastError?.code ?? "400")
-      )
+      if (!_config) {
+        setErrorCode(error.code ?? "400")
+        setErrorMessage(
+          error.message ?? interpretErrorCode(error.code ?? "400")
+        )
+      } else {
+        setConfig(_config)
+        setErrorCode(_config.lastError?.code ?? "400")
+        setErrorMessage(
+          _config.lastError?.message ??
+            interpretErrorCode(_config.lastError?.code ?? "400")
+        )
+      }
     })()
   }, [chatID])
 
@@ -72,7 +79,7 @@ function ErrorPopup() {
         </p>
       </div>
       <p className="text-sm">
-        {i18n("autosave_error_desc")}
+        {config && i18n("autosave_error_desc")}
         <a
           className="link text-sm"
           href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"

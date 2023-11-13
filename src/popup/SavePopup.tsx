@@ -38,6 +38,7 @@ export default function SavePopup() {
   const [authenticated] = useStorage("authenticated", false)
   const [isPremium] = useStorage("isPremium", false)
   const [activeTrial] = useStorage("activeTrial", false)
+  const [chatID] = useStorage("chatID")
 
   const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
     "pinTitleType",
@@ -98,47 +99,25 @@ export default function SavePopup() {
     try {
       setError(null)
       setLoading(true)
-      const database = db!
-      let title = ""
-      if (titleType === "title") title = toBeSaved!.title
-      else if (titleType === "prompt")
-        title = prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt
-      else title = titleValue
-
-      const req = {
-        title,
-        // compression helps with having a single saveChat api function
-        // it is very fast and does not affect the user experience
-        prompts: [toBeSaved!.prompt],
-        answers: [toBeSaved!.answer],
-        url: toBeSaved!.url,
-        database,
-        generateHeadings
-      }
-      const parsedReq = await parseSave(req)
       const res = await chrome.runtime.sendMessage({
-        type: "chatgpt-to-notion_saveChat",
+        type: "chatgpt-to-notion_save",
         body: {
-          ...parsedReq,
-          conflictingPageId,
-          generateHeadings,
-          saveBehavior
+          saveBehavior,
+          conflictingPageId: conflictingPageId,
+          convId: chatID,
+          turn: toBeSaved!.pin
         }
       })
-      if (!res.err) {
-        setSuccess(true)
-        setLoading(false)
-        setConflictingPageId(undefined)
-        setToBeSaved(null)
+      if (!res) {
+        setError({ status: 400 })
         return
       }
-      setError(res.err)
-      setLoading(false)
-      setTimeout(() => {
-        setToBeSaved(null)
-        setShowPopup(false)
-      }, 5000)
-      return
+      if (res.err) {
+        setError(res.err)
+        return
+      }
+
+      setSuccess(true)
     } catch (err) {
       setError(err)
     } finally {

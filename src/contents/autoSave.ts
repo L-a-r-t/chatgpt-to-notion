@@ -35,45 +35,31 @@ storage.watch({
 
         storage.set("autosaveStatus", "saving" as AutosaveStatus)
 
-        let { prompts, answers, url, title } = await fetchFullChat()
-
-        answers = answers.slice(-1)
-        prompts = prompts.slice(-1)
-
         const database = config.database
 
         if (!database) {
           throw new Error("No database linked to this chat")
         }
 
-        const generateHeadings = await storage.get<boolean>("generateHeadings")
-
         const { conflictingPageId } = await chrome.runtime.sendMessage({
           type: "chatgpt-to-notion_checkSaveConflict",
           body: {
-            title,
+            title: document.title,
             database
           }
         })
 
-        const req = {
-          title,
-          prompts: await Promise.all(prompts.map((p) => compress(p!))),
-          answers: await Promise.all(answers.map((a) => compress(a))),
-          url,
-          database,
-          generateHeadings
-        }
-        const parsedReq = {
-          ...(await parseSave(req)),
-          saveBehavior: "append",
-          conflictingPageId
-        }
         const res = await chrome.runtime.sendMessage({
-          type: "chatgpt-to-notion_autoSave",
-          body: parsedReq
+          type: "chatgpt-to-notion_save",
+          body: {
+            saveBehavior: "override",
+            conflictingPageId,
+            convId: chatID
+          }
         })
 
+        storage.set("autosaveStatus", "saved" as AutosaveStatus)
+        storage.set("saveStatus", null)
         updateChatConfig(chatID, {
           lastSaveStatus: res.err ? "error" : "success",
           lastError: res.err
@@ -89,7 +75,7 @@ storage.watch({
         updateChatConfig(chatID, {
           lastSaveStatus: "error",
           lastError: {
-            message: err.message ?? null,
+            message: err.message ?? JSON.parse(err.body ?? "").message ?? null,
             code: err.code ?? err.status ?? null
           }
         })

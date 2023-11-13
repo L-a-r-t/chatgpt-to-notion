@@ -1,4 +1,5 @@
 import type {
+  PlasmoCSUIAnchor,
   PlasmoContentScript,
   PlasmoGetInlineAnchorList,
   PlasmoRender
@@ -17,20 +18,28 @@ import { useCallback, useEffect, useState } from "react"
 
 import LogoIcon from "~common/logo"
 import { getChatConfig, i18n } from "~utils/functions"
-import type { AutosaveStatus, PopupEnum } from "~utils/types"
+import type { AutosaveStatus, PopupEnum, ToBeSaved } from "~utils/types"
 
 export const config: PlasmoContentScript = {
   matches: ["https://chat.openai.com/*"]
 }
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
-  document.querySelectorAll(".flex-col.items-end > div > .p-1")
+  document.querySelectorAll("div > .pt-0\\.5")
 
 export const render: PlasmoRender = async ({
   anchor, // the observed anchor, OR document.body.
   createRootContainer // This creates the default root container
 }) => {
-  // @ts-ignore
+  if (!anchor || !createRootContainer) return
+  // const parentElement = anchor?.element.parentElement?.parentElement
+  // if (!parentElement) return
+  // const parentAnchor = {
+  //   element: parentElement,
+  //   type: anchor.type
+  // }
+
+  // console.log({ anchor, parentAnchor })
   const rootContainer = await createRootContainer(anchor)
 
   const root = createRoot(rootContainer) // Any root
@@ -48,7 +57,7 @@ export const render: PlasmoRender = async ({
 }
 
 const Content = ({ parent }: Props) => {
-  const [toBeSaved, setToBeSaved] = useStorage("toBeSaved")
+  const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>("toBeSaved")
   const [showPopup, setShowPopup] = useStorage<PopupEnum | false>(
     "showPopup",
     false
@@ -61,6 +70,15 @@ const Content = ({ parent }: Props) => {
 
   const [autosaveEnabled, setAutosave] = useState(false)
   const [isLastMessage, setIsLastMessage] = useState(false)
+  const [showPin, setShowPin] = useState(false)
+  const [pinIndex, setPinIndex] = useState(-1)
+
+  useEffect(() => {
+    if (parent.parentElement?.querySelector(".agent-turn")) setShowPin(true)
+    else parent.classList.remove("pin")
+    const index = getPinIndex(parent)
+    setPinIndex(index)
+  }, [])
 
   useEffect(() => {
     if (!(isPremium || activeTrial) || !chatID) return
@@ -150,11 +168,14 @@ const Content = ({ parent }: Props) => {
       answer,
       prompt,
       title,
-      url
+      url,
+      pin: pinIndex
     })
 
     await setShowPopup("save")
   }
+
+  if (!showPin) return null
 
   if (autosaveEnabled)
     return (
@@ -199,6 +220,11 @@ const Content = ({ parent }: Props) => {
 }
 
 export default Content
+
+const getPinIndex = (parent: Element) => {
+  const pins = document.querySelectorAll(".pin")
+  return Array.from(pins).findIndex((pin) => pin.isSameNode(parent))
+}
 
 type Props = {
   parent: Element

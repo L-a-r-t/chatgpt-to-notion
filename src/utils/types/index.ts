@@ -5,6 +5,7 @@ export type ToBeSaved = {
   answer: string
   title: string
   url: string
+  pin: number
 } | null
 
 export type Error = {
@@ -61,6 +62,8 @@ export type AutosaveStatus =
   | "saved"
   | "error"
   | "disabled"
+
+export type SaveStatus = "saving" | "saved" | "error" | "fetching" | null
 
 // ChatGPT conversation as returned by the API
 // We won't type more than we need obviously

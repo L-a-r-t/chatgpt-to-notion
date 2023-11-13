@@ -13,8 +13,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 export const fetchFullChat = async () => {
   await expandChatGPTWork()
 
-  const matches = document.querySelectorAll(".group.w-full")
-  const chat = Array.from(matches)
+  const matches = document.querySelectorAll(".w-full.text-token-text-primary")
+  const chat = Array.from(matches).filter((el: HTMLElement) =>
+    el.dataset.testid?.includes("conversation-turn")
+  )
 
   const rawPrompts = chat.filter((el, index) => index % 2 === 0)
   const rawAnswers = chat.filter((el, index) => index % 2 === 1)
