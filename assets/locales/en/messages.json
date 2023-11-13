@@ -273,7 +273,7 @@
     "message": "Start a discussion with ChatGPT and reload the page to use autosave"
   },
   "autosave_error": {
-    "message": "An error occurred while autosaving the last message"
+    "message": "An error occurred while saving the last message"
   },
   "autosave_error_msg": {
     "message": "Error message: "
@@ -341,6 +341,18 @@
   "history_viewErrors": {
     "message": "View errors"
   },
+  "status_fetching": {
+    "message": "Fetching conversation..."
+  },
+  "status_error": {
+    "message": "An error occured"
+  },
+  "status_saving": {
+    "message": "Saving..."
+  },
+  "status_saved": {
+    "message": "Saved successfully!"
+  },
   "notion_tableofcontents": {
     "message": "Table of contents"
   },
@@ -351,7 +363,7 @@
     "message": "Answer"
   },
   "notion_expandToSee": {
-    "message": "Expand to see ChatGPTrs work"
+    "message": "Expand to see ChatGPT's work"
   },
   "notion_gptWork": {
     "message": "ChatGPT work, expand it before saving for it to show here"

@@ -338,6 +338,18 @@
   "history_viewErrors": {
     "message": "Voir les erreurs"
   },
+  "status_fetching": {
+    "message": "Récupération de la conversation..."
+  },
+  "status_error": {
+    "message": "Il y a eu une erreur"
+  },
+  "status_saving": {
+    "message": "Sauvegarde..."
+  },
+  "status_saved": {
+    "message": "Sauvegarde réussie!"
+  },
   "notion_tableofcontents": {
     "message": "Sommaire"
   },

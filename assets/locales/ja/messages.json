@@ -341,6 +341,18 @@
   "history_viewErrors": {
     "message": "エラーを表示"
   },
+  "status_fetching": {
+    "message": "会話を取得しています..."
+  },
+  "status_error": {
+    "message": "エラーが発生しました"
+  },
+  "status_saving": {
+    "message": "保存中..."
+  },
+  "status_saved": {
+    "message": "正常に保存されました！"
+  },
   "notion_tableofcontents": {
     "message": "目次"
   },
