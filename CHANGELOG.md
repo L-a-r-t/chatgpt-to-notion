@@ -1,3 +1,14 @@
+### 1.8.1
+
+Fixes
+
+- Fixed overall broken extension issue caused by a major update in ChatGPT's frontend
+
+Misc
+
+- Extension now solely relies on OpenAI's backend for saving, in hopes of it being more resilient to future changes from OpenAI
+- A refactor is on it's way to scrape off all code that was related to past extension's logic
+
 ## 1.8.0
 
 Features
