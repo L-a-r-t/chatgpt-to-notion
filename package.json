@@ -42,7 +42,6 @@
     ],
     "permissions": [
       "tabs",
-      "contextMenus",
       "scripting",
       "webRequest"
     ]
