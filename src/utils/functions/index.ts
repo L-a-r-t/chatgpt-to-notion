@@ -48,7 +48,8 @@ export const mdToBlocks = (_md: string, fromHTML: boolean) => {
           : new Array(length).fill(0).map((_, idx) => arr[i + idx + 1])
         if (content.includes("TOGGLE")) {
           const toggle = generateToggle(i18n("notion_expandToSee"), childs)
-          toggle.toggle.children[0].code.rich_text[0].annotations = undefined
+          if (toggle.toggle.children[0].code.rich_text[0])
+            toggle.toggle.children[0].code.rich_text[0].annotations = undefined
           acc.push(toggle)
           toggleChild = length
         }
