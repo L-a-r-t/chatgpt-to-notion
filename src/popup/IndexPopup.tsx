@@ -50,6 +50,10 @@ function IndexPopup() {
   const [activeTrial] = useStorage("activeTrial", false)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>("autosaveStatus")
   const [saveStatus] = useStorage<SaveStatus>("saveStatus")
+  const [cacheHeaders] = useStorage<any>(
+    { key: "cacheHeaders", area: "session" },
+    null
+  )
   const [chatID] = useStorage<string | null>("chatID", null)
   const [autoSaveEnabled, setAutoSave] = useState(false)
 
@@ -274,7 +278,7 @@ function IndexPopup() {
         </>
       )}
       <button
-        disabled={loading || success || !authenticated}
+        disabled={loading || success || !cacheHeaders || !authenticated}
         className="button disabled:bg-main"
         onClick={() => handleSave()}>
         {!authenticated ? (
@@ -286,6 +290,8 @@ function IndexPopup() {
           getConsiseErrMessage(error)
         ) : success ? (
           i18n("index_discussionSaved")
+        ) : !cacheHeaders ? (
+          "Refresh page"
         ) : (
           i18n("index_saveFullChat")
         )}

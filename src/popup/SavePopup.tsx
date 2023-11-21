@@ -39,6 +39,10 @@ export default function SavePopup() {
   const [isPremium] = useStorage("isPremium", false)
   const [activeTrial] = useStorage("activeTrial", false)
   const [chatID] = useStorage("chatID")
+  const [cacheHeaders] = useStorage<any>(
+    { key: "cacheHeaders", area: "session" },
+    null
+  )
 
   const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
     "pinTitleType",
@@ -265,7 +269,7 @@ export default function SavePopup() {
         </>
       )}
       <button
-        disabled={loading || success || !authenticated}
+        disabled={loading || success || !cacheHeaders || !authenticated}
         className="button w-full disabled:bg-main"
         onClick={() => handleSave(db!)}>
         {!authenticated ? (
@@ -277,6 +281,8 @@ export default function SavePopup() {
           getConsiseErrMessage(error)
         ) : success ? (
           i18n("save_saved")
+        ) : !cacheHeaders ? (
+          "Refresh page"
         ) : (
           i18n("save_save")
         )}{" "}
