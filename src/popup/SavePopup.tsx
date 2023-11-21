@@ -20,32 +20,40 @@ import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
+import { STORAGE_KEYS } from "~utils/consts"
 import { getConsiseErrMessage, i18n } from "~utils/functions"
 
 import ConflictPopup from "./ConflictPopup"
 
 export default function SavePopup() {
-  const [showPopup, setShowPopup] = useStorage<PopupEnum | false>("showPopup")
-  const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>("toBeSaved")
-  const [databases] = useStorage<StoredDatabase[]>("databases", [])
-  const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
+  const [showPopup, setShowPopup] = useStorage<PopupEnum | false>(
+    STORAGE_KEYS.showPopup
+  )
+  const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>(
+    STORAGE_KEYS.toBeSaved
+  )
+  const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
+  const [selectedDB, setSelectedDB] = useStorage<number>(
+    STORAGE_KEYS.selectedDB,
+    0
+  )
   const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
-    "generateHeadings",
+    STORAGE_KEYS.generateHeadings,
     true
   )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
-  const [authenticated] = useStorage("authenticated", false)
-  const [isPremium] = useStorage("isPremium", false)
-  const [activeTrial] = useStorage("activeTrial", false)
-  const [chatID] = useStorage("chatID")
+  const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
+  const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
+  const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
+  const [chatID] = useStorage(STORAGE_KEYS.chatID)
   const [cacheHeaders] = useStorage<any>(
-    { key: "cacheHeaders", area: "session" },
+    { key: STORAGE_KEYS.cacheHeaders, area: "session" },
     null
   )
 
   const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
-    "pinTitleType",
+    STORAGE_KEYS.pinTitleType,
     "title"
   )
   const [titleValue, setTitleValue] = useState("")

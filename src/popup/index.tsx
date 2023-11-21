@@ -16,6 +16,7 @@ import "~styles.css"
 
 import { useEffect } from "react"
 
+import { STORAGE_KEYS } from "~utils/consts"
 import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"
@@ -26,16 +27,19 @@ import SettingsPopup from "./SettingsPopup"
 import WrongPagePopup from "./WrongPagePopup"
 
 export default function Wrapper() {
-  const [databases] = useStorage<StoredDatabase[]>("databases", [])
-  const [popup, setPopup] = useStorage<PopupEnum>("popup", "wrongpage")
-  const [token] = useStorage({ key: "token", area: "session" })
-  const [workspace_id] = useStorage("workspace_id")
-  const [historySaveProgress] = useStorage("historySaveProgress", -1)
+  const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
+  const [popup, setPopup] = useStorage<PopupEnum>(
+    STORAGE_KEYS.popup,
+    "wrongpage"
+  )
+  const [token] = useStorage({ key: STORAGE_KEYS.token, area: "session" })
+  const [workspace_id] = useStorage(STORAGE_KEYS.workspace_id)
+  const [historySaveProgress] = useStorage(STORAGE_KEYS.historySaveProgress, -1)
   const [historySaveErrors] = useStorage<HistorySaveError[]>(
-    "historySaveErrors",
+    STORAGE_KEYS.historySaveErrors,
     []
   )
-  const [historyLength] = useStorage("historyLength", 0)
+  const [historyLength] = useStorage(STORAGE_KEYS.historyLength, 0)
 
   useEffect(() => {
     let timeout: NodeJS.Timeout

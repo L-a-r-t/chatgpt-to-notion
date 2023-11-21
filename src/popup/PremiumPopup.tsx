@@ -7,15 +7,22 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { activateTrial } from "~api/activateTrial"
 import { registerKey } from "~api/registerKey"
 import Spinner from "~common/components/Spinner"
+import { STORAGE_KEYS } from "~utils/consts"
 import { i18n } from "~utils/functions"
 import type { PopupEnum } from "~utils/types"
 
 dayjs.extend(localizedFormat)
 
 function PremiumPopup() {
-  const [isPremium, setPremiumStatus] = useStorage("isPremium", false)
-  const [activeTrial, setactiveTrial] = useStorage("activeTrial", false)
-  const [trialEnd, setTrialEnd] = useStorage("trialEnd", 0)
+  const [isPremium, setPremiumStatus] = useStorage(
+    STORAGE_KEYS.isPremium,
+    false
+  )
+  const [activeTrial, setactiveTrial] = useStorage(
+    STORAGE_KEYS.activeTrial,
+    false
+  )
+  const [trialEnd, setTrialEnd] = useStorage(STORAGE_KEYS.trialEnd, 0)
 
   const [licenseKey, setLicenseKey] = useState("")
   const [loading, setLoading] = useState(false)

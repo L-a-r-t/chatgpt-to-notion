@@ -1,5 +1,7 @@
 import { Storage } from "@plasmohq/storage"
 
+import { STORAGE_KEYS } from "~utils/consts"
+
 export const generateToken = async (code: string) => {
   try {
     const storage = new Storage()
@@ -24,17 +26,17 @@ export const generateToken = async (code: string) => {
     )
     const data = await response.json()
 
-    await session.set("token", data.access_token)
+    await session.set(STORAGE_KEYS.token, data.access_token)
 
     const user_id = data.owner.workspace ? "x" : data.owner.user.id
     const user = data.owner.workspace ? null : data.owner.user
     await Promise.all([
-      storage.set("workspace_id", data.workspace_id),
-      storage.set("workspace_name", data.workspace_name),
-      storage.set("user_id", user_id),
-      storage.set("user", user)
+      storage.set(STORAGE_KEYS.workspace_id, data.workspace_id),
+      storage.set(STORAGE_KEYS.workspace_name, data.workspace_name),
+      storage.set(STORAGE_KEYS.user_id, user_id),
+      storage.set(STORAGE_KEYS.user, user)
     ])
-    await storage.set("authenticated", true)
+    await storage.set(STORAGE_KEYS.authenticated, true)
     console.log("authenticated")
     return data.user
   } catch (err) {

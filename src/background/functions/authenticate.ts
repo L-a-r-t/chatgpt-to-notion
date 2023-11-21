@@ -1,6 +1,7 @@
 import { Storage } from "@plasmohq/storage"
 
 import { getToken } from "~api/getToken"
+import { STORAGE_KEYS } from "~utils/consts"
 
 const authenticate = async () => {
   const session = new Storage({
@@ -8,11 +9,11 @@ const authenticate = async () => {
     secretKeyList: ["token"]
   })
   const storage = new Storage()
-  await storage.set("authenticated", false)
-  const _token = await session.get("token")
+  await storage.set(STORAGE_KEYS.authenticated, false)
+  const _token = await session.get(STORAGE_KEYS.token)
   if (_token) {
     console.log("token already exists")
-    await storage.set("authenticated", true)
+    await storage.set(STORAGE_KEYS.authenticated, true)
     return true
   }
   // await session.set("token", null)
@@ -20,8 +21,8 @@ const authenticate = async () => {
   // await storage.set("user_id", null)
   // return
   const [workspace_id, user_id] = await Promise.all([
-    storage.get("workspace_id"),
-    storage.get("user_id")
+    storage.get(STORAGE_KEYS.workspace_id),
+    storage.get(STORAGE_KEYS.user_id)
   ])
   if (!workspace_id || !user_id) {
     console.log("no ids found")
@@ -32,11 +33,11 @@ const authenticate = async () => {
     user_id
   })
   await Promise.all([
-    session.set("token", token),
-    storage.set("isPremium", isPremium),
-    storage.set("activeTrial", activeTrial && trial_end),
-    storage.set("trialEnd", trial_end ?? 0),
-    storage.set("authenticated", true)
+    session.set(STORAGE_KEYS.token, token),
+    storage.set(STORAGE_KEYS.isPremium, isPremium),
+    storage.set(STORAGE_KEYS.activeTrial, activeTrial && trial_end),
+    storage.set(STORAGE_KEYS.trialEnd, trial_end ?? 0),
+    storage.set(STORAGE_KEYS.authenticated, true)
   ])
   console.log("authenticated")
   return true

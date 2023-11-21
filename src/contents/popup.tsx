@@ -8,6 +8,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import ErrorPopup from "~popup/ErrorPopup"
 import SavePopup from "~popup/SavePopup"
 import SettingsPopup from "~popup/SettingsPopup"
+import { STORAGE_KEYS } from "~utils/consts"
 import type { PopupEnum, SaveStatus, StoredDatabase } from "~utils/types"
 
 export const config: PlasmoContentScript = {
@@ -26,11 +27,14 @@ export const getStyle: PlasmoGetStyle = () => {
 
 const Wrapper = () => {
   const [popup, setShowPopup] = useStorage<PopupEnum | false>(
-    "showPopup",
+    STORAGE_KEYS.showPopup,
     false
   )
-  const [saveStatus, setSaveStatus] = useStorage<SaveStatus>("saveStatus", null)
-  const [toBeSaved, setToBeSaved] = useStorage("toBeSaved")
+  const [saveStatus, setSaveStatus] = useStorage<SaveStatus>(
+    STORAGE_KEYS.saveStatus,
+    null
+  )
+  const [toBeSaved, setToBeSaved] = useStorage(STORAGE_KEYS.toBeSaved)
 
   const hidePopup = async () => {
     await setShowPopup(false)
@@ -85,7 +89,7 @@ const Wrapper = () => {
 }
 
 const Popup = () => {
-  const [databases] = useStorage<StoredDatabase[]>("databases", [])
+  const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
 
   return <div>{databases.length == 0 ? <SettingsPopup /> : <SavePopup />}</div>
 }

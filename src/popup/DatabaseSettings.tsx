@@ -7,18 +7,25 @@ import DropdownPopup from "~common/components/Dropdown"
 import Spinner from "~common/components/Spinner"
 import RefreshIcon from "~common/refresh"
 import TrashIcon from "~common/trash"
+import { STORAGE_KEYS } from "~utils/consts"
 import { i18n } from "~utils/functions"
 import { formatDB, getIcon, getTagColor } from "~utils/functions/notion"
 import type { PopupEnum, StoredDatabase } from "~utils/types"
 import type { Property, SelectPropertyResponse } from "~utils/types/notion"
 
 function DatabaseSettingsPopup() {
-  const [popup, setPopup] = useStorage<PopupEnum>("popup", "dbsettings")
+  const [popup, setPopup] = useStorage<PopupEnum>(
+    STORAGE_KEYS.popup,
+    "dbsettings"
+  )
   const [databases, setDatabases] = useStorage<StoredDatabase[]>(
-    "databases",
+    STORAGE_KEYS.databases,
     []
   )
-  const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
+  const [selectedDB, setSelectedDB] = useStorage<number>(
+    STORAGE_KEYS.selectedDB,
+    0
+  )
   const [db, setCurrentDB] = useState<StoredDatabase | null>(null)
   const [currentProp, setCurrentProp] = useState<{
     options: SelectPropertyResponse[]

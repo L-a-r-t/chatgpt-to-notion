@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { STORAGE_KEYS } from "~utils/consts"
 // import Spinner from "~common/components/Spinner"
 import { getChatConfig, i18n } from "~utils/functions"
 import type { ChatConfig } from "~utils/types"
 
 function ErrorPopup() {
-  const [chatID] = useStorage("chatID")
-  const [error, setError] = useStorage("error")
+  const [chatID] = useStorage(STORAGE_KEYS.error)
+  const [error, setError] = useStorage(STORAGE_KEYS.error)
   const [loading, setLoading] = useState(false)
   const [config, setConfig] = useState<ChatConfig | undefined>()
   const [errorMessage, setErrorMessage] = useState("")

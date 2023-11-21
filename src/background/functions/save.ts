@@ -3,6 +3,7 @@ import { Storage } from "@plasmohq/storage"
 import { getConversation } from "~api/getConversation"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
+import { STORAGE_KEYS } from "~utils/consts"
 import { convertHeaders, parseConversation } from "~utils/functions"
 import type { SaveBehavior, SaveStatus, StoredDatabase } from "~utils/types"
 
@@ -16,9 +17,13 @@ const save = async (
   const storage = new Storage()
 
   try {
-    const databases = await storage.get<StoredDatabase[]>("databases")
-    const selectedDB = await storage.get<number>("selectedDB")
-    const generateHeadings = await storage.get<boolean>("generateHeadings")
+    const databases = await storage.get<StoredDatabase[]>(
+      STORAGE_KEYS.databases
+    )
+    const selectedDB = await storage.get<number>(STORAGE_KEYS.selectedDB)
+    const generateHeadings = await storage.get<boolean>(
+      STORAGE_KEYS.generateHeadings
+    )
 
     const database = databases[selectedDB ?? 0]
 
@@ -27,7 +32,9 @@ const save = async (
     const headers = convertHeaders(rawHeaders)
     const rawConversation = await getConversation(convId, headers)
 
-    if (!rawConversation) throw new Error("Conversation not found")
+    console.log({ rawConversation })
+
+    if (!rawConversation?.mapping) throw new Error("Conversation not found")
 
     const conversation = parseConversation(rawConversation)
 
@@ -50,7 +57,7 @@ const save = async (
       isMarkdown: true
     })
 
-    await storage.set("saveStatus", "saving" as SaveStatus)
+    await storage.set(STORAGE_KEYS.saveStatus, "saving" as SaveStatus)
     const res = await saveChat({
       ...parsedReq,
       conflictingPageId: conflictingPageId,
@@ -58,12 +65,12 @@ const save = async (
       saveBehavior
     })
 
-    await storage.set("saveStatus", "saved" as SaveStatus)
+    await storage.set(STORAGE_KEYS.saveStatus, "saved" as SaveStatus)
     return res
   } catch (err) {
     console.error(err)
-    await storage.set("saveStatus", "error" as SaveStatus)
-    await storage.set("error", {
+    await storage.set(STORAGE_KEYS.saveStatus, "error" as SaveStatus)
+    await storage.set(STORAGE_KEYS.error, {
       ...err,
       message: err.message ?? JSON.parse(err.body ?? "{}").message
     })

@@ -4,6 +4,7 @@ import { compress } from "shrink-string"
 import { Storage } from "@plasmohq/storage"
 
 import { parseSave } from "~api/parseSave"
+import { STORAGE_KEYS } from "~utils/consts"
 import { getChatConfig, updateChatConfig } from "~utils/functions"
 import type { AutosaveStatus, ChatConfig } from "~utils/types"
 
@@ -17,23 +18,23 @@ const storage = new Storage()
 
 storage.watch({
   generatingAnswer: async ({ newValue, oldValue }) => {
-    const chatID = await storage.get("chatID")
+    const chatID = await storage.get(STORAGE_KEYS.chatID)
 
     if (newValue == true && oldValue == false) {
       updateChatConfig(chatID, { lastSaveStatus: "generating" })
-      storage.set("autosaveStatus", "generating" as AutosaveStatus)
+      storage.set(STORAGE_KEYS.autosaveStatus, "generating" as AutosaveStatus)
     } else if (newValue == false && oldValue == true) {
       try {
         const [isPremium, activeTrial] = await Promise.all([
-          storage.get("isPremium"),
-          storage.get("activeTrial")
+          storage.get(STORAGE_KEYS.isPremium),
+          storage.get(STORAGE_KEYS.activeTrial)
         ])
         if (!(isPremium || activeTrial)) return
 
         const config = await getChatConfig(chatID)
         if (!config || !config.enabled) return
 
-        storage.set("autosaveStatus", "saving" as AutosaveStatus)
+        storage.set(STORAGE_KEYS.autosaveStatus, "saving" as AutosaveStatus)
 
         const database = config.database
 
@@ -58,8 +59,8 @@ storage.watch({
           }
         })
 
-        storage.set("autosaveStatus", "saved" as AutosaveStatus)
-        storage.set("saveStatus", null)
+        storage.set(STORAGE_KEYS.autosaveStatus, "saved" as AutosaveStatus)
+        storage.set(STORAGE_KEYS.saveStatus, null)
         updateChatConfig(chatID, {
           lastSaveStatus: res.err ? "error" : "success",
           lastError: res.err
@@ -71,7 +72,7 @@ storage.watch({
         })
       } catch (err) {
         console.error(err)
-        storage.set("autosaveStatus", "error" as AutosaveStatus)
+        storage.set(STORAGE_KEYS.autosaveStatus, "error" as AutosaveStatus)
         updateChatConfig(chatID, {
           lastSaveStatus: "error",
           lastError: {
@@ -87,7 +88,7 @@ storage.watch({
 const onload = async () => {
   let chatID = window.location.href.split("/c/").pop()
   if (chatID?.length != 36) chatID = undefined
-  await storage.set("chatID", chatID ?? null)
+  await storage.set(STORAGE_KEYS.chatID, chatID ?? null)
 }
 
 // https://stackoverflow.com/questions/3522090/event-when-window-location-href-changes

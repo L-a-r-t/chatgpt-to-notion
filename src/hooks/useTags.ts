@@ -2,13 +2,17 @@ import { useEffect, useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { STORAGE_KEYS } from "~utils/consts"
 import type { StoredDatabase } from "~utils/types"
 import type { SelectPropertyResponse } from "~utils/types/notion"
 
 const useTags = () => {
-  const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
+  const [selectedDB, setSelectedDB] = useStorage<number>(
+    STORAGE_KEYS.selectedDB,
+    0
+  )
   const [databases, setDatabases] = useStorage<StoredDatabase[]>(
-    "databases",
+    STORAGE_KEYS.databases,
     []
   )
 

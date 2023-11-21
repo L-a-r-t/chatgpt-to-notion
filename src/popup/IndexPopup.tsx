@@ -26,6 +26,7 @@ import Spinner from "~common/components/Spinner"
 import LogoIcon from "~common/logo"
 import StarIcon from "~common/star"
 import useTags from "~hooks/useTags"
+import { STORAGE_KEYS } from "~utils/consts"
 import {
   getChatConfig,
   getConsiseErrMessage,
@@ -36,22 +37,27 @@ import {
 import ConflictPopup from "./ConflictPopup"
 
 function IndexPopup() {
-  const [popup, setPopup] = useStorage<PopupEnum>("popup", "index")
-  const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
-  const [databases] = useStorage<StoredDatabase[]>("databases", [])
+  const [popup, setPopup] = useStorage<PopupEnum>(STORAGE_KEYS.popup, "index")
+  const [selectedDB, setSelectedDB] = useStorage<number>(
+    STORAGE_KEYS.selectedDB,
+    0
+  )
+  const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
   const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
-    "generateHeadings",
+    STORAGE_KEYS.generateHeadings,
     () => true
   )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
-  const [authenticated] = useStorage("authenticated", false)
-  const [isPremium] = useStorage("isPremium", false)
-  const [activeTrial] = useStorage("activeTrial", false)
-  const [s, setAutosaveStatus] = useStorage<AutosaveStatus>("autosaveStatus")
-  const [saveStatus] = useStorage<SaveStatus>("saveStatus")
+  const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
+  const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
+  const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
+  const [s, setAutosaveStatus] = useStorage<AutosaveStatus>(
+    STORAGE_KEYS.autosaveStatus
+  )
+  const [saveStatus] = useStorage<SaveStatus>(STORAGE_KEYS.saveStatus)
   const [cacheHeaders] = useStorage<any>(
-    { key: "cacheHeaders", area: "session" },
+    { key: STORAGE_KEYS.cacheHeaders, area: "session" },
     null
   )
   const [chatID] = useStorage<string | null>("chatID", null)

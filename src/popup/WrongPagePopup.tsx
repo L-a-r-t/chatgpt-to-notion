@@ -2,11 +2,12 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import "~styles.css"
 
+import { STORAGE_KEYS } from "~utils/consts"
 import { i18n } from "~utils/functions"
 import type { PopupEnum } from "~utils/types"
 
 function WrongPagePopup() {
-  const [p, setPopup] = useStorage<PopupEnum>("popup")
+  const [p, setPopup] = useStorage<PopupEnum>(STORAGE_KEYS.popup)
 
   const showPopup = async (popup: "settings" | "about") => {
     await setPopup(popup)

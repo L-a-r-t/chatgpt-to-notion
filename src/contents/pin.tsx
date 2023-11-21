@@ -17,6 +17,7 @@ import { cp } from "fs"
 import { useCallback, useEffect, useState } from "react"
 
 import LogoIcon from "~common/logo"
+import { STORAGE_KEYS } from "~utils/consts"
 import { getChatConfig, i18n } from "~utils/functions"
 import type { AutosaveStatus, PopupEnum, ToBeSaved } from "~utils/types"
 
@@ -57,16 +58,21 @@ export const render: PlasmoRender = async ({
 }
 
 const Content = ({ parent }: Props) => {
-  const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>("toBeSaved")
+  const [toBeSaved, setToBeSaved] = useStorage<ToBeSaved>(
+    STORAGE_KEYS.toBeSaved
+  )
   const [showPopup, setShowPopup] = useStorage<PopupEnum | false>(
-    "showPopup",
+    STORAGE_KEYS.showPopup,
     false
   )
-  const [authenticated] = useStorage("authenticated", false)
-  const [isPremium] = useStorage("isPremium", false)
-  const [activeTrial] = useStorage("activeTrial", false)
-  const [chatID] = useStorage("chatID", "")
-  const [status] = useStorage<AutosaveStatus>("autosaveStatus", "generating")
+  const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
+  const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
+  const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
+  const [chatID] = useStorage(STORAGE_KEYS.chatID, "")
+  const [status] = useStorage<AutosaveStatus>(
+    STORAGE_KEYS.autosaveStatus,
+    "generating"
+  )
 
   const [autosaveEnabled, setAutosave] = useState(false)
   const [isLastMessage, setIsLastMessage] = useState(false)

@@ -6,27 +6,31 @@ import Disclosure from "~common/components/Disclosure"
 import DropdownPopup from "~common/components/Dropdown"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
+import { STORAGE_KEYS } from "~utils/consts"
 import { i18n } from "~utils/functions"
 import type { HistorySaveError, PopupEnum, StoredDatabase } from "~utils/types"
 
 function HistorySavePopup() {
-  const [isPremium] = useStorage("isPremium", false)
-  const [popup, setPopup] = useStorage<PopupEnum>("popup", "history")
+  const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
+  const [popup, setPopup] = useStorage<PopupEnum>(STORAGE_KEYS.popup, "history")
 
   const [cacheHeaders] = useStorage({
-    key: "cacheHeaders",
+    key: STORAGE_KEYS.cacheHeaders,
     area: "session",
     isSecret: true
   })
-  const [historySaveProgress] = useStorage("historySaveProgress", -1)
+  const [historySaveProgress] = useStorage(STORAGE_KEYS.historySaveProgress, -1)
   const [historySaveErrors] = useStorage<HistorySaveError[]>(
-    "historySaveErrors",
+    STORAGE_KEYS.historySaveErrors,
     []
   )
-  const [historyLength] = useStorage("historyLength", 0)
+  const [historyLength] = useStorage(STORAGE_KEYS.historyLength, 0)
 
-  const [selectedDB, setSelectedDB] = useStorage<number>("selectedDB", 0)
-  const [databases] = useStorage<StoredDatabase[]>("databases", [])
+  const [selectedDB, setSelectedDB] = useStorage<number>(
+    STORAGE_KEYS.selectedDB,
+    0
+  )
+  const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
 
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 

@@ -4,6 +4,7 @@ import { checkSaveConflict } from "~api/checkSaveConflict"
 import { generateToken } from "~api/generateToken"
 import { getDatabase } from "~api/getDatabase"
 import { searchNotion } from "~api/search"
+import { STORAGE_KEYS } from "~utils/consts"
 
 import {
   authenticate,
@@ -48,7 +49,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       break
     case "chatgpt-to-notion_save":
-      session.get<any>("cacheHeaders").then((cacheHeaders) => {
+      session.get<any>(STORAGE_KEYS.cacheHeaders).then((cacheHeaders) => {
         save(
           body.convId,
           cacheHeaders,
@@ -68,7 +69,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break
     case "chatgpt-to-notion_generateToken":
       // using two means of checking if user is logged in just to be sure
-      session.get("token").then((token) => {
+      session.get(STORAGE_KEYS.token).then((token) => {
         if (token) return
         generateToken(body.code)
           .then((res) => {
@@ -92,7 +93,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       break
     case "chatgpt-to-notion_saveHistory":
-      session.get<any>("cacheHeaders").then((cacheHeaders) => {
+      session.get<any>(STORAGE_KEYS.cacheHeaders).then((cacheHeaders) => {
         fetchHistory(cacheHeaders).then((history) => {
           saveHistory(history, cacheHeaders)
         })
@@ -136,8 +137,8 @@ const main = async () => {
   await refreshDatabases()
   refreshIcons()
   const storage = new Storage()
-  storage.set("historyLength", 0)
-  storage.set("historySaveProgress", -1)
+  storage.set(STORAGE_KEYS.historyLength, 0)
+  storage.set(STORAGE_KEYS.historySaveProgress, -1)
 }
 
 main()
@@ -150,7 +151,7 @@ chrome.webRequest.onSendHeaders.addListener(
       res.method == "POST" &&
       res.url == "https://chat.openai.com/backend-api/conversation"
     ) {
-      storage.set("generatingAnswer", true)
+      storage.set(STORAGE_KEYS.generatingAnswer, true)
       return
     }
 
@@ -162,7 +163,7 @@ chrome.webRequest.onSendHeaders.addListener(
       return
 
     cacheHeaders = res.requestHeaders
-    session.set("cacheHeaders", cacheHeaders)
+    session.set(STORAGE_KEYS.cacheHeaders, cacheHeaders)
   },
   { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] },
   ["requestHeaders", "extraHeaders"]
@@ -175,7 +176,7 @@ chrome.webRequest.onCompleted.addListener(
       res.url != "https://chat.openai.com/backend-api/conversation"
     )
       return
-    storage.set("generatingAnswer", false)
+    storage.set(STORAGE_KEYS.generatingAnswer, false)
   },
   { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] }
 )

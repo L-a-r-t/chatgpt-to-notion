@@ -1,13 +1,14 @@
 import { Storage } from "@plasmohq/storage"
 
 import { getDatabase } from "~api/getDatabase"
+import { STORAGE_KEYS } from "~utils/consts"
 import { formatDB } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 const refreshDatabases = async () => {
   console.log("refreshing databases")
   const storage = new Storage()
-  const databases = await storage.get<StoredDatabase[]>("databases")
+  const databases = await storage.get<StoredDatabase[]>(STORAGE_KEYS.databases)
   if (!databases) return
 
   const apiCalls = databases.filter((db) => db).map((db) => getDatabase(db.id))
@@ -22,12 +23,12 @@ const refreshDatabases = async () => {
     refreshedDatabases.push(formattedDB)
   }
 
-  const selectedDB = await storage.get<number>("selectedDB")
+  const selectedDB = await storage.get<number>(STORAGE_KEYS.selectedDB)
   if (!!selectedDB && selectedDB >= refreshedDatabases.length) {
-    await storage.set("selectedDB", 0)
+    await storage.set(STORAGE_KEYS.selectedDB, 0)
   }
-  await storage.set("databases", refreshedDatabases)
-  await storage.set("refreshed", true)
+  await storage.set(STORAGE_KEYS.databases, refreshedDatabases)
+  await storage.set(STORAGE_KEYS.refreshed, true)
 }
 
 export default refreshDatabases
