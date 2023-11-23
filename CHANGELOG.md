@@ -1,3 +1,14 @@
+### 1.8.2
+
+Fixes
+
+- Save error when saving a complete chat
+- Rare case where save would fail until the user refreshes the page
+
+Misc
+
+- Refactored the storage logic to be more fool-proof
+
 ### 1.8.1
 
 Fixes
