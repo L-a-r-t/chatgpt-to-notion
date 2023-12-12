@@ -21,7 +21,7 @@ export const checkSaveConflict = async ({
     const { propertiesIds, tags, tagPropertyIndex, tagIndex } = database
     const tag = generateTag(tags[tagPropertyIndex], tagIndex)
 
-    const tagType = tags[tagPropertyIndex].type
+    const tagType = tags[tagPropertyIndex]?.type
 
     const searchRes = await notion.databases.query({
       database_id: database.id,

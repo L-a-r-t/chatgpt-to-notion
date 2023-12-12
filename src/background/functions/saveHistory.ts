@@ -4,6 +4,7 @@ import { checkSaveConflict } from "~api/checkSaveConflict"
 import { getConversation } from "~api/getConversation"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
+import { STORAGE_KEYS } from "~utils/consts"
 import { convertHeaders } from "~utils/functions"
 import type {
   Conversation,
@@ -18,11 +19,13 @@ const saveHistory = async (
 ) => {
   const storage = new Storage()
 
-  const databases = await storage.get<StoredDatabase[]>("databases")
-  const selectedDB = await storage.get<number>("selectedDB")
-  const generateHeadings = await storage.get<boolean>("generateHeadings")
+  const databases = await storage.get<StoredDatabase[]>(STORAGE_KEYS.databases)
+  const selectedDB = await storage.get<number>(STORAGE_KEYS.selectedDB)
+  const generateHeadings = await storage.get<boolean>(
+    STORAGE_KEYS.generateHeadings
+  )
 
-  await storage.set("historySaveProgress", -1)
+  await storage.set(STORAGE_KEYS.historySaveProgress, -1)
 
   const database = databases[selectedDB]
 
@@ -32,9 +35,9 @@ const saveHistory = async (
   )
   const convs = _convs.filter((conv) => conv !== null).map(parseConversation)
 
-  await storage.set("historyLength", convs.length)
-  await storage.set("historySaveProgress", 0)
-  await storage.set("historySaveErrors", [])
+  await storage.set(STORAGE_KEYS.historyLength, convs.length)
+  await storage.set(STORAGE_KEYS.historySaveProgress, 0)
+  await storage.set(STORAGE_KEYS.historySaveErrors, [])
 
   let historySaveProgress = 0
   let historySaveErrors: HistorySaveError[] = []
@@ -59,7 +62,7 @@ const saveHistory = async (
       })
 
       historySaveProgress++
-      await storage.set("historySaveProgress", historySaveProgress)
+      await storage.set(STORAGE_KEYS.historySaveProgress, historySaveProgress)
 
       // avoid rate limiting
       await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -70,7 +73,7 @@ const saveHistory = async (
         url: convs[i].url,
         message: err.message ?? err.code ?? err.status ?? "Unknown error"
       })
-      await storage.set("historySaveErrors", historySaveErrors)
+      await storage.set(STORAGE_KEYS.historySaveErrors, historySaveErrors)
     }
   }
 }

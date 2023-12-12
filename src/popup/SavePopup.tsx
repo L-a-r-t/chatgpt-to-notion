@@ -47,10 +47,7 @@ export default function SavePopup() {
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
   const [chatID] = useStorage(STORAGE_KEYS.chatID)
-  const [cacheHeaders] = useStorage<any>(
-    { key: STORAGE_KEYS.cacheHeaders, area: "session" },
-    null
-  )
+  const [cacheHeaders] = useStorage<any>(STORAGE_KEYS.hasCacheHeaders, null)
 
   const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
     STORAGE_KEYS.pinTitleType,

@@ -64,7 +64,7 @@ export const saveChat = async (params: SaveChatParams) => {
             url: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
           }
         },
-        properties: {
+        properties: tag ? {
           [propertiesIds.title]: {
             title: [
               {
@@ -78,6 +78,19 @@ export const saveChat = async (params: SaveChatParams) => {
             url
           },
           [tags[tagPropertyIndex].id]: tag
+        } : {
+          [propertiesIds.title]: {
+            title: [
+              {
+                text: {
+                  content: title
+                }
+              }
+            ]
+          },
+          [propertiesIds.url]: {
+            url
+          }
         },
         children: generateHeadings
           ? [table_of_contents, ...chunks[0]]

@@ -300,11 +300,7 @@ export const generateBlocks = (
 }
 
 export const generateTag = (
-  {
-    options,
-    type,
-    id
-  }: {
+  params: {
     options: SelectPropertyResponse[]
     name: string
     id: string
@@ -312,7 +308,8 @@ export const generateTag = (
   },
   tagIndex: number
 ) => {
-  if (tagIndex === -1) return undefined
+  if (tagIndex === -1 || !params.options) return undefined
+  const { options, type, id } = params
   return type === "select"
     ? { select: { id: options[tagIndex].id } }
     : {

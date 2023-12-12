@@ -139,6 +139,7 @@ const main = async () => {
   const storage = new Storage()
   storage.set(STORAGE_KEYS.historyLength, 0)
   storage.set(STORAGE_KEYS.historySaveProgress, -1)
+  storage.set(STORAGE_KEYS.hasCacheHeaders, false)
 }
 
 main()
@@ -164,6 +165,7 @@ chrome.webRequest.onSendHeaders.addListener(
 
     cacheHeaders = res.requestHeaders
     session.set(STORAGE_KEYS.cacheHeaders, cacheHeaders)
+    storage.set(STORAGE_KEYS.hasCacheHeaders, true)
   },
   { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] },
   ["requestHeaders", "extraHeaders"]

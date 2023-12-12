@@ -17,6 +17,7 @@ export const STORAGE_KEYS = {
   pinTitleType: "pinTitleType",
   token: "token",
   cacheHeaders: "cacheHeaders",
+  hasCacheHeaders: "hasCacheHeaders", // to keep session access limited to trusted contexts
   historySaveProgress: "historySaveProgress",
   historySaveErrors: "historySaveErrors",
   historyLength: "historyLength",
