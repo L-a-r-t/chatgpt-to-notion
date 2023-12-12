@@ -1,3 +1,10 @@
+### 1.8.3
+
+Fixes
+
+- Save error when saving to a database that doesn't have tags
+- Impossibility to save an individual answer
+
 ### 1.8.2
 
 Fixes
