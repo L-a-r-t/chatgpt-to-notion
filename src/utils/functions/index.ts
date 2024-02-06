@@ -18,7 +18,7 @@ export const mdToBlocks = (_md: string, fromHTML: boolean) => {
   const md = parseMarkdown(_md, fromHTML)
   // console.log("md", md)
 
-  const _blocks = markdownToBlocks(md)
+  const _blocks = markdownToBlocks(md, { notionLimits: { truncate: true } })
 
   // console.log("_blocks", _blocks)
 
@@ -48,8 +48,10 @@ export const mdToBlocks = (_md: string, fromHTML: boolean) => {
           : new Array(length).fill(0).map((_, idx) => arr[i + idx + 1])
         if (content.includes("TOGGLE")) {
           const toggle = generateToggle(i18n("notion_expandToSee"), childs)
-          if (toggle.toggle.children[0].code.rich_text[0])
-            toggle.toggle.children[0].code.rich_text[0].annotations = undefined
+          toggle.toggle.children.forEach((child) => {
+            if (child.type === "code" && child.code.rich_text[0])
+              child.code.rich_text[0].annotations = undefined
+          })
           acc.push(toggle)
           toggleChild = length
         }
