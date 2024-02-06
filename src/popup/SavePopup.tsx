@@ -274,7 +274,9 @@ export default function SavePopup() {
         </>
       )}
       <button
-        disabled={loading || success || !cacheHeaders || !authenticated}
+        disabled={
+          loading || success || !cacheHeaders || !authenticated || !chatID
+        }
         className="button w-full disabled:bg-main"
         onClick={() => handleSave(db!)}>
         {!authenticated ? (
@@ -286,8 +288,8 @@ export default function SavePopup() {
           getConsiseErrMessage(error)
         ) : success ? (
           i18n("save_saved")
-        ) : !cacheHeaders ? (
-          "Refresh page"
+        ) : !(cacheHeaders && chatID) ? (
+          i18n("refresh")
         ) : (
           i18n("save_save")
         )}{" "}

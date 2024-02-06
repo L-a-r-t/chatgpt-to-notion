@@ -284,7 +284,9 @@ function IndexPopup() {
         </>
       )}
       <button
-        disabled={loading || success || !cacheHeaders || !authenticated}
+        disabled={
+          loading || success || !cacheHeaders || !authenticated || !chatID
+        }
         className="button disabled:bg-main"
         onClick={() => handleSave()}>
         {!authenticated ? (
@@ -296,8 +298,8 @@ function IndexPopup() {
           getConsiseErrMessage(error)
         ) : success ? (
           i18n("index_discussionSaved")
-        ) : !cacheHeaders ? (
-          "Refresh page"
+        ) : !(cacheHeaders && chatID) ? (
+          i18n("refresh")
         ) : (
           i18n("index_saveFullChat")
         )}
