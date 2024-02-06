@@ -1,3 +1,10 @@
+### 1.8.4
+
+Fixes
+
+- Being prompted to refresh the page over and over when trying to save an individual answer
+- Rare issue with very long paragraphs (>2000 words) causing the save to fail
+
 ### 1.8.3
 
 Fixes
