@@ -47,7 +47,10 @@ export default function SavePopup() {
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
   const [chatID] = useStorage(STORAGE_KEYS.chatID)
-  const [cacheHeaders] = useStorage<any>(STORAGE_KEYS.hasCacheHeaders, null)
+  const [cacheHeaders] = useStorage<boolean>(
+    STORAGE_KEYS.hasCacheHeaders,
+    false
+  )
 
   const [titleType, setTitleType] = useStorage<"title" | "prompt" | "custom">(
     STORAGE_KEYS.pinTitleType,
@@ -73,6 +76,10 @@ export default function SavePopup() {
     }
     updateState()
   }, [toBeSaved])
+
+  useEffect(() => {
+    console.log({ cacheHeaders, chatID })
+  }, [cacheHeaders, chatID])
 
   const handleSave = async (database: StoredDatabase) => {
     try {

@@ -144,7 +144,6 @@ const main = async () => {
   const storage = new Storage()
   storage.set(STORAGE_KEYS.historyLength, 0)
   storage.set(STORAGE_KEYS.historySaveProgress, -1)
-  storage.set(STORAGE_KEYS.hasCacheHeaders, false)
 }
 
 main()
