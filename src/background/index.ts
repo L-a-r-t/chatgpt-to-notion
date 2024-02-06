@@ -127,6 +127,11 @@ chrome.runtime.onInstalled.addListener((details) => {
       url: "https://www.maxai.me/partners/installed/chatgpt-to-notion"
     })
   }
+  if (details.reason === "update") {
+    chrome.tabs.create({
+      url: "https://www.extensions-hub.com/chatgpt-to-notion/updated/"
+    })
+  }
 
   refreshContentScripts()
 })
