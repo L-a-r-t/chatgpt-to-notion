@@ -20,6 +20,9 @@
   "authenticating": {
     "message": "Authenticating to Notion"
   },
+  "refresh": {
+    "message": "Refresh page"
+  },
   "sponsored": {
     "message": "Sponsored (?)"
   },
@@ -83,7 +86,7 @@
   "save_serverError": {
     "message": "Server error"
   },
-  "save_generateHeadings" : {
+  "save_generateHeadings": {
     "message": "Headings & table of contents"
   },
   "conflict_text": {

@@ -20,6 +20,9 @@
   "authenticating": {
     "message": "Connexion à Notion"
   },
+  "refresh": {
+    "message": "Actualisez la page"
+  },
   "sponsored": {
     "message": "Sponsor (?)"
   },
@@ -40,7 +43,7 @@
   },
   "index_premiumFeatures": {
     "message": "Voir fonctionnalités premium"
-  },  
+  },
   "save_pageTitle": {
     "message": "Page"
   },
@@ -77,7 +80,7 @@
   "save_unauthorized": {
     "message": "Sauvegarde non autorisée par Notion"
   },
-  "save_generateHeadings" : {
+  "save_generateHeadings": {
     "message": "Titres et sommaire"
   },
   "conflict_text": {
@@ -370,5 +373,5 @@
   },
   "notion_dalleExplainer": {
     "message": "Les images de DALL-E ne peuvent être enregistrées directement sans les héberger hors des serveurs d'OpenAI au préalable, ce qui ne sera pas fait par respect pour vos données. Vous pouvez télécharger les images depuis votre conversation avec ChatGPT puis les ajouter ici à postériori."
-  }  
+  }
 }
