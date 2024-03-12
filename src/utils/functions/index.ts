@@ -175,8 +175,35 @@ export const parseConversation = (rawConv: Conversation) => {
     )
     .sort((a, b) => a.message!.create_time - b.message!.create_time)
 
-  const rawPrompts = messages.filter(
-    (item) => item.message!.author?.role == "user"
+  const { rawPrompts } = messages.reduce(
+    (acc, item, i) => {
+      // Triple if statements are smelly but I'm returning acc only at the end which was the point?
+      if (item.message!.author?.role == "user") {
+        if (acc.prev == "user") {
+          const prevMessage = acc.rawPrompts[acc.rawPrompts.length - 1]
+          if (prevMessage.message!.content.text) {
+            acc.rawPrompts[acc.rawPrompts.length - 1].message!.content.text +=
+              "\n" + item.message!.content.text
+          } else {
+            acc.rawPrompts[acc.rawPrompts.length - 1].message!.content.parts = [
+              ...(prevMessage.message!.content.parts ?? []),
+              ...(item.message!.content.parts ?? [item.message!.content.text])
+            ]
+          }
+          acc.rawPrompts[acc.rawPrompts.length - 1].children?.push(
+            ...(item.children ?? [])
+          )
+        } else {
+          acc.rawPrompts.push(item)
+        }
+      }
+      acc.prev = item.message!.author?.role ?? ""
+      return acc
+    },
+    { prev: "system", rawPrompts: [] } as {
+      prev: string
+      rawPrompts: Message[]
+    }
   )
 
   const prompts = rawPrompts.map(
