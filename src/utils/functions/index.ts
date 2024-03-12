@@ -107,6 +107,10 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         .replace(/(%%CHATGPT_TO_NOTION_SPLIT(?<len>.*)%%)/gm, "> $<len>WORK")
         .replace(/(%%CHATGPT_TO_NOTION_WORK(?<len>.*)%%)/gm, "> $<len>TOGGLE")
         .replace(/(%%CHATGPT_TO_NOTION_IMAGE(?<len>.*)%%)/gm, "> $<len>IMAGE\n")
+        .replace(
+          /((\\\[)|(\\\())(?<katex>.*)((\\\])|(\\\)))(?!.*\/g?m?)/gm,
+          "$$ $<katex> $$"
+        )
 }
 
 const getQuoteContent = (quoteBlock: any) => {
