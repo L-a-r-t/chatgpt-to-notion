@@ -12,7 +12,8 @@ const save = async (
   rawHeaders: { name: string; value?: string }[],
   turn: number = -1,
   saveBehavior: SaveBehavior = "override",
-  conflictingPageId?: string
+  conflictingPageId?: string,
+  autoSave: boolean = false
 ) => {
   const storage = new Storage()
 
@@ -24,6 +25,7 @@ const save = async (
     const generateHeadings = await storage.get<boolean>(
       STORAGE_KEYS.generateHeadings
     )
+    const openInNotion = await storage.get<boolean>(STORAGE_KEYS.openInNotion)
 
     const database = databases[selectedDB ?? 0]
 
@@ -66,6 +68,18 @@ const save = async (
     })
 
     await storage.set(STORAGE_KEYS.saveStatus, "saved" as SaveStatus)
+    if (openInNotion && !autoSave) {
+      if (res.object == "page") {
+        chrome.tabs.create({
+          url: `https://www.notion.so/${res.id.replace(/\-/g, "")}`
+        })
+      } else {
+        chrome.tabs.create({
+          url: `https://www.notion.so/${conflictingPageId?.replace(/\-/g, "")}`
+        })
+      }
+    }
+
     return res
   } catch (err) {
     console.error(err)

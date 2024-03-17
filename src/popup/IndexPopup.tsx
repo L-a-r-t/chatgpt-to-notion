@@ -45,7 +45,11 @@ function IndexPopup() {
   const [databases] = useStorage<StoredDatabase[]>(STORAGE_KEYS.databases, [])
   const [generateHeadings, setGenerateHeadings] = useStorage<boolean>(
     STORAGE_KEYS.generateHeadings,
-    () => true
+    true
+  )
+  const [openInNotion, setOpenInNotion] = useStorage<boolean>(
+    STORAGE_KEYS.openInNotion,
+    false
   )
   const { db, tag, tagProp, selectTag, selectTagProp } = useTags()
 
@@ -318,6 +322,16 @@ function IndexPopup() {
             <label htmlFor="generateHeadings">
               {i18n("save_generateHeadings")}
             </label>
+          </div>
+          <div className="mt-1">
+            <input
+              id="openInNotion"
+              type="checkbox"
+              defaultChecked={openInNotion}
+              className="mr-2"
+              onChange={(e) => setOpenInNotion(e.target.checked)}
+            />
+            <label htmlFor="openInNotion">Open in Notion</label>
           </div>
           {!(isPremium || activeTrial) ? (
             <button

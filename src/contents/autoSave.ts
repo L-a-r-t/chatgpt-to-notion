@@ -55,7 +55,8 @@ storage.watch({
           body: {
             saveBehavior: "override",
             conflictingPageId,
-            convId: chatID
+            convId: chatID,
+            autoSave: true
           }
         })
 
