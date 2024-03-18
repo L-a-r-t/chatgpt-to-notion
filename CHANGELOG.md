@@ -1,3 +1,16 @@
+## 1.9.0
+
+Features
+
+- Eco-friendly mode
+- Open saved page in Notion
+- KaTeX notation support
+
+Fixes
+
+- Improper handling of prompts with multiple line jumps
+- Edge case where save would fail on a brand new conversation
+
 ### 1.8.4
 
 Fixes
