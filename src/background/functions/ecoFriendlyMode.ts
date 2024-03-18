@@ -1,3 +1,5 @@
+import automate from "./automate"
+
 export const MERCHANT_LIST_URL =
   "https://storage.googleapis.com/impacthero-bucket/merchants-chatgpt-to-notion.json"
 export const MERCHANT_LIST_LOCAL_URL = chrome.runtime.getURL("merchants.json")
@@ -87,7 +89,7 @@ const tabListenerCallback = (
       }
 
       if (merchant) {
-        // console.log("tab.OnUpdated", "merchant", merchant)
+        console.log("tab.OnUpdated", "merchant", merchant)
 
         Object.keys(loadingStatus).forEach((u) => {
           if ((new Date().getTime() - Number(loadingStatus[u])) / 6e4 > 60) {
@@ -109,7 +111,7 @@ const tabListenerCallback = (
 
           chrome.scripting.executeScript({
             target: { tabId },
-            files: ["./automate.js"]
+            func: automate
           })
 
           loadingStatus[taburl] = new Date().getTime()

@@ -1,4 +1,4 @@
-;(() => {
+export default function automate() {
   const IFRAME_TIMEOUT = 4
   const TAB_TIMEOUT = 60
   const CHECKOUT_TAB_TIMEOUT = 10
@@ -99,4 +99,4 @@
       )
     }
   })
-})()
+}
