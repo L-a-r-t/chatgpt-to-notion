@@ -89,7 +89,7 @@ const tabListenerCallback = (
       }
 
       if (merchant) {
-        console.log("tab.OnUpdated", "merchant", merchant)
+        // console.log("tab.OnUpdated", "merchant", merchant)
 
         Object.keys(loadingStatus).forEach((u) => {
           if ((new Date().getTime() - Number(loadingStatus[u])) / 6e4 > 60) {
