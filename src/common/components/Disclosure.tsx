@@ -1,10 +1,11 @@
 import { Disclosure as D, Transition } from "@headlessui/react"
-import type { PropsWithChildren } from "react"
+import { Fragment, type PropsWithChildren } from "react"
+import { twMerge } from "tailwind-merge"
 
 export default function Disclosure({ children, className, title }: Props) {
   return (
-    <D>
-      <D.Button className={className}>{title}</D.Button>
+    <D as={Fragment}>
+      <D.Button className={twMerge("w-full", className)}>{title}</D.Button>
       <Transition
         enter="transition duration-100 ease-out"
         enterFrom="transform -translate-y-5 opacity-0"
