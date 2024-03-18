@@ -40,8 +40,8 @@ const save = async (
 
     const conversation = parseConversation(rawConversation)
 
-    if (turn == conversation.prompts.length) {
-      turn -= 1
+    if (turn >= conversation.prompts.length) {
+      turn = conversation.prompts.length - 1
     }
     const filteredConversation =
       turn == -1
