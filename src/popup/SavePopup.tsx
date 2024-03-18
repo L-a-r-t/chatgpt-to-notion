@@ -1,4 +1,5 @@
 import banner2 from "data-base64:../../assets/banner-2.png"
+import bannerEco2 from "data-base64:../../assets/banner-eco-2.png"
 import { useEffect, useState } from "react"
 import { decompress } from "shrink-string"
 
@@ -50,6 +51,7 @@ export default function SavePopup() {
   const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
+  const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, false)
   const [chatID] = useStorage(STORAGE_KEYS.chatID)
   const [cacheHeaders] = useStorage<boolean>(
     STORAGE_KEYS.hasCacheHeaders,
@@ -164,7 +166,7 @@ export default function SavePopup() {
       {success ? (
         isPremium || activeTrial ? (
           <div />
-        ) : (
+        ) : !ecoModeActive ? (
           <div className="mb-4">
             {/* <a
               className="link block text-center"
@@ -179,6 +181,18 @@ export default function SavePopup() {
                 src={banner2}
                 className="w-full aspect-square"
                 alt="Leave a review!"
+              />
+            </a>
+          </div>
+        ) : (
+          <div className="mb-4">
+            <a
+              href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"
+              target="_blank">
+              <img
+                src={bannerEco2}
+                className="w-full aspect-square"
+                alt="Enable eco-friendly mode!"
               />
             </a>
           </div>

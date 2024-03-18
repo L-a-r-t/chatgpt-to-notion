@@ -8,6 +8,7 @@ import { STORAGE_KEYS } from "~utils/consts"
 
 import {
   authenticate,
+  ecoFriendlyMode,
   fetchHistory,
   refreshContentScripts,
   refreshDatabases,
@@ -15,6 +16,8 @@ import {
   save,
   saveHistory
 } from "./functions"
+
+ecoFriendlyMode()
 
 const storage = new Storage()
 const session = new Storage({
@@ -55,7 +58,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           cacheHeaders,
           body.turn,
           body.saveBehavior,
-          body.conflictingPageId
+          body.conflictingPageId,
+          body.autoSave
         )
           .then((res) => {
             sendResponse(res)
@@ -129,7 +133,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
   if (details.reason === "update") {
     chrome.tabs.create({
-      url: "https://www.extensions-hub.com/chatgpt-to-notion/updated/"
+      url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
     })
   }
 

@@ -40,6 +40,7 @@ export type PopupEnum =
   | "wrongpage"
   | "dbsettings"
   | "premium"
+  | "ecology"
   | "history"
   | "error"
 

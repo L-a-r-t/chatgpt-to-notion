@@ -42,8 +42,14 @@
     ],
     "permissions": [
       "tabs",
-      "scripting",
-      "webRequest"
+      "webRequest",
+      "scripting"
+    ],
+    "optional_host_permissions": [
+      "*://*/*"
+    ],
+    "optional_permissions": [
+      "alarms"
     ]
   }
 }

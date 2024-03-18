@@ -1,4 +1,5 @@
 import banner1 from "data-base64:../../assets/banner-1.png"
+import bannerEco1 from "data-base64:../../assets/banner-eco-1.png"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -56,6 +57,7 @@ function IndexPopup() {
   const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
+  const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, false)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>(
     STORAGE_KEYS.autosaveStatus
   )
@@ -215,7 +217,7 @@ function IndexPopup() {
           </div>
         ) : isPremium || activeTrial ? (
           <div />
-        ) : (
+        ) : !ecoModeActive ? (
           <div className="mb-4">
             {/* <a
               className="link block text-center"
@@ -232,6 +234,16 @@ function IndexPopup() {
                 alt="Leave a review!"
               />
             </a>
+          </div>
+        ) : (
+          <div className="mb-4">
+            <div className="cursor-pointer" onClick={() => setPopup("ecology")}>
+              <img
+                src={bannerEco1}
+                className="w-full aspect-[2]"
+                alt="Enable eco-friendly mode!"
+              />
+            </div>
           </div>
         )
       ) : (

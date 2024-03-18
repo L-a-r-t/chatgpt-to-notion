@@ -1,4 +1,5 @@
 import authenticate from "./authenticate"
+import { initialize as ecoFriendlyMode } from "./ecoFriendlyMode"
 import fetchHistory from "./fetchHistory"
 import refreshContentScripts from "./refreshContentScripts"
 import refreshDatabases from "./refreshDatabases"
@@ -8,10 +9,11 @@ import saveHistory from "./saveHistory"
 
 export {
   authenticate,
+  refreshContentScripts,
   refreshDatabases,
   refreshIcons,
-  refreshContentScripts,
   fetchHistory,
+  ecoFriendlyMode,
   saveHistory,
   save
 }

@@ -21,6 +21,7 @@ import { i18n } from "~utils/functions"
 
 import AboutPopup from "./AboutPopup"
 import DatabaseSettingsPopup from "./DatabaseSettings"
+import EcologyPopup from "./EcologyPopup"
 import HistorySavePopup from "./HistorySavePopup"
 import PremiumPopup from "./PremiumPopup"
 import SettingsPopup from "./SettingsPopup"
@@ -87,7 +88,8 @@ export default function Wrapper() {
     about: <AboutPopup />,
     wrongpage: <WrongPagePopup />,
     premium: <PremiumPopup />,
-    history: <HistorySavePopup />
+    history: <HistorySavePopup />,
+    ecology: <EcologyPopup />
   }
 
   const nav = {

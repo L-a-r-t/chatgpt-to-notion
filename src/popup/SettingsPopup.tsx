@@ -183,7 +183,7 @@ function SettingsPopup() {
               </>
             )
           )}
-          {databases.length > 0 && (
+          {/* {databases.length > 0 && (
             <>
               <div className="border my-3" />
               <button
@@ -191,6 +191,16 @@ function SettingsPopup() {
                 className="button-outline text-sm font-normal">
                 <StarIcon />
                 Premium
+              </button>
+            </>
+          )} */}
+          {databases.length > 0 && (
+            <>
+              <div className="border my-3" />
+              <button
+                onClick={() => setPopup("ecology")}
+                className="button bg-green-600 text-sm font-normal">
+                Eco-friendly mode
               </button>
             </>
           )}

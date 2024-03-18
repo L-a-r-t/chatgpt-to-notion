@@ -4,6 +4,7 @@ export const STORAGE_KEYS = {
   selectedDB: "selectedDB",
   authenticated: "authenticated",
   generateHeadings: "generateHeadings",
+  openInNotion: "openInNotion",
   saveBehavior: "saveBehavior",
   saveStatus: "saveStatus",
   autosaveStatus: "autosaveStatus",
@@ -27,5 +28,6 @@ export const STORAGE_KEYS = {
   user_id: "user_id",
   workspace_name: "workspace_name",
   user: "user",
-  refreshed: "refreshed"
+  refreshed: "refreshed",
+  ecoModeActive: "ecoModeActive"
 } as const
