@@ -376,5 +376,71 @@
   },
   "notion_dalleExplainer": {
     "message": "DALL-E images can't be saved directly without hosting them outside of OpenAI's servers first, which won't be done for privacy reasons. You can download them from your conversation with ChatGPT and add them here later."
+  },
+  "eco_desc": {
+    "message": "Eco-friendly mode allows us to plant a tree whenever you visit a partner website, while respecting your privacy and not changing anything with your web experience."
+  },
+  "eco_faq": {
+    "message": "Read the FAQ"
+  },
+  "eco_enable": {
+    "message": "Enable eco-friendly mode"
+  },
+  "eco_disable": {
+    "message": "Disable eco-friendly mode"
+  },
+  "update_heading": {
+    "message": "ChatGPT to Notion just got an update! 🎉"
+  },
+  "update_major": {
+    "message": "There are some major changes, please read this page."
+  },
+  "update_changelog_link": {
+    "message": "Read the changelog for every update here"
+  },
+  "update_changelog_features": {
+    "message": "Features"
+  },
+  "update_changelog_features_1": {
+    "message": "Eco-friendly mode"
+  },
+  "update_changelog_features_2": {
+    "message": "Open saved page in Notion"
+  },
+  "update_changelog_features_3": {
+    "message": "KaTeX notation support"
+  },
+  "update_changelog_fixes": {
+    "message": "Fixes"
+  },
+  "update_changelog_fixes_1": {
+    "message": "Improper handling of prompts with multiple line jumps"
+  },
+  "update_changelog_fixes_2": {
+    "message": "Edge case where pin save would fail on a brand new conversation"
+  },
+  "update_eco_heading": {
+    "message": "Enabling eco-friendliness"
+  },
+  "update_eco_1": {
+    "message": "When I first created ChatGPT to Notion, I wasn't at all expecting it to become the success that it is today! I am incredibly grateful for having the opportunity to bring something useful to tens of thousands of people. However, as I kept going through with my studies, I've been lacking time to maintain the extension and develop alternatives for other LLMs as much as I wanted to."
+  },
+  "update_eco_2": {
+    "message": "As a way to keep myself motivated to work on this project and to sustain myself through my studies, I have implemented a premium subscription that I've been wanting to get rid of ever since. Being fully aware of the fact that having a large platform is a rare occurence, I want to be as positive as possible. That's why I'm partnering up with the team at allcolibri to give ChatGPT to Notion the opportunity to also be a net positive for the environment."
+  },
+  "update_eco_3": {
+    "message": "Eco-friendly mode is a compltetely optional feature that I've been working on implementing. When visiting a partner website, a portion of the revenue generated from your visit will be used to plant trees and to remunerate the extension's development. If this partnership proves to be successful, "
+  },
+  "update_eco_4": {
+    "message": "I will be using this revenue stream to make the extension features free for everyone."
+  },
+  "update_eco_5": {
+    "message": "Thank you for your interest in ChatGPT to Notion,"
+  },
+  "update_eco_enable": {
+    "message": "Enable eco-friendly mode"
+  },
+  "update_eco_enabled": {
+    "message": "Eco-friendly mode is enabled, congrats! 🌳"
   }
 }

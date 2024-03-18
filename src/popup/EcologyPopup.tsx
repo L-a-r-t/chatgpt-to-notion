@@ -3,6 +3,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import "~styles.css"
 
 import { STORAGE_KEYS } from "~utils/consts"
+import { i18n } from "~utils/functions"
 
 function EcologyPopup() {
   const [enabled] = useStorage(STORAGE_KEYS.ecoModeActive, false)
@@ -34,24 +35,20 @@ function EcologyPopup() {
 
   return (
     <>
-      <p className="text-sm">
-        Eco-friendly mode allows us to plant a tree whenever you visit a partner
-        website, while respecting your privacy and not changing anything with
-        your web experience.
-      </p>
+      <p className="text-sm">{i18n("eco_desc")}</p>
       <a
         className="link my-2"
         href="https://theo-lartigau.notion.site/FAQ-50befa31f01a495b9d634e3f575dd4ba"
         target="_blank">
-        Read the FAQ
+        {i18n("eco_faq")}
       </a>
       {enabled ? (
         <button onClick={disable} className="button bg-red-600">
-          Disable eco-friendly mode
+          {i18n("eco_disable")}
         </button>
       ) : (
         <button onClick={enable} className="button bg-green-600">
-          Enable eco-friendly mode
+          {i18n("eco_enable")}
         </button>
       )}
     </>

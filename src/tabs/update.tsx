@@ -3,6 +3,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import "~styles.css"
 
 import { STORAGE_KEYS } from "~utils/consts"
+import { i18n } from "~utils/functions"
 
 export default function UpdatePage() {
   const [enabled] = useStorage(STORAGE_KEYS.ecoModeActive, false)
@@ -38,75 +39,59 @@ export default function UpdatePage() {
           />
         </div>
         <h1 className="text-center text-5xl font-bold">
-          ChatGPT to Notion just got an update! 🎉
+          {i18n("update_heading")}
         </h1>
         <p className="text-center p-2 border mt-6 rounded-xl text-base">
-          There are some major changes, please read this page.
+          {i18n("update_major")}
         </p>
         <h2 className="text-4xl font-bold mb-2 mt-8">Changelog (v 1.9.0)</h2>
         <a
           className="link mb-4"
           href="https://github.com/L-a-r-t/chatgpt-to-notion/blob/master/CHANGELOG.md"
           target="_blank">
-          Read the changelog for every update here
+          {i18n("update_changelog_link")}
         </a>
-        <h3 className="text-2xl font-semibold mt-2">Features</h3>
+        <h3 className="text-2xl font-semibold mt-2">
+          {i18n("update_changelog_features")}
+        </h3>
         <ul className="list-disc pl-4 py-2 text-base">
-          <li>Eco-friendly mode</li>
-          <li>Open saved page in Notion</li>
-          <li>KaTeX notation support</li>
-          <li>Update page with changelog</li>
+          <li>{i18n("update_changelog_features_1")}</li>
+          <li>{i18n("update_changelog_features_2")}</li>
+          <li>{i18n("update_changelog_features_3")}</li>
         </ul>
-        <h3 className="text-2xl font-semibold">Fixes</h3>
+        <h3 className="text-2xl font-semibold">
+          {i18n("update_changelog_fixes")}
+        </h3>
         <ul className="list-disc pl-4 py-2 text-base">
-          <li>Improper handling of prompts with multiple line jumps</li>
-          <li>
-            Edge case where individual save would fail on a brand new
-            conversation
-          </li>
+          <li>{i18n("update_changelog_fixes_1")}</li>
+          <li>{i18n("update_changelog_fixes_2")}</li>
         </ul>
-        <h3 className="text-4xl font-bold my-4">Enabling eco-friendliness</h3>
+        <h3 className="text-4xl font-bold my-4">
+          {i18n("update_eco_heading")}
+        </h3>
         <p className="px-8 py-4 text-justify text-base">
-          When I first created ChatGPT to Notion, I wasn't at all expecting it
-          to become the success that it is today! I am incredibly grateful for
-          having the opportunity to bring something useful to tens of thousands
-          of people. However, as I kept going through with my studies, I've been
-          lacking time to maintain the extension and develop alternatives for
-          other LLMs as much as I wanted to. <br />
+          {i18n("update_eco_1")} <br />
           <br />
-          As a way to keep myself motivated to work on this project and to
-          sustain myself through my studies, I have implemented a premium
-          subscription that I've been wanting to get rid of ever since. Being
-          fully aware of the fact that having a large platform is a rare
-          occurence, I want to be as positive as possible. That's why I'm
-          partnering up with the team at allcolibri to give ChatGPT to Notion
-          the opportunity to also be a net positive for the environment. <br />
+          {i18n("update_eco_2")} <br />
           <br />
-          Eco-friendly mode is a compltetely optional feature that I've been
-          working on implementing. When visiting a partner website, a portion of
-          the revenue generated from your visit will be used to plant trees and
-          to remunerate the extension's development. If this partnership proves
-          to be successful,{" "}
-          <b>
-            I will be using this revenue stream to make the extension features
-            free for everyone.
-          </b>
+          {i18n("update_eco_3")}
+          <b>{i18n("update_eco_4")}</b>
           <br />
           <br />
-          Thank you for your interest in ChatGPT to Notion,
+          {i18n("update_eco_5")}
           <br />
           Théo Lartigau
         </p>
         <div className="flex justify-center">
           {enabled ? (
             <p className="font-semibold text-xl">
-              Eco-friendly mode is enabled, congrats! 🌳
+              {i18n("update_eco_enabled")}
             </p>
           ) : (
             <button
               onClick={enableEco}
               className="py-4 px-8 rounded-xl bg-green-600 text-white font-semibold text-base">
-              Enable eco-friendly mode
+              {i18n("update_eco_enable")}
             </button>
           )}
         </div>
