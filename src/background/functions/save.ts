@@ -34,12 +34,15 @@ const save = async (
     const headers = convertHeaders(rawHeaders)
     const rawConversation = await getConversation(convId, headers)
 
-    console.log({ rawConversation })
+    // console.log({ rawConversation })
 
     if (!rawConversation?.mapping) throw new Error("Conversation not found")
 
     const conversation = parseConversation(rawConversation)
 
+    if (turn == conversation.prompts.length) {
+      turn -= 1
+    }
     const filteredConversation =
       turn == -1
         ? conversation
