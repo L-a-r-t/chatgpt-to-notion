@@ -52,7 +52,7 @@ export default function SavePopup() {
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
   const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, false)
-  const [chatID] = useStorage(STORAGE_KEYS.chatID)
+  const [chatID, setChatID] = useStorage(STORAGE_KEYS.chatID)
   const [cacheHeaders] = useStorage<boolean>(
     STORAGE_KEYS.hasCacheHeaders,
     false
@@ -73,6 +73,15 @@ export default function SavePopup() {
   >()
 
   useEffect(() => {
+    chrome.runtime
+      .sendMessage({ type: "chatgpt-to-notion_getCurrentTab" })
+      .then(({ tabUrl }) => {
+        const id = tabUrl?.split("/c/").pop()
+        setChatID(id?.length != 36 ? null : id)
+      })
+  }, [])
+
+  useEffect(() => {
     if (!toBeSaved) return
     const updateState = async () => {
       const _prompt = await decompress(toBeSaved.prompt)
@@ -82,10 +91,6 @@ export default function SavePopup() {
     }
     updateState()
   }, [toBeSaved])
-
-  useEffect(() => {
-    console.log({ cacheHeaders, chatID })
-  }, [cacheHeaders, chatID])
 
   const handleSave = async (database: StoredDatabase) => {
     try {

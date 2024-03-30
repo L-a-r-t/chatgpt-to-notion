@@ -66,7 +66,7 @@ function IndexPopup() {
     { key: STORAGE_KEYS.cacheHeaders, area: "session" },
     null
   )
-  const [chatID] = useStorage<string | null>("chatID", null)
+  const [chatID, setChatID] = useStorage<string | null>("chatID", null)
   const [autoSaveEnabled, setAutoSave] = useState(false)
 
   const [loading, setLoading] = useState(false)
@@ -75,6 +75,15 @@ function IndexPopup() {
   const [conflictingPageId, setConflictingPageId] = useState<
     string | undefined
   >()
+
+  useEffect(() => {
+    chrome.runtime
+      .sendMessage({ type: "chatgpt-to-notion_getCurrentTab" })
+      .then(({ tabUrl }) => {
+        const id = tabUrl?.split("/c/").pop()
+        setChatID(id?.length != 36 ? null : id)
+      })
+  }, [])
 
   useEffect(() => {
     const checkAutosave = async () => {
