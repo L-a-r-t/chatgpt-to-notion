@@ -204,7 +204,7 @@ function IndexPopup() {
     <p>{i18n("index_errRegister")}</p>
   ) : (
     <>
-      {success ? (
+      {success || loading ? (
         autoSaveEnabled ? (
           <div className="mb-4">
             <p className="font-bold">{i18n("autosave_enabled")}</p>
@@ -226,7 +226,7 @@ function IndexPopup() {
           </div>
         ) : isPremium || activeTrial ? (
           <div />
-        ) : !ecoModeActive ? (
+        ) : ecoModeActive ? (
           <div className="mb-4">
             {/* <a
               className="link block text-center"

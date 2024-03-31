@@ -29,5 +29,6 @@ export const STORAGE_KEYS = {
   workspace_name: "workspace_name",
   user: "user",
   refreshed: "refreshed",
-  ecoModeActive: "ecoModeActive"
+  ecoModeActive: "ecoModeActive",
+  ecoModePopup: "ecoModePopup"
 } as const

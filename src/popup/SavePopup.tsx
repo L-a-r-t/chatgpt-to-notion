@@ -168,10 +168,10 @@ export default function SavePopup() {
     <p>{i18n("index_errRegister")}</p>
   ) : (
     <>
-      {success ? (
+      {success || loading ? (
         isPremium || activeTrial ? (
           <div />
-        ) : !ecoModeActive ? (
+        ) : ecoModeActive ? (
           <div className="mb-4">
             {/* <a
               className="link block text-center"
