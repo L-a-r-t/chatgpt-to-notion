@@ -1,3 +1,9 @@
+### 1.9.1
+
+Fixes
+
+- Only saving the last opened conversation when using ChatGPT accross multiple tabs, now saves the current active conversation
+
 ## 1.9.0
 
 Features

@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-to-notion",
   "displayName": "ChatGPT to Notion",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "__MSG_extensionDescription__",
   "author": "Théo Lartigau",
   "scripts": {
