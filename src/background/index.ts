@@ -110,8 +110,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           currentWindow: true
         })
         .then((tabs) => {
-          const tabId = tabs[0].id!
-          sendResponse(tabId)
+          const tab = tabs[0]
+          sendResponse({ tabId: tab.id, tabUrl: tab.url })
         })
       break
     case "chatgpt-to-notion_bg-fetchFullChat":
@@ -132,8 +132,15 @@ chrome.runtime.onInstalled.addListener((details) => {
     })
   }
   if (details.reason === "update") {
-    chrome.tabs.create({
-      url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
+    // chrome.tabs.create({
+    //   url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
+    // })
+    storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
+      if (!isPremium) {
+        chrome.tabs.create({
+          url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
+        })
+      }
     })
   }
 
