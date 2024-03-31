@@ -18,13 +18,13 @@ export const getStyle: PlasmoGetStyle = () => {
 }
 
 const Popup = () => {
-  const [wasShown, update] = useStorage(STORAGE_KEYS.ecoModePopup, false)
+  const [wasShown, update] = useStorage(STORAGE_KEYS.ecoModePopup, true)
   const [active] = useStorage(STORAGE_KEYS.ecoModeActive, true)
 
   const [show, showPopup] = useState(!wasShown && !active)
 
   useEffect(() => {
-    if (wasShown && !active) {
+    if (!wasShown && !active) {
       showPopup(true)
     }
   }, [wasShown, active])
