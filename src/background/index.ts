@@ -128,24 +128,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
     chrome.tabs.create({
-      url: "https://www.maxai.me/partners/installed/chatgpt-to-notion"
+      url: "https://www.maxai.me/partners/installed/chatgpt-to-notion/"
     })
+    storage.set(STORAGE_KEYS.ecoModeActive, false)
+    storage.set(STORAGE_KEYS.ecoModePopup, false)
   }
   if (details.reason === "update") {
     // chrome.tabs.create({
     //   url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
     // })
-    storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
-      if (!isPremium) {
-        chrome.tabs.create({
-          url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
-        })
-      }
-    })
+    // storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
+    //   if (!isPremium) {
+    //     chrome.tabs.create({
+    //       url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
+    //     })
+    //   }
+    // })
   }
 
   refreshContentScripts()
 })
+
+chrome.runtime.setUninstallURL(
+  "https://www.extensions-hub.com/partners/uninstalled?name=ChatGPT-to-Notion"
+)
 
 const main = async () => {
   const authenticated = await authenticate()
@@ -155,6 +161,11 @@ const main = async () => {
   const storage = new Storage()
   storage.set(STORAGE_KEYS.historyLength, 0)
   storage.set(STORAGE_KEYS.historySaveProgress, -1)
+  const ecoModeActive = await storage.get(STORAGE_KEYS.ecoModeActive)
+  const ecoModePopup = await storage.get(STORAGE_KEYS.ecoModePopup)
+  // we need it to be set to false, not undefined
+  if (!ecoModeActive) storage.set(STORAGE_KEYS.ecoModeActive, false)
+  if (!ecoModePopup) storage.set(STORAGE_KEYS.ecoModePopup, false)
 }
 
 main()

@@ -137,8 +137,8 @@ export function loadMerchants(callback: null | (() => void) = null) {
     .then((data) => {
       merchantList = {}
 
-      if (!Array.isArray(data)) {
-        return
+      if (!Array.isArray(data) || Object.entries(data).length == 0) {
+        throw "Incorrect data format"
       }
 
       // eslint-disable-next-line no-restricted-syntax
@@ -171,7 +171,7 @@ export function loadMerchants(callback: null | (() => void) = null) {
 }
 
 function loadLocalMerchants(callback) {
-  const localFilePath = "merchants.json"
+  const localFilePath = "assets/merchants.json"
   fetch(chrome.runtime.getURL(localFilePath))
     .then((response) => response.json())
     .then((data) => {

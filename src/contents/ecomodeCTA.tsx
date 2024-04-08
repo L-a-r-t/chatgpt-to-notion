@@ -65,7 +65,7 @@ const Popup = () => {
 
   return (
     <div
-      className="z-20 fixed top-0 left-0 w-full h-full flex justify-center items-center"
+      className="z-20 bg-black/20 fixed top-0 left-0 w-full h-full flex justify-center items-center"
       onPointerDown={hidePopup}>
       <div
         className="rounded-xl bg-white text-black shadow-lg p-6"

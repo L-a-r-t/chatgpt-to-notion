@@ -40,7 +40,8 @@
       {
         "resources": [
           "assets/icon.png",
-          "assets/illustration.png"
+          "assets/illustration.png",
+          "assets/merchants.json"
         ],
         "matches": [
           "*://*/*"
