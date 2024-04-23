@@ -1,7 +1,7 @@
 import automate from "./automate"
 
 export const MERCHANT_LIST_URL =
-  "https://storage.googleapis.com/impacthero-bucket/merchants-chatgpt-to-notion.json"
+  "https://ext.impacthero.co/merchants-chatgpt-to-notion.json"
 export const MERCHANT_LIST_LOCAL_URL = chrome.runtime.getURL("merchants.json")
 export const MERCHANT_LIST_MAX_AGE = 24 * 60 * 60 * 1000
 export let merchantList = {}
@@ -282,6 +282,24 @@ function onMessageWithPermCallback(req: any, sender: any, rcb: any) {
       displayPermissions()
       initialize()
     })
+  } else if (req.permAction === "checkIfHasEnough") {
+    chrome.permissions.contains(
+      {
+        permissions: ["tabs", "storage", "alarms", "scripting"],
+        origins: ["*://*/*"]
+      },
+      (result) => {
+        if (result) {
+          // The extension has the permissions.
+          rcb({ permStatus: true })
+          console.log("redirectcheck:hasEnough permissions")
+        } else {
+          // The extension doesn't have the permissions.
+          rcb({ permStatus: false })
+          console.log("redirectcheck:hasNotEnough permissions")
+        }
+      }
+    )
   }
 
   return true
@@ -310,6 +328,7 @@ function onMessageWithoutPermCallback(
         }
       }
     )
+    // return true
   } else if (request.permAction === "getPerm") {
     chrome.permissions.request(
       {
@@ -326,11 +345,10 @@ function onMessageWithoutPermCallback(
         }
       }
     )
+    return true
   } else if (request.permAction === "refusePerm") {
     displayPermissions()
   }
-
-  return true
 }
 
 export function initialize() {
