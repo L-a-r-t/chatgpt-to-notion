@@ -65,7 +65,10 @@ function HistorySavePopup() {
             className="px-2 py-0.5 border border-main rounded"
             position="up"
             items={databases.map((db, index) => (
-              <button key={db.id} onClick={() => setSelectedDB(index)}>
+              <button
+                className="py-1 px-3"
+                key={db.id}
+                onClick={() => setSelectedDB(index)}>
                 {db.title}
               </button>
             ))}>

@@ -30,10 +30,7 @@ export default function DropdownPopup({
             {items.map((item, idx) => (
               <Menu.Item key={`${keysBase}${idx}`}>
                 {({ active }) => (
-                  <div
-                    className={`py-1 px-3 min-w-max ${
-                      active && "bg-gray-200"
-                    }`}>
+                  <div className={`min-w-max ${active && "bg-gray-200"}`}>
                     {item}
                   </div>
                 )}

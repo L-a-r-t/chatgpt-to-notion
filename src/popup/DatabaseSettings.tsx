@@ -120,7 +120,10 @@ function DatabaseSettingsPopup() {
                 className="px-1 border border-main rounded min-w-[4rem]"
                 position="up"
                 items={db.tags.map((tag, index) => (
-                  <button key={tag.id} onClick={() => selectTagProp(index)}>
+                  <button
+                    className="py-1 px-3"
+                    key={tag.id}
+                    onClick={() => selectTagProp(index)}>
                     {tag.name}
                   </button>
                 ))}>

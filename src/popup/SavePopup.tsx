@@ -210,15 +210,19 @@ export default function SavePopup() {
               className="px-2 py-[1px] border border-main rounded ml-2 text-sm"
               position="down"
               items={[
-                <button onClick={() => setTitleType("title")}>
+                <button
+                  className="py-1 px-3"
+                  onClick={() => setTitleType("title")}>
                   {i18n("save_pageDropdown_title")}
                 </button>,
-                <button onClick={() => setTitleType("prompt")}>
+                <button
+                  className="py-1 px-3"
+                  onClick={() => setTitleType("prompt")}>
                   {i18n("save_pageDropdown_prompt")}
                 </button>,
                 <button
                   onClick={() => setTitleType("custom")}
-                  className="text-sm">
+                  className="text-sm py-1 px-3">
                   {i18n("save_pageDropdown_custom")}
                 </button>
               ]}>
@@ -258,7 +262,10 @@ export default function SavePopup() {
               className="px-1 border border-main rounded"
               position="up"
               items={databases.map((db, index) => (
-                <button key={db.id} onClick={() => setSelectedDB(index)}>
+                <button
+                  className="py-1 px-3"
+                  key={db.id}
+                  onClick={() => setSelectedDB(index)}>
                   {db.title}
                 </button>
               ))}>
@@ -272,7 +279,10 @@ export default function SavePopup() {
                 className="font-bold min-w-[4rem] text-left"
                 position="up"
                 items={db.tags.map((tag, index) => (
-                  <button key={tag.id} onClick={() => selectTagProp(index)}>
+                  <button
+                    className="py-1 px-3"
+                    key={tag.id}
+                    onClick={() => selectTagProp(index)}>
                     {tag.name}
                   </button>
                 ))}>
@@ -287,7 +297,10 @@ export default function SavePopup() {
                   tagProp
                     ? [
                         ...tagProp.options.map((tag, index) => (
-                          <button key={tag.id} onClick={() => selectTag(index)}>
+                          <button
+                            className="py-1 px-3"
+                            key={tag.id}
+                            onClick={() => selectTag(index)}>
                             {tag.name}
                           </button>
                         )),

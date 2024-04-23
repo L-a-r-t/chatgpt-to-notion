@@ -263,7 +263,10 @@ function IndexPopup() {
               className="px-2 py-0.5 border border-main rounded"
               position="up"
               items={databases.map((db, index) => (
-                <button key={db.id} onClick={() => setSelectedDB(index)}>
+                <button
+                  className="py-1 px-3"
+                  key={db.id}
+                  onClick={() => setSelectedDB(index)}>
                   {db.title}
                 </button>
               ))}>
@@ -277,7 +280,10 @@ function IndexPopup() {
                 className="font-bold min-w-[4rem] text-left"
                 position="up"
                 items={db.tags.map((tag, index) => (
-                  <button key={tag.id} onClick={() => selectTagProp(index)}>
+                  <button
+                    className="py-1 px-3"
+                    key={tag.id}
+                    onClick={() => selectTagProp(index)}>
                     {tag.name}
                   </button>
                 ))}>
@@ -292,7 +298,10 @@ function IndexPopup() {
                   tagProp
                     ? [
                         ...tagProp.options.map((tag, index) => (
-                          <button key={tag.id} onClick={() => selectTag(index)}>
+                          <button
+                            className="py-1 px-3"
+                            key={tag.id}
+                            onClick={() => selectTag(index)}>
                             {tag.name}
                           </button>
                         )),
