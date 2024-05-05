@@ -8,7 +8,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { STORAGE_KEYS } from "~utils/consts"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://chat.openai.com/*"]
+  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
 export const getStyle: PlasmoGetStyle = () => {

@@ -176,7 +176,7 @@ chrome.webRequest.onSendHeaders.addListener(
   (res) => {
     if (
       res.method == "POST" &&
-      res.url == "https://chat.openai.com/backend-api/conversation"
+      res.url == "https://chatgpt.com/backend-api/conversation"
     ) {
       storage.set(STORAGE_KEYS.generatingAnswer, true)
       return
@@ -193,7 +193,7 @@ chrome.webRequest.onSendHeaders.addListener(
     session.set(STORAGE_KEYS.cacheHeaders, cacheHeaders)
     storage.set(STORAGE_KEYS.hasCacheHeaders, true)
   },
-  { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] },
+  { urls: ["https://chatgpt.com/*"], types: ["xmlhttprequest"] },
   ["requestHeaders", "extraHeaders"]
 )
 
@@ -201,12 +201,12 @@ chrome.webRequest.onCompleted.addListener(
   (res) => {
     if (
       res.method != "POST" ||
-      res.url != "https://chat.openai.com/backend-api/conversation"
+      res.url != "https://chatgpt.com/backend-api/conversation"
     )
       return
     storage.set(STORAGE_KEYS.generatingAnswer, false)
   },
-  { urls: ["https://chat.openai.com/*"], types: ["xmlhttprequest"] }
+  { urls: ["https://chatgpt.com/*"], types: ["xmlhttprequest"] }
 )
 
 export default {}

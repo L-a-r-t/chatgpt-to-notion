@@ -1,4 +1,5 @@
 import type {
+  PlasmoCSConfig,
   PlasmoCSUIAnchor,
   PlasmoContentScript,
   PlasmoGetInlineAnchorList,
@@ -21,14 +22,14 @@ import { STORAGE_KEYS } from "~utils/consts"
 import { getChatConfig, i18n } from "~utils/functions"
 import type { AutosaveStatus, PopupEnum, ToBeSaved } from "~utils/types"
 
-export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/*"]
+export const config: PlasmoCSConfig = {
+  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
   document.querySelectorAll("div > .pt-0\\.5")
 
-export const render: PlasmoRender = async ({
+export const render: PlasmoRender<Element> = async ({
   anchor, // the observed anchor, OR document.body.
   createRootContainer // This creates the default root container
 }) => {

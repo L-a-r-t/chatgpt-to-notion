@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-to-notion",
   "displayName": "ChatGPT to Notion",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "__MSG_extensionDescription__",
   "author": "Théo Lartigau",
   "scripts": {
@@ -51,7 +51,8 @@
     "host_permissions": [
       "https://api.notion.com/*",
       "https://chatgpt-to-notion.onrender.com/*",
-      "https://chat.openai.com/*"
+      "https://chat.openai.com/*",
+      "https://chatgpt.com/*"
     ],
     "permissions": [
       "tabs",

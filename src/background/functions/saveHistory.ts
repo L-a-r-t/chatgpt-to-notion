@@ -104,7 +104,7 @@ const parseConversation = (rawConv: Conversation) => {
     return answer.slice(1).join("\n\n") // Flattening adds the prompt as the first element so we slice
   })
 
-  const url = "https://chat.openai.com/c/" + id
+  const url = "https://chatgpt.com/c/" + id
 
   return { url, title, prompts, answers }
 }

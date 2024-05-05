@@ -1,6 +1,6 @@
 import illustration from "data-base64:../../assets/illustration.png"
 import styleText from "data-text:~styles.css"
-import type { PlasmoContentScript, PlasmoGetStyle } from "plasmo"
+import type { PlasmoCSConfig, PlasmoGetStyle } from "plasmo"
 import { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
@@ -11,8 +11,8 @@ import SettingsPopup from "~popup/SettingsPopup"
 import { STORAGE_KEYS } from "~utils/consts"
 import type { PopupEnum, SaveStatus, StoredDatabase } from "~utils/types"
 
-export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/*"]
+export const config: PlasmoCSConfig = {
+  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
 chrome.runtime.onMessage.addListener((message) => {

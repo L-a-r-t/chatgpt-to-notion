@@ -1,7 +1,7 @@
 export const getHistory = async (headers: any, offset: number = 0) => {
   try {
     const res = await fetch(
-      `https://chat.openai.com/backend-api/conversations?offset=${offset}&order=updated`,
+      `https://chatgpt.com/backend-api/conversations?offset=${offset}&order=updated`,
       {
         method: "GET",
         headers: headers,

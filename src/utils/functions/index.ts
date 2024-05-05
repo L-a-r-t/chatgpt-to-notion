@@ -86,7 +86,7 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         .replace(/^(Copy code)$/gm, "")
         .replace(/(^\n`)|(`\n$)/gm, "```\n")
         .replace(/(^\n(?<lang>.*)Copy code\n```)/gm, "\n```$<lang>")
-        .replace(/\]\(\/mnt/gm, "](https://chat.openai.com/mnt")
+        .replace(/\]\(\/mnt/gm, "](https://chatgpt.com/mnt")
         .replace(/\|\n(?=[^\s\|])/gm, "|\n\n") // edge cases making me crazy
         .replace(
           // Custom tags works with minimal changes to the codebase so I'm definitely keeping it that way
@@ -103,7 +103,7 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         )
     : md
         .replace(/\|\n(?=[^\s\|])/gm, "|\n\n")
-        .replace(/\]\(sandbox:\/mnt/gm, "](https://chat.openai.com/mnt")
+        .replace(/\]\(sandbox:\/mnt/gm, "](https://chatgpt.com/mnt")
         .replace(/(%%CHATGPT_TO_NOTION_SPLIT(?<len>.*)%%)/gm, "> $<len>WORK")
         .replace(/(%%CHATGPT_TO_NOTION_WORK(?<len>.*)%%)/gm, "> $<len>TOGGLE")
         .replace(/(%%CHATGPT_TO_NOTION_IMAGE(?<len>.*)%%)/gm, "> $<len>IMAGE\n")
@@ -217,7 +217,7 @@ export const parseConversation = (rawConv: Conversation) => {
     return answer.slice(1).join("\n\n") // Flattening adds the prompt as the first element so we slice
   })
 
-  const url = "https://chat.openai.com/c/" + id
+  const url = "https://chatgpt.com/c/" + id
 
   return { url, title, prompts, answers }
 }

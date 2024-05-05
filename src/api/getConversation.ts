@@ -3,7 +3,7 @@ import type { Conversation } from "~utils/types"
 export const getConversation = async (convId: string, headers: any) => {
   try {
     const res = await fetch(
-      "https://chat.openai.com/backend-api/conversation/" + convId,
+      "https://chatgpt.com/backend-api/conversation/" + convId,
       {
         method: "GET",
         headers: headers,

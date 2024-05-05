@@ -1,7 +1,7 @@
-import type { PlasmoContentScript } from "plasmo"
+import type { PlasmoCSConfig } from "plasmo"
 
-export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/*"]
+export const config: PlasmoCSConfig = {
+  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

@@ -66,7 +66,11 @@ export default function Wrapper() {
         active: true,
         currentWindow: true
       })
-      if (!tabs[0].url?.match(/^(https:\/\/chat.openai.com).*/)) {
+      if (
+        !tabs[0].url?.match(
+          /^((https:\/\/chat.openai.com)|(https:\/\/chatgpt.com)).*/
+        )
+      ) {
         if (!popup || popup === "index" || popup === "save")
           await setPopup("wrongpage")
       } else if (popup === "wrongpage") {

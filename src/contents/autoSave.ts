@@ -1,4 +1,4 @@
-import type { PlasmoContentScript } from "plasmo"
+import type { PlasmoCSConfig } from "plasmo"
 import { compress } from "shrink-string"
 
 import { Storage } from "@plasmohq/storage"
@@ -10,8 +10,8 @@ import type { AutosaveStatus, ChatConfig } from "~utils/types"
 
 import { fetchFullChat } from "./fetchFullPage"
 
-export const config: PlasmoContentScript = {
-  matches: ["https://chat.openai.com/*"]
+export const config: PlasmoCSConfig = {
+  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
 const storage = new Storage()
