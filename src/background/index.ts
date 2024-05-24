@@ -137,13 +137,13 @@ chrome.runtime.onInstalled.addListener((details) => {
     // chrome.tabs.create({
     //   url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
     // })
-    // storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
-    //   if (!isPremium) {
-    //     chrome.tabs.create({
-    //       url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
-    //     })
-    //   }
-    // })
+    storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
+      if (!isPremium) {
+        chrome.tabs.create({
+          url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
+        })
+      }
+    })
   }
 
   refreshContentScripts()
