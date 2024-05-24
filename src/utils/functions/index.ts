@@ -16,7 +16,7 @@ export const HTMLtoBlocks = (html: string) => {
 
 export const mdToBlocks = (_md: string, fromHTML: boolean) => {
   const md = parseMarkdown(_md, fromHTML)
-  // console.log("md", md)
+  console.log("md", md)
 
   const _blocks = markdownToBlocks(md, { notionLimits: { truncate: true } })
 
@@ -86,6 +86,8 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         .replace(/^(Copy code)$/gm, "")
         .replace(/(^\n`)|(`\n$)/gm, "```\n")
         .replace(/(^\n(?<lang>.*)Copy code\n```)/gm, "\n```$<lang>")
+        .replace(/(^\n```jsx)/gm, "\n```javascript")
+        .replace(/(^\n```tsx)/gm, "\n```typescript")
         .replace(/\]\(\/mnt/gm, "](https://chatgpt.com/mnt")
         .replace(/\|\n(?=[^\s\|])/gm, "|\n\n") // edge cases making me crazy
         .replace(
@@ -103,6 +105,8 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         )
     : md
         .replace(/\|\n(?=[^\s\|])/gm, "|\n\n")
+        .replace(/(^\n```jsx)/gm, "\n```javascript")
+        .replace(/(^\n```tsx)/gm, "\n```typescript")
         .replace(/\]\(sandbox:\/mnt/gm, "](https://chatgpt.com/mnt")
         .replace(/(%%CHATGPT_TO_NOTION_SPLIT(?<len>.*)%%)/gm, "> $<len>WORK")
         .replace(/(%%CHATGPT_TO_NOTION_WORK(?<len>.*)%%)/gm, "> $<len>TOGGLE")
@@ -178,21 +182,20 @@ export const parseConversation = (rawConv: Conversation) => {
   const { rawPrompts } = messages.reduce(
     (acc, item, i) => {
       // Triple if statements are smelly but I'm returning acc only at the end which was the point?
+      const endIndex = acc.rawPrompts.length - 1
       if (item.message!.author?.role == "user") {
         if (acc.prev == "user") {
-          const prevMessage = acc.rawPrompts[acc.rawPrompts.length - 1]
+          const prevMessage = acc.rawPrompts[endIndex]
           if (prevMessage.message!.content.text) {
-            acc.rawPrompts[acc.rawPrompts.length - 1].message!.content.text +=
+            acc.rawPrompts[endIndex].message!.content.text +=
               "\n" + item.message!.content.text
           } else {
-            acc.rawPrompts[acc.rawPrompts.length - 1].message!.content.parts = [
+            acc.rawPrompts[endIndex].message!.content.parts = [
               ...(prevMessage.message!.content.parts ?? []),
               ...(item.message!.content.parts ?? [item.message!.content.text])
             ]
           }
-          acc.rawPrompts[acc.rawPrompts.length - 1].children?.push(
-            ...(item.children ?? [])
-          )
+          acc.rawPrompts[endIndex].children?.push(...(item.children ?? []))
         } else {
           acc.rawPrompts.push(item)
         }
@@ -214,7 +217,7 @@ export const parseConversation = (rawConv: Conversation) => {
   const answers = rawPrompts.map((item) => {
     const answer = []
     flattenMessage(item, mapping, answer)
-    return answer.slice(1).join("\n\n") // Flattening adds the prompt as the first element so we slice
+    return answer.join("\n\n") // Flattening adds the prompt as the first element so we slice
   })
 
   const url = "https://chatgpt.com/c/" + id
@@ -230,40 +233,42 @@ export const flattenMessage = (
   const message = msg.message
   if (!message) return
 
-  switch (message.content.content_type) {
-    case "text":
-      flattenedMessage.push(
-        message.content.text ??
+  if (message.author?.role != "user") {
+    switch (message.content.content_type) {
+      case "text":
+        flattenedMessage.push(
+          message.content.text ??
+            message.content.parts?.join("\n") ??
+            "[missing text]"
+        )
+        break
+
+      case "code":
+        let text = message.content.text
+        text = "%%CHATGPT_TO_NOTION_WORK2%%\n```python\n" + text + "\n```"
+        flattenedMessage.push(text)
+        break
+
+      case "multimodal_text":
+        if (message.author?.name != "dalle.text2im") break
+        flattenedMessage.push(
+          `%%CHATGPT_TO_NOTION_IMAGE${message.content.parts?.length}%%\n`
+        )
+        message.content.parts?.forEach((part) => {
+          if (part.content_type != "image_asset_pointer") return
+          const text = `[url: ${part.asset_pointer}], prompt: ${part.metadata.dalle.prompt}\n`
+          flattenedMessage.push(text)
+        })
+        break
+
+      case "execution_output":
+        const output =
+          message.content.text ??
           message.content.parts?.join("\n") ??
           "[missing text]"
-      )
-      break
-
-    case "code":
-      let text = message.content.text
-      text = "%%CHATGPT_TO_NOTION_WORK2%%\n```python\n" + text + "\n```"
-      flattenedMessage.push(text)
-      break
-
-    case "multimodal_text":
-      if (message.author?.name != "dalle.text2im") return
-      flattenedMessage.push(
-        `%%CHATGPT_TO_NOTION_IMAGE${message.content.parts?.length}%%\n`
-      )
-      message.content.parts?.forEach((part) => {
-        if (part.content_type != "image_asset_pointer") return
-        const text = `[url: ${part.asset_pointer}], prompt: ${part.metadata.dalle.prompt}\n`
-        flattenedMessage.push(text)
-      })
-      break
-
-    case "execution_output":
-      const output =
-        message.content.text ??
-        message.content.parts?.join("\n") ??
-        "[missing text]"
-      flattenedMessage.push("```" + output + "```")
-      break
+        flattenedMessage.push("```" + output + "```")
+        break
+    }
   }
 
   if (msg.children && !message.end_turn) {

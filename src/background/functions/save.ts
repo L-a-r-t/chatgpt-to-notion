@@ -40,6 +40,8 @@ const save = async (
 
     const conversation = parseConversation(rawConversation)
 
+    // console.log({ conversation })
+
     if (turn >= conversation.prompts.length) {
       turn = conversation.prompts.length - 1
     }
