@@ -27,7 +27,7 @@ export const config: PlasmoCSConfig = {
 }
 
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
-  document.querySelectorAll("div > .pt-0\\.5")
+  document.querySelectorAll("div > .pt-0")
 
 export const render: PlasmoRender<Element> = async ({
   anchor, // the observed anchor, OR document.body.
