@@ -15,7 +15,10 @@ import type { SaveBehavior, StoredDatabase } from "~utils/types"
 import type { parseSave } from "./parseSave"
 
 // save new page to notion database
-export const saveChat = async (params: SaveChatParams) => {
+export const saveChat = async (
+  params: SaveChatParams,
+  callback: (saved: number) => void = () => {}
+) => {
   try {
     const notion = await getNotion()
     let {
@@ -64,34 +67,36 @@ export const saveChat = async (params: SaveChatParams) => {
             url: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
           }
         },
-        properties: tag ? {
-          [propertiesIds.title]: {
-            title: [
-              {
-                text: {
-                  content: title
-                }
+        properties: tag
+          ? {
+              [propertiesIds.title]: {
+                title: [
+                  {
+                    text: {
+                      content: title
+                    }
+                  }
+                ]
+              },
+              [propertiesIds.url]: {
+                url
+              },
+              [tags[tagPropertyIndex].id]: tag
+            }
+          : {
+              [propertiesIds.title]: {
+                title: [
+                  {
+                    text: {
+                      content: title
+                    }
+                  }
+                ]
+              },
+              [propertiesIds.url]: {
+                url
               }
-            ]
-          },
-          [propertiesIds.url]: {
-            url
-          },
-          [tags[tagPropertyIndex].id]: tag
-        } : {
-          [propertiesIds.title]: {
-            title: [
-              {
-                text: {
-                  content: title
-                }
-              }
-            ]
-          },
-          [propertiesIds.url]: {
-            url
-          }
-        },
+            },
         children: generateHeadings
           ? [table_of_contents, ...chunks[0]]
           : [...chunks[0]]

@@ -4,7 +4,13 @@ import { markdownToBlocks } from "@tryfabric/martian"
 import { Storage } from "@plasmohq/storage"
 
 import nhm from "~config/html-markdown"
-import type { ChatConfig, Conversation, Error, Message } from "~utils/types"
+import type {
+  ChatConfig,
+  Conversation,
+  Error,
+  Message,
+  SaveStatus
+} from "~utils/types"
 
 import { generateCallout, generateToggle } from "./notion"
 

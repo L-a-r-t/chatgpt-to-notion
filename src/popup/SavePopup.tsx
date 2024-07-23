@@ -9,6 +9,7 @@ import type {
   Error,
   PopupEnum,
   SaveBehavior,
+  SaveStatus,
   StoredDatabase,
   ToBeSaved
 } from "~utils/types"
@@ -20,6 +21,7 @@ import { parseSave } from "~api/parseSave"
 import DropdownPopup from "~common/components/Dropdown"
 import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
+import useSavePercentage from "~hooks/useSavePercentage"
 import useTags from "~hooks/useTags"
 import { STORAGE_KEYS } from "~utils/consts"
 import { getConsiseErrMessage, i18n } from "~utils/functions"
@@ -71,6 +73,9 @@ export default function SavePopup() {
   const [conflictingPageId, setConflictingPageId] = useState<
     string | undefined
   >()
+
+  const [saveStatus] = useStorage<SaveStatus>(STORAGE_KEYS.saveStatus)
+  const savePercent = useSavePercentage(saveStatus, 3000)
 
   useEffect(() => {
     chrome.runtime
@@ -374,6 +379,17 @@ export default function SavePopup() {
           target="_blank">
           {i18n("about_FAQ")}
         </a>
+      )}
+      {loading && (
+        <div className="flex items-center gap-4">
+          <div className="flex-grow h-2 rounded-full bg-neutral-300">
+            <div
+              style={{ width: String(savePercent) + "%" }}
+              className="h-full rounded-full bg-black"
+            />
+          </div>
+          <p className="text-sm font-bold mt-1">{savePercent}%</p>
+        </div>
       )}
     </>
   )

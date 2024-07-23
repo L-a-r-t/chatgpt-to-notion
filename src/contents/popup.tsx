@@ -5,6 +5,7 @@ import { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import useSavePercentage from "~hooks/useSavePercentage"
 import ErrorPopup from "~popup/ErrorPopup"
 import SavePopup from "~popup/SavePopup"
 import SettingsPopup from "~popup/SettingsPopup"
@@ -35,6 +36,8 @@ const Wrapper = () => {
     null
   )
   const [toBeSaved, setToBeSaved] = useStorage(STORAGE_KEYS.toBeSaved)
+
+  const savePercent = useSavePercentage(saveStatus)
 
   const hidePopup = async () => {
     await setShowPopup(false)
@@ -77,7 +80,8 @@ const Wrapper = () => {
             <img src={illustration} alt="ChatGPT to Notion" />
             <p className="font-semibold">
               {saveStatus === "fetching" && "Fetching conversation..."}
-              {saveStatus === "saving" && "Saving..."}
+              {saveStatus.includes("saving") &&
+                "Saving... " + String(savePercent) + "%"}
               {saveStatus === "saved" && "Saved successfully!"}
             </p>
           </div>

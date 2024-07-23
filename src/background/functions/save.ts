@@ -64,13 +64,25 @@ const save = async (
       isMarkdown: true
     })
 
-    await storage.set(STORAGE_KEYS.saveStatus, "saving" as SaveStatus)
-    const res = await saveChat({
-      ...parsedReq,
-      conflictingPageId: conflictingPageId,
-      generateHeadings,
-      saveBehavior
-    })
+    console.log("Chunks to save:", parsedReq.chunks.length)
+
+    await storage.set(
+      STORAGE_KEYS.saveStatus,
+      `saving:${0}:${parsedReq.chunks.length}` as SaveStatus
+    )
+    const res = await saveChat(
+      {
+        ...parsedReq,
+        conflictingPageId: conflictingPageId,
+        generateHeadings,
+        saveBehavior
+      },
+      (saved) =>
+        storage.set(
+          STORAGE_KEYS.saveStatus,
+          `saving:${saved}:${parsedReq.chunks.length}` as SaveStatus
+        )
+    )
 
     await storage.set(STORAGE_KEYS.saveStatus, "saved" as SaveStatus)
     if (openInNotion && !autoSave) {

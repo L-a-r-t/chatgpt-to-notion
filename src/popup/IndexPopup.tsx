@@ -26,6 +26,8 @@ import NoTagButton from "~common/components/NoTagButton"
 import Spinner from "~common/components/Spinner"
 import LogoIcon from "~common/logo"
 import StarIcon from "~common/star"
+import usePercentageAnimation from "~hooks/useSavePercentage"
+import useSavePercentage from "~hooks/useSavePercentage"
 import useTags from "~hooks/useTags"
 import { STORAGE_KEYS } from "~utils/consts"
 import {
@@ -76,6 +78,8 @@ function IndexPopup() {
     string | undefined
   >()
 
+  const savePercent = useSavePercentage(saveStatus, 5000)
+
   useEffect(() => {
     chrome.runtime
       .sendMessage({ type: "chatgpt-to-notion_getCurrentTab" })
@@ -96,7 +100,7 @@ function IndexPopup() {
   }, [chatID])
 
   useEffect(() => {
-    setLoading(saveStatus == "fetching" || saveStatus == "saving")
+    setLoading(saveStatus == "fetching" || !!saveStatus?.includes("saving"))
   }, [saveStatus])
 
   const handleSave = async (autosave?: boolean) => {
@@ -339,6 +343,17 @@ function IndexPopup() {
         )}
         {loading && <Spinner white small />}
       </button>
+      {loading && (
+        <div className="flex items-center gap-4">
+          <div className="flex-grow h-2 rounded-full bg-neutral-300">
+            <div
+              style={{ width: String(savePercent) + "%" }}
+              className="h-full rounded-full bg-black"
+            />
+          </div>
+          <p className="text-sm font-bold mt-1">{savePercent}%</p>
+        </div>
+      )}
       {!success && !error && !loading && (
         <>
           <div className="mt-1">

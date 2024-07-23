@@ -64,7 +64,7 @@ export type AutosaveStatus =
   | "error"
   | "disabled"
 
-export type SaveStatus = "saving" | "saved" | "error" | "fetching" | null
+export type SaveStatus = `saving:${number}:${number}` | "saved" | "error" | "fetching" | null
 
 // ChatGPT conversation as returned by the API
 // We won't type more than we need obviously
