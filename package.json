@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-to-notion",
   "displayName": "ChatGPT to Notion",
-  "version": "1.9.5",
+  "version": "1.10.0",
   "description": "__MSG_extensionDescription__",
   "author": "Théo Lartigau",
   "scripts": {
@@ -39,6 +39,9 @@
     "web_accessible_resources": [
       {
         "resources": [
+          "assets/tab-demo.gif", 
+          "assets/popup_notification.html", 
+          "assets/sdk_translations.json",
           "assets/icon.png",
           "assets/illustration.png",
           "assets/merchants.json"

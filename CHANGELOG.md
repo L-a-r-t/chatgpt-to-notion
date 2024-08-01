@@ -1,3 +1,13 @@
+## 1.10.0
+
+Features
+
+- Save progress bar
+
+Fixes
+
+- The pin is back!
+
 ### 1.9.1
 
 Fixes
