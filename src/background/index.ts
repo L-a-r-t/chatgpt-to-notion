@@ -118,6 +118,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.tabs
         .sendMessage(body.tabId, "chatgpt-to-notion_fetchFullChat")
         .then((res) => sendResponse(res))
+    case "chatgpt-to-notion_open-eco-about-page":
+      chrome.tabs.create(
+        {
+          url: "https://impacthero.co/ecomode/?extension_name=chatgpt_to_notion",
+          active: true
+        },
+        (createdPermanentTab) => {
+          chrome.storage.local.set({
+            openPermanentTab: true
+          })
+        }
+      )
 
     default:
       return true

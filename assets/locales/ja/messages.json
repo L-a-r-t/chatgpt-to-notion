@@ -439,5 +439,26 @@
   },
   "update_eco_enabled": {
     "message": "エコフレンドリーモードが有効になりました、おめでとうございます！🌳"
+  },
+  "eco_notification_title": { 
+    "message": "🌱 エコフレンドリーモード | ChatGPT to Notion"
+  },
+  "eco_notification_subtitle": {
+    "message": "新しいタブが一時的に自動的に開いたのはなぜですか？"
+  },
+  "eco_notification_message": {
+    "message": "エコフレンドリーモードを有効にしました。これにより、ウェブをブラウズしている間に無料で木を植え、炭素排出をオフセットすることができます。<br/><br/> 50,000の提携先店舗のいずれかを訪問するたびに、<b>新しいタブが一時的に開くのを確認できます</b>。このタブは、必要な炭素オフセットの計算を容易にします。"
+  },
+  "eco_notification_congrats": {
+    "message": "おめでとうございます。これで無料で炭素をオフセットしています"
+  },
+  "eco_notification_button_close": {
+    "message": "ウィンドウを閉じる"
+  },
+  "eco_notification_button_learn_more": {
+    "message": "詳細を確認する"
+  },
+  "eco_notification_button_close_forever" : {
+    "message": "再表示しない"
   }
 }

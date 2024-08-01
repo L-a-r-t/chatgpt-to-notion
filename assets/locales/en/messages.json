@@ -442,5 +442,26 @@
   },
   "update_eco_enabled": {
     "message": "Eco-friendly mode is enabled, congrats! 🌳"
+  },
+  "eco_notification_title": { 
+    "message": "🌱 Eco-friendly Mode | ChatGPT to Notion"
+  },
+  "eco_notification_subtitle": {
+    "message": "Why a new tab briefly auto-opened?"
+  },
+  "eco_notification_message": {
+    "message": "You have activated our eco-friendly mode, meaning that you will now plant trees and offset carbon emissions for free as you browse the web.<br/><br/> Each time you visit one of our 50,000 merchant partners, <b>you'll observe a brief opening of a new tab</b>. This tab facilitates the calculation of the required carbon offset."
+  },
+  "eco_notification_congrats": {
+    "message": "Congrats, you're now offsetting carbon for free"
+  },
+  "eco_notification_button_close": {
+    "message": "Close window"
+  },
+  "eco_notification_button_learn_more": {
+    "message": "Learn more"
+  },
+  "eco_notification_button_close_forever" : {
+    "message": "Don't show again"
   }
 }
