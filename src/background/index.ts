@@ -8,7 +8,6 @@ import { STORAGE_KEYS } from "~utils/consts"
 
 import {
   authenticate,
-  ecoFriendlyMode,
   fetchHistory,
   refreshContentScripts,
   refreshDatabases,
@@ -16,8 +15,6 @@ import {
   save,
   saveHistory
 } from "./functions"
-
-ecoFriendlyMode()
 
 const storage = new Storage()
 const session = new Storage({

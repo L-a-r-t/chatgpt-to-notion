@@ -59,7 +59,7 @@ function IndexPopup() {
   const [authenticated] = useStorage(STORAGE_KEYS.authenticated, false)
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
-  const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, false)
+  const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, true)
   const [s, setAutosaveStatus] = useStorage<AutosaveStatus>(
     STORAGE_KEYS.autosaveStatus
   )
