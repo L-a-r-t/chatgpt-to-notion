@@ -64,7 +64,12 @@ export type AutosaveStatus =
   | "error"
   | "disabled"
 
-export type SaveStatus = `saving:${number}:${number}` | "saved" | "error" | "fetching" | null
+export type SaveStatus =
+  | `saving:${number}:${number}`
+  | "saved"
+  | "error"
+  | "fetching"
+  | null
 
 // ChatGPT conversation as returned by the API
 // We won't type more than we need obviously
@@ -86,10 +91,48 @@ export type Message = {
       parts?: any[]
       text?: string
     }
+    recipient: string
+    metadata: Record<string, any>
     end_turn?: true
   }
   children?: string[]
 }
+
+export type CanvasMessageMetadata = {
+  textdoc_id: string
+  textdoc_type: string
+  version: number
+  title: string
+}
+
+export type CanvasHistoryResponse = {
+  previous_doc_states: {
+    id: string
+    version: number
+    title: string
+    textdoc_type: string
+    content: string
+    comments: []
+    updated_at: string
+  }[]
+}
+
+export type CreateCanvasData = {
+  name: string
+  title?: string // futureproofing
+  type: string
+  content: string
+}
+
+export type ConversationTextdocs = {
+  id: string
+  version: number
+  title: string
+  textdoc_type: string
+  content: string
+  comments: string[]
+  updated_at: string
+}[]
 
 export type HistorySaveError = {
   url: string

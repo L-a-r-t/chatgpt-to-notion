@@ -4,8 +4,12 @@ import { Storage } from "@plasmohq/storage"
 
 import getNotion from "~config/notion"
 import { i18n } from "~utils/functions"
-import { generateBlocks, generateTag } from "~utils/functions/notion"
-import type { StoredDatabase } from "~utils/types"
+import {
+  generateBlocks,
+  generateCanvasBlocks,
+  generateTag
+} from "~utils/functions/notion"
+import type { ConversationTextdocs, StoredDatabase } from "~utils/types"
 
 // save new page to notion database
 export const parseSave = async (
@@ -16,7 +20,8 @@ export const parseSave = async (
   }
 ) => {
   try {
-    let { prompts, answers, title, url, database, generateHeadings } = params
+    let { prompts, answers, textDocs, title, url, database, generateHeadings } =
+      params
     const { propertiesIds, tagPropertyIndex, tagIndex, tags } = database
 
     const blocks: any[] = []
@@ -41,6 +46,9 @@ export const parseSave = async (
       )
       blocks.push(...promptBlocks, ...answerBlocks)
     }
+
+    const canvasBlocks = generateCanvasBlocks(textDocs)
+    blocks.push(...canvasBlocks)
 
     const chunks: any[][] = []
     const chunkSize = 95 // We define a chunk size of 95 blocks
@@ -74,6 +82,7 @@ export const parseSave = async (
 type ParseSaveParams = {
   prompts: string[]
   answers: string[]
+  textDocs: ConversationTextdocs
   title: string
   database: StoredDatabase
   url: string

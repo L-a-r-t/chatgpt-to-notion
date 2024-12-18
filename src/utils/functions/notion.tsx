@@ -6,7 +6,7 @@ import type {
   PartialPageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints"
 
-import type { StoredDatabase } from "~utils/types"
+import type { ConversationTextdocs, StoredDatabase } from "~utils/types"
 
 import { HTMLtoBlocks, i18n, mdToBlocks } from "."
 import type {
@@ -297,6 +297,58 @@ export const generateBlocks = (
   ]
 
   return { promptBlocks, answerBlocks }
+}
+
+export const generateCanvasBlocks = (textdocs: ConversationTextdocs) => {
+  if (textdocs.length === 0) return []
+  return textdocs.reduce(
+    (acc, doc) => {
+      return [
+        ...acc,
+        {
+          object: "block",
+          type: "heading_3",
+          heading_3: {
+            rich_text: [
+              {
+                type: "text",
+                text: {
+                  content: "📄 " + doc.title
+                }
+              }
+            ]
+          }
+        },
+        ...mdToBlocks(
+          "```" +
+            `${getTextdocType(doc.textdoc_type)}\n` +
+            doc.content +
+            "\n```"
+        )
+      ]
+    },
+    [
+      {
+        object: "block",
+        type: "heading_2",
+        heading_2: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: "📄 Canvas"
+              }
+            }
+          ]
+        }
+      }
+    ] as any[]
+  )
+}
+
+const getTextdocType = (type: string) => {
+  if (type.includes("code")) return type.split("/")[1]
+  return type
 }
 
 export const generateTag = (

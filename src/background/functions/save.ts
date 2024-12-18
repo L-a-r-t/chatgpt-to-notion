@@ -1,6 +1,7 @@
 import { Storage } from "@plasmohq/storage"
 
 import { getConversation } from "~api/getConversation"
+import { getConversationTextdocs } from "~api/getConversationTextdocs"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
 import { STORAGE_KEYS } from "~utils/consts"
@@ -34,13 +35,16 @@ const save = async (
     const headers = convertHeaders(rawHeaders)
     const rawConversation = await getConversation(convId, headers)
 
-    // console.log({ rawConversation })
+    console.log({ rawConversation })
 
     if (!rawConversation?.mapping) throw new Error("Conversation not found")
 
-    const conversation = parseConversation(rawConversation)
+    const textdocs =
+      (await getConversationTextdocs(rawConversation, headers, true)) ?? []
 
-    // console.log({ conversation })
+    const conversation = parseConversation(rawConversation, textdocs)
+
+    console.log({ conversation })
 
     if (turn >= conversation.prompts.length) {
       turn = conversation.prompts.length - 1

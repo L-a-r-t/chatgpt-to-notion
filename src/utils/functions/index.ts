@@ -5,8 +5,11 @@ import { Storage } from "@plasmohq/storage"
 
 import nhm from "~config/html-markdown"
 import type {
+  CanvasMessageMetadata,
   ChatConfig,
   Conversation,
+  ConversationTextdocs,
+  CreateCanvasData,
   Error,
   Message,
   SaveStatus
@@ -20,9 +23,9 @@ export const HTMLtoBlocks = (html: string) => {
   return mdToBlocks(md, true)
 }
 
-export const mdToBlocks = (_md: string, fromHTML: boolean) => {
+export const mdToBlocks = (_md: string, fromHTML?: boolean) => {
   const md = parseMarkdown(_md, fromHTML)
-  console.log("md", md)
+  // console.log("md", md)
 
   const _blocks = markdownToBlocks(md, { notionLimits: { truncate: true } })
 
@@ -74,6 +77,13 @@ export const mdToBlocks = (_md: string, fromHTML: boolean) => {
           acc.push(toggle)
           toggleChild = length
         }
+        if (content.includes("CANVAS")) {
+          const callout = generateCallout(
+            i18n("notion_canvasExplainer") ||
+              "The latest version of the canvas at the time of save can be found below."
+          )
+          acc.push(callout)
+        }
 
         return acc
 
@@ -86,7 +96,7 @@ export const mdToBlocks = (_md: string, fromHTML: boolean) => {
   return blocks as any[]
 }
 
-const parseMarkdown = (md: string, fromHTML: boolean) => {
+const parseMarkdown = (md: string, fromHTML?: boolean) => {
   return fromHTML
     ? md
         .replace(/^(Copy code)$/gm, "")
@@ -117,6 +127,7 @@ const parseMarkdown = (md: string, fromHTML: boolean) => {
         .replace(/(%%CHATGPT_TO_NOTION_SPLIT(?<len>.*)%%)/gm, "> $<len>WORK")
         .replace(/(%%CHATGPT_TO_NOTION_WORK(?<len>.*)%%)/gm, "> $<len>TOGGLE")
         .replace(/(%%CHATGPT_TO_NOTION_IMAGE(?<len>.*)%%)/gm, "> $<len>IMAGE\n")
+        .replace(/(%%CHATGPT_TO_NOTION_CANVAS(?<len>.*)%%)/gm, "> CANVAS")
         .replace(
           /((\\\[)|(\\\())(?<katex>.*)((\\\])|(\\\)))(?!.*\/g?m?)/gm,
           "$$ $<katex> $$"
@@ -174,7 +185,10 @@ export const convertHeaders = (raw: { name: string; value?: string }[]) => {
   )
 }
 
-export const parseConversation = (rawConv: Conversation) => {
+export const parseConversation = (
+  rawConv: Conversation,
+  textDocs: ConversationTextdocs
+) => {
   const { conversation_id: id, title, mapping } = rawConv
 
   // TODO: fix the bangs (!) that are all over the place
@@ -222,37 +236,61 @@ export const parseConversation = (rawConv: Conversation) => {
   )
   const answers = rawPrompts.map((item) => {
     const answer = []
-    flattenMessage(item, mapping, answer)
-    return answer.join("\n\n") // Flattening adds the prompt as the first element so we slice
+    flattenMessage(item, mapping, answer, textDocs)
+    return answer.join("\n\n")
   })
 
   const url = "https://chatgpt.com/c/" + id
 
-  return { url, title, prompts, answers }
+  return { url, title, prompts, answers, textDocs }
 }
 
 export const flattenMessage = (
   msg: Message,
   mapping: Conversation["mapping"],
-  flattenedMessage: string[]
+  flattenedMessage: string[],
+  textDocs: ConversationTextdocs
 ) => {
   const message = msg.message
   if (!message) return
 
-  if (message.author?.role != "user") {
+  if (message.author?.role == "tool" && "canvas" in message.metadata) {
+    const canvasMetadata = message.metadata.canvas as CanvasMessageMetadata
+    const textdoc = textDocs.find(
+      (doc) =>
+        doc.id == canvasMetadata.textdoc_id &&
+        doc.version == canvasMetadata.version
+    )
+    if (textdoc) {
+      flattenedMessage.push(
+        `%%CHATGPT_TO_NOTION_WORK2%%\n${"```"}${getTextdocType(
+          textdoc.textdoc_type
+        )}\n${textdoc.content}\n${"```"}`
+      )
+    } else {
+      flattenedMessage.push("%%CHATGPT_TO_NOTION_CANVAS%%")
+    }
+  } else if (message.author?.role != "user") {
     switch (message.content.content_type) {
       case "text":
-        flattenedMessage.push(
+        let text =
           message.content.text ??
-            message.content.parts?.join("\n") ??
-            "[missing text]"
-        )
+          message.content.parts?.join("\n") ??
+          "[missing text]"
+
+        if (
+          message.recipient == "canmore.create_textdoc" ||
+          message.recipient == "canmore.update_textdoc"
+        ) {
+          break
+        }
+        flattenedMessage.push(text)
         break
 
       case "code":
-        let text = message.content.text
-        text = "%%CHATGPT_TO_NOTION_WORK2%%\n```python\n" + text + "\n```"
-        flattenedMessage.push(text)
+        let code = message.content.text
+        code = "%%CHATGPT_TO_NOTION_WORK2%%\n```python\n" + code + "\n```"
+        flattenedMessage.push(code)
         break
 
       case "multimodal_text":
@@ -281,7 +319,12 @@ export const flattenMessage = (
     msg.children.forEach((childId) => {
       const child = mapping[childId]
       if (child.message?.author?.role == "user") return
-      flattenMessage(child, mapping, flattenedMessage)
+      flattenMessage(child, mapping, flattenedMessage, textDocs)
     })
   }
+}
+
+const getTextdocType = (type: string) => {
+  if (type.includes("code")) return type.split("/")[1]
+  return type
 }
