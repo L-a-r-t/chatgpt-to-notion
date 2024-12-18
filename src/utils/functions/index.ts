@@ -315,7 +315,7 @@ export const flattenMessage = (
     }
   }
 
-  if (msg.children && !message.end_turn) {
+  if (msg.children && !(message.end_turn && flattenedMessage.join("") != "")) {
     msg.children.forEach((childId) => {
       const child = mapping[childId]
       if (child.message?.author?.role == "user") return
