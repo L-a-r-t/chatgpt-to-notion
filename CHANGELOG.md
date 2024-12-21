@@ -1,3 +1,13 @@
+## 1.11.0
+
+Features
+
+- Canvas support
+
+Fixes
+
+- Various save bugs
+
 ## 1.10.0
 
 Features
