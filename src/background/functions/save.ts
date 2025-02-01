@@ -5,16 +5,31 @@ import { getConversationTextdocs } from "~api/getConversationTextdocs"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
 import { STORAGE_KEYS } from "~utils/consts"
-import { convertHeaders, parseConversation } from "~utils/functions"
-import type { SaveBehavior, SaveStatus, StoredDatabase } from "~utils/types"
+import { convertHeaders } from "~utils/functions"
+import { parseConversation } from "~utils/functions/llms"
+import type {
+  SaveBehavior,
+  SaveStatus,
+  StoredDatabase,
+  SupportedModels
+} from "~utils/types"
 
 const save = async (
   convId: string,
-  rawHeaders: { name: string; value?: string }[],
-  turn: number = -1,
-  saveBehavior: SaveBehavior = "override",
-  conflictingPageId?: string,
-  autoSave: boolean = false
+  model: SupportedModels,
+  {
+    rawHeaders,
+    turn,
+    saveBehavior,
+    conflictingPageId,
+    autoSave
+  }: {
+    rawHeaders: { name: string; value?: string }[]
+    turn: number
+    saveBehavior: SaveBehavior
+    conflictingPageId?: string
+    autoSave: boolean
+  }
 ) => {
   const storage = new Storage()
 
@@ -33,16 +48,25 @@ const save = async (
     await storage.set("saveStatus", "fetching" as SaveStatus)
 
     const headers = convertHeaders(rawHeaders)
-    const rawConversation = await getConversation(convId, headers)
+    const rawConversation = await getConversation({
+      model: model,
+      params: { convId, headers }
+    })
 
     console.log({ rawConversation })
 
     if (!rawConversation?.mapping) throw new Error("Conversation not found")
 
-    const textdocs =
-      (await getConversationTextdocs(rawConversation, headers, true)) ?? []
+    const textDocs =
+      (await getConversationTextdocs({
+        model: model as any,
+        params: { rawConversation, headers, includeVersions: true }
+      })) ?? []
 
-    const conversation = parseConversation(rawConversation, textdocs)
+    const conversation = parseConversation({
+      model: "chatgpt",
+      params: { rawConversation, textDocs }
+    })
 
     console.log({ conversation })
 
@@ -77,6 +101,7 @@ const save = async (
     const res = await saveChat(
       {
         ...parsedReq,
+        model,
         conflictingPageId: conflictingPageId,
         generateHeadings,
         saveBehavior

@@ -1,7 +1,11 @@
 import { getHistory } from "~api/getHistory"
 import { convertHeaders } from "~utils/functions"
+import type { SupportedModels } from "~utils/types"
 
-const fetchHistory = async (rawHeaders: { name: string; value?: string }[]) => {
+const fetchHistory = async (
+  model: SupportedModels,
+  rawHeaders: { name: string; value?: string }[]
+) => {
   // TODO: update le cookie probablement
   const headers = convertHeaders(rawHeaders)
   const { data, ids } = await getHistory(headers)
@@ -15,7 +19,9 @@ const fetchHistory = async (rawHeaders: { name: string; value?: string }[]) => {
     .map((_, i) => (i + 1) * 50)
 
   const _history = await Promise.all(
-    offset.map(async (delta) => getHistory(headers, delta))
+    offset.map(async (delta) =>
+      getHistory({ model: model as any, params: { headers, offset: delta } })
+    )
   )
 
   const history = _history

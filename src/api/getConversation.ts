@@ -1,21 +1,20 @@
-import type { Conversation } from "~utils/types"
+import type { SupportedModels } from "~utils/types"
 
-export const getConversation = async (convId: string, headers: any) => {
-  try {
-    const res = await fetch(
-      "https://chatgpt.com/backend-api/conversation/" + convId,
-      {
-        method: "GET",
-        headers: headers,
-        credentials: "include"
-      }
-    )
-    const data = await res.json()
+import { getConversation as chatgptGetConversation } from "./chatgpt/getConversation"
 
-    return data as Conversation
-  } catch (err) {
-    console.error(err)
+export const getConversation = async ({ model, params }: Params) => {
+  switch (model) {
+    case "chatgpt":
+      return chatgptGetConversation(params)
+    default:
+      throw new Error("Model not supported")
+  }
+}
 
-    return null
+type Params = {
+  model: SupportedModels
+  params: {
+    convId: string
+    headers: any
   }
 }

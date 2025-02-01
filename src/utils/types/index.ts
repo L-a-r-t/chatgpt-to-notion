@@ -1,5 +1,7 @@
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
+export type SupportedModels = "chatgpt" | "deepseek"
+
 export type ToBeSaved = {
   prompt: string
   answer: string

@@ -1,20 +1,20 @@
-export const getHistory = async (headers: any, offset: number = 0) => {
-  try {
-    const res = await fetch(
-      `https://chatgpt.com/backend-api/conversations?offset=${offset}&order=updated`,
-      {
-        method: "GET",
-        headers: headers,
-        credentials: "include"
-      }
-    )
-    const data = await res.json()
-    return { data, ids: data.items.map((item: any) => item.id) } as {
-      data: any
-      ids: string[]
-    }
-  } catch (err) {
-    console.error(err)
-    return { data: null, ids: [] }
+import type { SupportedModels } from "~utils/types"
+
+import { getHistory as chatgptGetHistory } from "./chatgpt/getHistory"
+
+export const getHistory = async ({ model, params }: Params) => {
+  switch (model) {
+    case "chatgpt":
+      return chatgptGetHistory(params)
+    default:
+      throw new Error("Model not supported")
+  }
+}
+
+type Params = {
+  model: "chatgpt"
+  params: {
+    headers: any
+    offset?: number
   }
 }

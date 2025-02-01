@@ -1,16 +1,11 @@
 import type {
   AppendBlockChildrenResponse,
-  CreatePageResponse,
-  PageObjectResponse,
-  PartialPageObjectResponse
+  CreatePageResponse
 } from "@notionhq/client/build/src/api-endpoints"
-
-import { Storage } from "@plasmohq/storage"
 
 import getNotion from "~config/notion"
 import { i18n } from "~utils/functions"
-import { generateBlocks, generateTag } from "~utils/functions/notion"
-import type { SaveBehavior, StoredDatabase } from "~utils/types"
+import type { SaveBehavior, SupportedModels } from "~utils/types"
 
 import type { parseSave } from "./parseSave"
 
@@ -22,6 +17,7 @@ export const saveChat = async (
   try {
     const notion = await getNotion()
     let {
+      model,
       title,
       url,
       database,
@@ -118,6 +114,7 @@ export const saveChat = async (
 }
 
 export type SaveChatParams = Awaited<ReturnType<typeof parseSave>> & {
+  model: SupportedModels
   generateHeadings: boolean
   conflictingPageId?: string
   saveBehavior: SaveBehavior
