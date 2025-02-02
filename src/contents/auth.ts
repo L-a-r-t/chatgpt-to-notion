@@ -1,5 +1,6 @@
 import type { PlasmoContentScript } from "plasmo"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 export const config: PlasmoContentScript = {
@@ -11,10 +12,7 @@ export const config: PlasmoContentScript = {
 export const auth = async () => {
   const code = new URLSearchParams(window.location.search).get("code")
   if (!code) return
-  await chrome.runtime.sendMessage({
-    type: "chatgpt-to-notion_generateToken",
-    body: { code }
-  })
+  await sendToBackground({ name: "generateToken", body: { code } })
 }
 
 auth()

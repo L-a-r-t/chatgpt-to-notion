@@ -16,6 +16,8 @@ import type {
 
 import "~styles.css"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
 import { checkSaveConflict } from "~api/checkSaveConflict"
 import { parseSave } from "~api/parseSave"
 import DropdownPopup from "~common/components/Dropdown"
@@ -78,12 +80,10 @@ export default function SavePopup() {
   const savePercent = useSavePercentage(saveStatus, 3000)
 
   useEffect(() => {
-    chrome.runtime
-      .sendMessage({ type: "chatgpt-to-notion_getCurrentTab" })
-      .then(({ tabUrl }) => {
-        const id = tabUrl?.split("/c/").pop()
-        setChatID(id?.length != 36 ? null : id)
-      })
+    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl }) => {
+      const id = tabUrl?.split("/c/").pop()
+      setChatID(id?.length != 36 ? null : id)
+    })
   }, [])
 
   useEffect(() => {
@@ -108,8 +108,8 @@ export default function SavePopup() {
       else title = titleValue
 
       const database = db!
-      const checkRes = await chrome.runtime.sendMessage({
-        type: "chatgpt-to-notion_checkSaveConflict",
+      const checkRes = await sendToBackground({
+        name: "checkSaveConflit",
         body: {
           title,
           database
@@ -131,8 +131,8 @@ export default function SavePopup() {
     try {
       setError(null)
       setLoading(true)
-      const res = await chrome.runtime.sendMessage({
-        type: "chatgpt-to-notion_save",
+      const res = await sendToBackground({
+        name: "save",
         body: {
           saveBehavior,
           conflictingPageId: conflictingPageId,

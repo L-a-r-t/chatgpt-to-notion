@@ -1,6 +1,7 @@
 import type { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints"
 import { useEffect, useState } from "react"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import DropdownPopup from "~common/components/Dropdown"
@@ -47,8 +48,8 @@ function DatabaseSettingsPopup() {
 
   const refreshDatabase = async () => {
     setRefreshing(true)
-    const db: DatabaseObjectResponse = await chrome.runtime.sendMessage({
-      type: "chatgpt-to-notion_getDB",
+    const db: DatabaseObjectResponse = await sendToBackground({
+      name: "getDB",
       body: {
         id: databases[selectedDB].id
       }

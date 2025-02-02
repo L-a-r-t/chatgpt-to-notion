@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import Disclosure from "~common/components/Disclosure"
@@ -38,8 +39,8 @@ function HistorySavePopup() {
 
   const save = async () => {
     setSaving(true)
-    await chrome.runtime.sendMessage({
-      type: "chatgpt-to-notion_saveHistory"
+    await sendToBackground({
+      name: "saveHistory"
     })
   }
 

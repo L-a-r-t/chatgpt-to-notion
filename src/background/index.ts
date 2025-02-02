@@ -22,118 +22,6 @@ const session = new Storage({
   secretKeyList: ["token", "cacheHeaders"]
 })
 
-// API calls that can be made from content scripts transit trough the background script
-// This is done to prevent CORS errors
-// Functions here aren't decoupled from the background script because of odd behavior with sendResponse
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  const body = message.body
-  switch (message.type) {
-    case "chatgpt-to-notion_search":
-      searchNotion(body.query)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "chatgpt-to-notion_checkSaveConflict":
-      checkSaveConflict(body)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "chatgpt-to-notion_save":
-      session.get<any>(STORAGE_KEYS.cacheHeaders).then((cacheHeaders) => {
-        save(
-          body.convId,
-          cacheHeaders,
-          body.turn,
-          body.saveBehavior,
-          body.conflictingPageId,
-          body.autoSave
-        )
-          .then((res) => {
-            sendResponse(res)
-          })
-          .catch((err) => {
-            sendResponse({
-              err
-            })
-          })
-      })
-      break
-    case "chatgpt-to-notion_generateToken":
-      // using two means of checking if user is logged in just to be sure
-      session.get(STORAGE_KEYS.token).then((token) => {
-        if (token) return
-        generateToken(body.code)
-          .then((res) => {
-            console.log(res)
-            sendResponse(res)
-          })
-          .catch((err) => {
-            console.error(err)
-            sendResponse({ err })
-          })
-      })
-      break
-    case "chatgpt-to-notion_getDB":
-      getDatabase(body.id)
-        .then((res) => {
-          sendResponse(res)
-        })
-        .catch((err) => {
-          console.error(err)
-          sendResponse({ err })
-        })
-      break
-    case "chatgpt-to-notion_saveHistory":
-      session.get<any>(STORAGE_KEYS.cacheHeaders).then((cacheHeaders) => {
-        fetchHistory(cacheHeaders).then((history) => {
-          saveHistory(history, cacheHeaders)
-        })
-      })
-      break
-    case "chatgpt-to-notion_getCurrentTab":
-      chrome.tabs
-        .query({
-          active: true,
-          currentWindow: true
-        })
-        .then((tabs) => {
-          const tab = tabs[0]
-          sendResponse({ tabId: tab.id, tabUrl: tab.url })
-        })
-      break
-    case "chatgpt-to-notion_bg-fetchFullChat":
-      chrome.tabs
-        .sendMessage(body.tabId, "chatgpt-to-notion_fetchFullChat")
-        .then((res) => sendResponse(res))
-    case "chatgpt-to-notion_open-eco-about-page":
-      chrome.tabs.create(
-        {
-          url: "https://impacthero.co/ecomode/?extension_name=chatgpt_to_notion",
-          active: true
-        },
-        (createdPermanentTab) => {
-          chrome.storage.local.set({
-            openPermanentTab: true
-          })
-        }
-      )
-
-    default:
-      return true
-  }
-  return true
-})
-
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
     chrome.tabs.create({
@@ -179,7 +67,9 @@ const main = async () => {
 
 main()
 
-let cacheHeaders: chrome.webRequest.HttpHeader[]
+// let cacheHeaders: chrome.webRequest.HttpHeader[]
+
+const trackedURLs = ["https://chatgpt.com/*", "https://chat.deepseek.com/*"]
 
 chrome.webRequest.onSendHeaders.addListener(
   (res) => {
@@ -192,17 +82,17 @@ chrome.webRequest.onSendHeaders.addListener(
     }
 
     if (
-      cacheHeaders ||
+      // cacheHeaders ||
       !res.requestHeaders ||
       !res.requestHeaders.some((h) => h.name === "Authorization")
     )
       return
 
-    cacheHeaders = res.requestHeaders
-    session.set(STORAGE_KEYS.cacheHeaders, cacheHeaders)
+    // cacheHeaders = res.requestHeaders
+    session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
     storage.set(STORAGE_KEYS.hasCacheHeaders, true)
   },
-  { urls: ["https://chatgpt.com/*"], types: ["xmlhttprequest"] },
+  { urls: trackedURLs, types: ["xmlhttprequest"] },
   ["requestHeaders", "extraHeaders"]
 )
 

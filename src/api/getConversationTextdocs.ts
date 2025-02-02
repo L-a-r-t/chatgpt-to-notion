@@ -5,7 +5,11 @@ import { getConversationTextdocs as chatgptGetConversationTextdocs } from "./cha
 export const getConversationTextdocs = async ({ model, params }: Params) => {
   switch (model) {
     case "chatgpt":
-      return chatgptGetConversationTextdocs(params)
+      return chatgptGetConversationTextdocs({
+        conv: params.rawConversation,
+        headers: params.headers,
+        includeVersions: params.includeVersions
+      })
     case "deepseek":
       return null
     default:
@@ -17,7 +21,7 @@ type Params =
   | {
       model: "chatgpt"
       params: {
-        conv: Conversation
+        rawConversation: Conversation
         headers: any
         includeVersions?: boolean
       }

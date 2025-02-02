@@ -31,5 +31,6 @@ export const STORAGE_KEYS = {
   refreshed: "refreshed",
   ecoModeActive: "ecoModeActive",
   ecoModePopup: "ecoModePopup",
-  ecoModeNotification: "ecoModeNotification"
+  ecoModeNotification: "ecoModeNotification",
+  model: "model"
 } as const

@@ -14,6 +14,9 @@ importers:
       '@notionhq/client':
         specifier: ^2.2.3
         version: 2.2.3
+      '@plasmohq/messaging':
+        specifier: ^0.6.2
+        version: 0.6.2(react@18.2.0)
       '@plasmohq/storage':
         specifier: ^0.13.1
         version: 0.13.1(react@18.2.0)
@@ -1068,6 +1071,14 @@ packages:
 
   '@plasmohq/init@0.7.0':
     resolution: {integrity: sha512-P75g48dqOGneJ+n0AcqnLE/TYflcaPc3B7h6EopnCBBYUDnCNBMwYmKAkaf5pnhsEB0ybPS6TU1C2DTGfqaW7A==}
+
+  '@plasmohq/messaging@0.6.2':
+    resolution: {integrity: sha512-CGfcvfVE0wsN/Y/i/jV0nwjkwh2gBCEujZFhLoxJ12N0ScoP3JVEIvUxJSFsAD4ylBQ8IjD2FyjQozwiSxWc4Q==}
+    peerDependencies:
+      react: ^16.8.6 || ^17 || ^18
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@plasmohq/parcel-bundler@0.5.5':
     resolution: {integrity: sha512-QCMmmfic514CfdXMJ7JMWUnqDzIHKVKyYeqPpUDsXON6JvA1yTmO5mEQSls8+5u/HpocP9QmTskQOHu3RCNX9A==}
@@ -2702,6 +2713,11 @@ packages:
   nanoid@3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@5.0.3:
+    resolution: {integrity: sha512-I7X2b22cxA4LIHXPSqbBCEQSL+1wv8TuoefejsX4HFWyC6jc5JG7CEaxOltiKjc1M+YCS2YkrZZcj4+dytw9GA==}
+    engines: {node: ^18 || >=20}
     hasBin: true
 
   napi-build-utils@1.0.2:
@@ -4586,6 +4602,12 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
 
   '@plasmohq/init@0.7.0': {}
+
+  '@plasmohq/messaging@0.6.2(react@18.2.0)':
+    dependencies:
+      nanoid: 5.0.3
+    optionalDependencies:
+      react: 18.2.0
 
   '@plasmohq/parcel-bundler@0.5.5':
     dependencies:
@@ -6476,6 +6498,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.4: {}
+
+  nanoid@5.0.3: {}
 
   napi-build-utils@1.0.2: {}
 

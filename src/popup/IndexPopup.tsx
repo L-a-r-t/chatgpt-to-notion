@@ -17,6 +17,8 @@ import "~styles.css"
 import { useEffect, useState } from "react"
 import { compress } from "shrink-string"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
 import { checkSaveConflict } from "~api/checkSaveConflict"
 import { parseSave } from "~api/parseSave"
 import { saveChat } from "~api/saveChat"
@@ -81,12 +83,10 @@ function IndexPopup() {
   const savePercent = useSavePercentage(saveStatus, 5000)
 
   useEffect(() => {
-    chrome.runtime
-      .sendMessage({ type: "chatgpt-to-notion_getCurrentTab" })
-      .then(({ tabUrl }) => {
-        const id = tabUrl?.split("/c/").pop()
-        setChatID(id?.length != 36 ? null : id)
-      })
+    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl }) => {
+      const id = tabUrl?.split("/c/").pop()
+      setChatID(id?.length != 36 ? null : id)
+    })
   }, [])
 
   useEffect(() => {
@@ -153,11 +153,12 @@ function IndexPopup() {
     try {
       setError(null)
       setLoading(true)
-      const res = await chrome.runtime.sendMessage({
-        type: "chatgpt-to-notion_save",
+      const res = await sendToBackground({
+        name: "save",
         body: {
           saveBehavior,
           conflictingPageId: conflictingPageId,
+          turn: -1,
           convId: chatID
         }
       })

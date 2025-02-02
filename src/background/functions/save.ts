@@ -68,7 +68,7 @@ const save = async (
       params: { rawConversation, textDocs }
     })
 
-    console.log({ conversation })
+    console.log({ conversation, turn })
 
     if (turn >= conversation.prompts.length) {
       turn = conversation.prompts.length - 1

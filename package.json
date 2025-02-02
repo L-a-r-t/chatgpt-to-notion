@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@notionhq/client": "^2.2.3",
+    "@plasmohq/messaging": "^0.6.2",
     "@plasmohq/storage": "^0.13.1",
     "@tryfabric/martian": "^1.2.4",
     "dayjs": "^1.11.7",
@@ -39,8 +40,8 @@
     "web_accessible_resources": [
       {
         "resources": [
-          "assets/tab-demo.gif", 
-          "assets/popup_notification.html", 
+          "assets/tab-demo.gif",
+          "assets/popup_notification.html",
           "assets/sdk_translations.json",
           "assets/icon.png",
           "assets/illustration.png",
@@ -55,7 +56,8 @@
       "https://api.notion.com/*",
       "https://chatgpt-to-notion.onrender.com/*",
       "https://chat.openai.com/*",
-      "https://chatgpt.com/*"
+      "https://chatgpt.com/*",
+      "https://chat.deepseek.com/*"
     ],
     "permissions": [
       "tabs",

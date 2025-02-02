@@ -1,6 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo"
 import { compress } from "shrink-string"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import { parseSave } from "~api/parseSave"
@@ -42,16 +43,16 @@ storage.watch({
           throw new Error("No database linked to this chat")
         }
 
-        const { conflictingPageId } = await chrome.runtime.sendMessage({
-          type: "chatgpt-to-notion_checkSaveConflict",
+        const { conflictingPageId } = await sendToBackground({
+          name: "checkSaveConflit",
           body: {
             title: document.title,
             database
           }
         })
 
-        const res = await chrome.runtime.sendMessage({
-          type: "chatgpt-to-notion_save",
+        const res = await sendToBackground({
+          name: "save",
           body: {
             saveBehavior: "override",
             conflictingPageId,

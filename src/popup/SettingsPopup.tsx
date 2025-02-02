@@ -9,6 +9,8 @@ import type { PopupEnum, StoredDatabase } from "~utils/types"
 
 import "~styles.css"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
 import Spinner from "~common/components/Spinner"
 import GearIcon from "~common/gear"
 import RefreshIcon from "~common/refresh"
@@ -40,8 +42,8 @@ function SettingsPopup() {
     async () => {
       setDbError(null)
       setFetching(true)
-      const response = await chrome.runtime.sendMessage({
-        type: "chatgpt-to-notion_search",
+      const response = await sendToBackground({
+        name: "search",
         body: {
           query
         }
