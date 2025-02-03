@@ -4,6 +4,7 @@ import type { PlasmoMessaging } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import { STORAGE_KEYS } from "~utils/consts"
+import type { SupportedModels } from "~utils/types"
 
 const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   try {
@@ -16,18 +17,18 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
 
     const tab = tabs[0]
 
-    if (tab.url) {
-      const tabURL = new URL(tab.url)
+    let model: SupportedModels | null = null
 
-      if (tabURL.hostname.includes("chatgpt.com")) {
-        await storage.set(STORAGE_KEYS.model, "chatgpt")
-      }
-      if (tabURL.hostname.includes("chat.deepseek.com")) {
-        await storage.set(STORAGE_KEYS.model, "deepseek")
-      }
+    if (tab.url?.includes("chatgpt.com")) {
+      model = "chatgpt"
+      await storage.set(STORAGE_KEYS.model, "chatgpt")
+    }
+    if (tab.url?.includes("chat.deepseek.com")) {
+      model = "deepseek"
+      await storage.set(STORAGE_KEYS.model, "deepseek")
     }
 
-    res.send({ tabId: tab.id, tabUrl: tab.url })
+    res.send({ tabId: tab.id, tabUrl: tab.url, model })
   } catch (err) {
     console.error(err)
     res.send({ err })

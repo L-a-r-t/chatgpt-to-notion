@@ -3,13 +3,14 @@ import bannerEco1 from "data-base64:../../assets/banner-eco-1.png"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type {
-  AutosaveStatus,
-  Error,
-  PopupEnum,
-  SaveBehavior,
-  SaveStatus,
-  StoredDatabase
+import {
+  type AutosaveStatus,
+  type Error,
+  type PopupEnum,
+  type SaveBehavior,
+  type SaveStatus,
+  type StoredDatabase,
+  type SupportedModels
 } from "~utils/types"
 
 import "~styles.css"
@@ -38,11 +39,13 @@ import {
   i18n,
   updateChatConfig
 } from "~utils/functions"
+import { getConversationIdFromUrl } from "~utils/functions/llms"
 
 import ConflictPopup from "./ConflictPopup"
 
 function IndexPopup() {
   const [popup, setPopup] = useStorage<PopupEnum>(STORAGE_KEYS.popup, "index")
+  const [model] = useStorage<SupportedModels | undefined>(STORAGE_KEYS.model)
   const [selectedDB, setSelectedDB] = useStorage<number>(
     STORAGE_KEYS.selectedDB,
     0
@@ -83,9 +86,12 @@ function IndexPopup() {
   const savePercent = useSavePercentage(saveStatus, 5000)
 
   useEffect(() => {
-    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl }) => {
-      const id = tabUrl?.split("/c/").pop()
-      setChatID(id?.length != 36 ? null : id)
+    console.log({ cacheHeaders, chatID })
+  }, [cacheHeaders, chatID])
+
+  useEffect(() => {
+    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl, model }) => {
+      setChatID(getConversationIdFromUrl(model, tabUrl))
     })
   }, [])
 

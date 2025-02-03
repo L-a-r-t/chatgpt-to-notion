@@ -1,12 +1,8 @@
-import type {
-  CanvasMessageMetadata,
-  Conversation,
-  ConversationTextdocs,
-  Message
-} from "~utils/types"
+import type { Conversation, ConversationTextdocs, Message } from "~utils/types"
+import type { CanvasMessageMetadata } from "~utils/types/chatgpt"
 
 export const parseConversation = (
-  rawConv: Conversation,
+  rawConv: Conversation["chatgpt"],
   textDocs: ConversationTextdocs
 ) => {
   const { conversation_id: id, title, mapping } = rawConv
@@ -45,7 +41,7 @@ export const parseConversation = (
     },
     { prev: "system", rawPrompts: [] } as {
       prev: string
-      rawPrompts: Message[]
+      rawPrompts: Message["chatgpt"][]
     }
   )
 
@@ -66,8 +62,8 @@ export const parseConversation = (
 }
 
 export const flattenMessage = (
-  msg: Message,
-  mapping: Conversation["mapping"],
+  msg: Message["chatgpt"],
+  mapping: Conversation["chatgpt"]["mapping"],
   flattenedMessage: string[],
   textDocs: ConversationTextdocs
 ) => {

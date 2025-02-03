@@ -71,6 +71,11 @@ main()
 
 const trackedURLs = ["https://chatgpt.com/*", "https://chat.deepseek.com/*"]
 
+const deepseekUrls = [
+  "https://chat.deepseek.com/api/v0/chat/history_messages"
+  // "ttps://chat.deepseek.com/api/v0/chat_session/fetch_page?count=100"
+]
+
 chrome.webRequest.onSendHeaders.addListener(
   (res) => {
     if (
@@ -84,13 +89,26 @@ chrome.webRequest.onSendHeaders.addListener(
     if (
       // cacheHeaders ||
       !res.requestHeaders ||
-      !res.requestHeaders.some((h) => h.name === "Authorization")
+      !res.requestHeaders.some((h) => h.name.toLowerCase() === "authorization")
     )
       return
 
+    if (res.url.includes("chatgpt.com")) {
+      session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
+      storage.set(STORAGE_KEYS.hasCacheHeaders, true)
+      return
+    }
+
+    if (deepseekUrls.some((url) => res.url.includes(url))) {
+      // console.log({ url: res.url, headers: res.requestHeaders })
+      // console.log("Setting cache headers")
+
+      session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
+      storage.set(STORAGE_KEYS.hasCacheHeaders, true)
+      return
+    }
+
     // cacheHeaders = res.requestHeaders
-    session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
-    storage.set(STORAGE_KEYS.hasCacheHeaders, true)
   },
   { urls: trackedURLs, types: ["xmlhttprequest"] },
   ["requestHeaders", "extraHeaders"]

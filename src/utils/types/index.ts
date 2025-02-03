@@ -1,3 +1,5 @@
+import type { ChatGPTConversation, ChatGPTMessage } from "./chatgpt"
+import type { DeepseekConversation, DeepseekMessage } from "./deepseek"
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
 export type SupportedModels = "chatgpt" | "deepseek"
@@ -73,57 +75,14 @@ export type SaveStatus =
   | "fetching"
   | null
 
-// ChatGPT conversation as returned by the API
-// We won't type more than we need obviously
 export type Conversation = {
-  title: string
-  conversation_id: string
-  mapping: Record<string, Message>
+  chatgpt: ChatGPTConversation
+  deepseek: DeepseekConversation
 }
 
 export type Message = {
-  message?: {
-    create_time: number
-    author?: {
-      role: string
-      name: string
-    }
-    content: {
-      content_type: string
-      parts?: any[]
-      text?: string
-    }
-    recipient: string
-    metadata: Record<string, any>
-    end_turn?: true
-  }
-  children?: string[]
-}
-
-export type CanvasMessageMetadata = {
-  textdoc_id: string
-  textdoc_type: string
-  version: number
-  title: string
-}
-
-export type CanvasHistoryResponse = {
-  previous_doc_states: {
-    id: string
-    version: number
-    title: string
-    textdoc_type: string
-    content: string
-    comments: []
-    updated_at: string
-  }[]
-}
-
-export type CreateCanvasData = {
-  name: string
-  title?: string // futureproofing
-  type: string
-  content: string
+  chatgpt: ChatGPTMessage
+  deepseek: DeepseekMessage
 }
 
 export type ConversationTextdocs = {

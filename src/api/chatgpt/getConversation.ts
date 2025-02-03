@@ -18,7 +18,7 @@ export const getConversation = async ({
     )
     const data = await res.json()
 
-    return data as Conversation
+    return data as Conversation["chatgpt"]
   } catch (err) {
     console.error(err)
 

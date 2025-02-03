@@ -21,7 +21,7 @@ type Params =
   | {
       model: "chatgpt"
       params: {
-        rawConversation: Conversation
+        rawConversation: Conversation["chatgpt"]
         headers: any
         includeVersions?: boolean
       }

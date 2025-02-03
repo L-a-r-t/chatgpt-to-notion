@@ -47,7 +47,10 @@ const save = async (
 
     await storage.set("saveStatus", "fetching" as SaveStatus)
 
-    const headers = convertHeaders(rawHeaders)
+    console.log({ rawHeaders })
+    const headers = convertHeaders(
+      rawHeaders.filter((h) => h.name.toLowerCase() != "cookie")
+    )
     const rawConversation = await getConversation({
       model: model,
       params: { convId, headers }
@@ -55,16 +58,20 @@ const save = async (
 
     console.log({ rawConversation })
 
-    if (!rawConversation?.mapping) throw new Error("Conversation not found")
+    if (!rawConversation) throw new Error("Conversation not found")
 
-    const textDocs =
-      (await getConversationTextdocs({
-        model: model as any,
-        params: { rawConversation, headers, includeVersions: true }
-      })) ?? []
+    let textDocs: any[] = []
+    if (model == "chatgpt") {
+      textDocs =
+        (await getConversationTextdocs({
+          model: model as any,
+          params: { rawConversation, headers, includeVersions: true }
+        })) ?? []
+    }
 
     const conversation = parseConversation({
-      model: "chatgpt",
+      model: model,
+      // @ts-ignore
       params: { rawConversation, textDocs }
     })
 

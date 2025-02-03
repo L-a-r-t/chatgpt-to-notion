@@ -1,16 +1,15 @@
+import type { Conversation, ConversationTextdocs } from "~utils/types"
 import type {
   CanvasHistoryResponse,
-  CanvasMessageMetadata,
-  Conversation,
-  ConversationTextdocs
-} from "~utils/types"
+  CanvasMessageMetadata
+} from "~utils/types/chatgpt"
 
 export const getConversationTextdocs = async ({
   conv,
   headers,
   includeVersions
 }: {
-  conv: Conversation
+  conv: Conversation["chatgpt"]
   headers: any
   includeVersions?: boolean
 }) => {
