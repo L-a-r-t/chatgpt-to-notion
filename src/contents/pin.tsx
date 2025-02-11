@@ -14,7 +14,6 @@ import PinIcon from "~common/pin"
 
 import "~styles.css"
 
-import { cp } from "fs"
 import { useCallback, useEffect, useState } from "react"
 
 import LogoIcon from "~common/logo"
@@ -26,36 +25,38 @@ export const config: PlasmoCSConfig = {
   matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
 }
 
+/**
+ * Previously this was querying for the <markdown> tag.
+ * The ChatGPT DOM uses a div with a "markdown" class.
+ */
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () =>
-  document.querySelectorAll("div > .pt-0")
+  document.querySelectorAll(".markdown")
 
 export const render: PlasmoRender<Element> = async ({
   anchor, // the observed anchor, OR document.body.
-  createRootContainer // This creates the default root container
+  createRootContainer // Creates the default root container
 }) => {
   if (!anchor || !createRootContainer) return
-  // const parentElement = anchor?.element.parentElement?.parentElement
-  // if (!parentElement) return
-  // const parentAnchor = {
-  //   element: parentElement,
-  //   type: anchor.type
-  // }
 
-  // console.log({ anchor, parentAnchor })
   const rootContainer = await createRootContainer(anchor)
-
-  const root = createRoot(rootContainer) // Any root
-  const parent =
-    anchor?.element?.parentElement?.parentElement?.parentElement?.parentElement
+  // Instead of multiple parentElement calls, use closest() to grab the container
+  // that represents the whole assistant turn.
+  const parent = anchor.element.closest(".agent-turn")
   parent?.classList.add("pin")
+  parent?.insertBefore(rootContainer, parent.firstChild)
+
+  const root = createRoot(rootContainer)
+  rootContainer.classList.add("relative")
+
   root.render(
     <>
-      <Content
-        // @ts-ignore
-        parent={parent}
-      />
+      <Content parent={parent} />
     </>
   )
+}
+
+type Props = {
+  parent: Element | null
 }
 
 const Content = ({ parent }: Props) => {
@@ -81,11 +82,19 @@ const Content = ({ parent }: Props) => {
   const [pinIndex, setPinIndex] = useState(-1)
 
   useEffect(() => {
-    if (parent.parentElement?.querySelector(".agent-turn")) setShowPin(true)
-    else parent.classList.remove("pin")
+    console.log(parent)
+  }, [parent])
+
+  useEffect(() => {
+    // Only show the pin if a sibling agent-turn exists
+    if (parent?.parentElement?.querySelector(".agent-turn")) {
+      setShowPin(true)
+    } else {
+      parent?.classList.remove("pin")
+    }
     const index = getPinIndex(parent)
     setPinIndex(index)
-  }, [])
+  }, [parent])
 
   useEffect(() => {
     if (!(isPremium || activeTrial) || !chatID) return
@@ -101,17 +110,13 @@ const Content = ({ parent }: Props) => {
         const pins = document.querySelectorAll(".pin")
         const lastPin = pins[pins.length - 1]
         if (!lastPin) return false
-        // Unelegant way to get the node of an element
-        const parentNode = parent.firstChild?.parentNode
+        // A somewhat inelegant way to compare nodes:
+        const parentNode = parent?.firstChild?.parentNode
         if (!parentNode) return false
-        return (
-          lastPin.firstChild?.parentNode?.isSameNode(
-            parent.firstChild?.parentNode
-          ) ?? false
-        )
+        return lastPin.firstChild?.parentNode?.isSameNode(parentNode) ?? false
       })()
     )
-  }, [chatID, status])
+  }, [chatID, status, isPremium, activeTrial, parent])
 
   const LastMessageIcon = useCallback(() => {
     switch (status) {
@@ -125,8 +130,10 @@ const Content = ({ parent }: Props) => {
         return <LogoIcon error />
       case "saved":
         return <LogoIcon />
+      default:
+        return <LogoIcon />
     }
-  }, [chatID, status])
+  }, [status])
 
   const handleClick = async () => {
     if (!authenticated) {
@@ -134,11 +141,12 @@ const Content = ({ parent }: Props) => {
       return
     }
 
-    const images = Array.from(parent.querySelectorAll("img") || [])
-    const text = Array.from(parent.querySelectorAll(".markdown")).map((el) =>
-      el.parentElement?.classList.contains("mt-3")
-        ? "%%CHATGPT_TO_NOTION_WORK1%%" + el.innerHTML
-        : el.innerHTML
+    const images = Array.from(parent?.querySelectorAll("img") || [])
+    const text = Array.from(parent?.querySelectorAll(".markdown") || []).map(
+      (el) =>
+        el.parentElement?.classList.contains("mt-3")
+          ? "%%CHATGPT_TO_NOTION_WORK1%%" + el.innerHTML
+          : el.innerHTML
     )
 
     console.log(text)
@@ -146,7 +154,7 @@ const Content = ({ parent }: Props) => {
     let uncompressedAnswer = text[0]
     if (text.length > 1) {
       uncompressedAnswer = text.reduce((acc, curr, i, arr) => {
-        if (i == 0) return curr
+        if (i === 0) return curr
 
         const prev = arr[i - 1]
         const joint = (curr + prev).includes("%%CHATGPT_TO_NOTION_WORK2%%")
@@ -162,12 +170,13 @@ const Content = ({ parent }: Props) => {
         : uncompressedAnswer
     const answer = await compress(preCompressionAnswer)
 
-    const prompt = await compress(
-      // @ts-ignore
-      parent.parentElement.previousElementSibling.querySelector(
+    // Find the prompt in the previous sibling element:
+    const promptElement =
+      parent?.parentElement?.previousElementSibling?.querySelector(
         ".whitespace-pre-wrap"
-      ).textContent
-    )
+      )
+    const promptText = promptElement ? promptElement.textContent : ""
+    const prompt = await compress(promptText || "")
     const title = document.title
     const url = window.location.href
 
@@ -201,7 +210,6 @@ const Content = ({ parent }: Props) => {
           background: "transparent",
           border: "none",
           marginTop: 10,
-          width: "100%",
           cursor: status !== "generating" ? "pointer" : "default"
         }}>
         {isLastMessage ? <LastMessageIcon /> : <LogoIcon />}
@@ -218,7 +226,9 @@ const Content = ({ parent }: Props) => {
         marginTop: 10,
         padding: 4,
         borderRadius: 4,
-        width: "100%",
+        position: "absolute",
+        top: 32,
+        left: -42,
         cursor: "pointer"
       }}>
       <PinIcon />
@@ -228,11 +238,9 @@ const Content = ({ parent }: Props) => {
 
 export default Content
 
-const getPinIndex = (parent: Element) => {
+const getPinIndex = (parent: Element | null) => {
   const pins = document.querySelectorAll(".pin")
-  return Array.from(pins).findIndex((pin) => pin.isSameNode(parent))
-}
-
-type Props = {
-  parent: Element
+  return Array.from(pins).findIndex((pin) =>
+    parent ? pin.isSameNode(parent) : false
+  )
 }
