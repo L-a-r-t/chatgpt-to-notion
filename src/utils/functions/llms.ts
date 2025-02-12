@@ -1,5 +1,6 @@
-import { parseConversation as chatgptParseConversation } from "~utils/functions/chatgpt"
-import { parseConversation as deepseekParseConversation } from "~utils/functions/deepseek"
+import { parseConversation as chatgptParseConversation } from "~models/chatgpt/functions"
+import { parseConversation as deepseekParseConversation } from "~models/deepseek/functions"
+import { parseConversation as mistralParseConversation } from "~utils/functions/mistral"
 import type {
   Conversation,
   ConversationTextdocs,
@@ -15,6 +16,8 @@ export const parseConversation = ({
       return chatgptParseConversation(params.rawConversation, params.textDocs)
     case "deepseek":
       return deepseekParseConversation(params.rawConversation)
+    case "mistral":
+      return mistralParseConversation(params.rawConversation)
     default:
       throw new Error("Model not supported")
   }
@@ -35,6 +38,13 @@ type ParseConversationParams =
         textDocs: null
       }
     }
+  | {
+      model: "mistral"
+      params: {
+        rawConversation: Conversation["mistral"]
+        textDocs: null
+      }
+    }
 
 export const getConversationIdFromUrl = (
   model: SupportedModels,
@@ -49,6 +59,9 @@ export const getConversationIdFromUrl = (
       id = urlObj.pathname.split("/").pop()
       return id?.length != 36 ? null : id
     case "deepseek":
+      id = urlObj.pathname.split("/").pop()
+      return id?.length != 36 ? null : id
+    case "mistral":
       id = urlObj.pathname.split("/").pop()
       return id?.length != 36 ? null : id
     default:

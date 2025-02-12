@@ -1,5 +1,5 @@
+import type { CanvasMessageMetadata } from "~models/chatgpt/types"
 import type { Conversation, ConversationTextdocs, Message } from "~utils/types"
-import type { CanvasMessageMetadata } from "~utils/types/chatgpt"
 
 export const parseConversation = (
   rawConv: Conversation["chatgpt"],

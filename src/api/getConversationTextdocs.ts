@@ -1,6 +1,5 @@
+import { getConversationTextdocs as chatgptGetConversationTextdocs } from "~models/chatgpt/api/getConversationTextdocs"
 import type { Conversation, SupportedModels } from "~utils/types"
-
-import { getConversationTextdocs as chatgptGetConversationTextdocs } from "./chatgpt/getConversationTextdocs"
 
 export const getConversationTextdocs = async ({ model, params }: Params) => {
   switch (model) {

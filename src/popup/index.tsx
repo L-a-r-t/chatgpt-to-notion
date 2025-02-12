@@ -67,7 +67,11 @@ export default function Wrapper() {
         currentWindow: true
       })
       const urlObj = new URL(tabs[0].url!)
-      if (!urlObj.hostname.match(/((chatgpt.com)|(chat.deepseek.com))/)) {
+      if (
+        !urlObj.hostname.match(
+          /((chatgpt.com)|(chat.deepseek.com)|(chat.mistral.ai))/
+        )
+      ) {
         if (!popup || popup === "index" || popup === "save")
           await setPopup("wrongpage")
       } else if (popup === "wrongpage") {

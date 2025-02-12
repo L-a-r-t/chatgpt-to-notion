@@ -57,7 +57,10 @@
       "https://chatgpt-to-notion.onrender.com/*",
       "https://chat.openai.com/*",
       "https://chatgpt.com/*",
-      "https://chat.deepseek.com/*"
+      "https://chat.deepseek.com/*",
+      "https://chat.mistral.ai/*",
+      "https://gemini.google.com/*",
+      "https://claude.ai/*"
     ],
     "permissions": [
       "tabs",

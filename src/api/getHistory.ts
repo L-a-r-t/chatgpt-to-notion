@@ -1,6 +1,5 @@
+import { getHistory as chatgptGetHistory } from "~models/chatgpt/api/getHistory"
 import type { SupportedModels } from "~utils/types"
-
-import { getHistory as chatgptGetHistory } from "./chatgpt/getHistory"
 
 export const getHistory = async ({ model, params }: Params) => {
   switch (model) {

@@ -27,6 +27,7 @@ import useSavePercentage from "~hooks/useSavePercentage"
 import useTags from "~hooks/useTags"
 import { STORAGE_KEYS } from "~utils/consts"
 import { getConsiseErrMessage, i18n } from "~utils/functions"
+import { getConversationIdFromUrl } from "~utils/functions/llms"
 
 import ConflictPopup from "./ConflictPopup"
 
@@ -80,9 +81,8 @@ export default function SavePopup() {
   const savePercent = useSavePercentage(saveStatus, 3000)
 
   useEffect(() => {
-    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl }) => {
-      const id = tabUrl?.split("/c/").pop()
-      setChatID(id?.length != 36 ? null : id)
+    sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl, model }) => {
+      setChatID(getConversationIdFromUrl(model, tabUrl))
     })
   }, [])
 

@@ -1,8 +1,17 @@
-import type { ChatGPTConversation, ChatGPTMessage } from "./chatgpt"
-import type { DeepseekConversation, DeepseekMessage } from "./deepseek"
+import type {
+  ChatGPTConversation,
+  ChatGPTMessage
+} from "../../models/chatgpt/types"
+import type {
+  DeepseekConversation,
+  DeepseekMessage
+} from "../../models/deepseek/types"
+import type { MistralConversation, MistralMessage } from "./mistral"
 import type { IconResponse, SelectPropertyResponse } from "./notion"
 
-export type SupportedModels = "chatgpt" | "deepseek"
+export type SupportedModels = "chatgpt" | "deepseek" | "mistral"
+// | "gemini"
+// | "claude"
 
 export type ToBeSaved = {
   prompt: string
@@ -78,11 +87,13 @@ export type SaveStatus =
 export type Conversation = {
   chatgpt: ChatGPTConversation
   deepseek: DeepseekConversation
+  mistral: MistralConversation
 }
 
 export type Message = {
   chatgpt: ChatGPTMessage
   deepseek: DeepseekMessage
+  mistral: MistralMessage
 }
 
 export type ConversationTextdocs = {
@@ -99,4 +110,9 @@ export type HistorySaveError = {
   url: string
   title: string
   message: string
+}
+
+export type ModelHeaders = {
+  model: SupportedModels
+  headers: { name: string; value?: string }[]
 }

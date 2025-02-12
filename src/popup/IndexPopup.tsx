@@ -86,10 +86,6 @@ function IndexPopup() {
   const savePercent = useSavePercentage(saveStatus, 5000)
 
   useEffect(() => {
-    console.log({ cacheHeaders, chatID })
-  }, [cacheHeaders, chatID])
-
-  useEffect(() => {
     sendToBackground({ name: "getCurrentTab" }).then(({ tabUrl, model }) => {
       setChatID(getConversationIdFromUrl(model, tabUrl))
     })
