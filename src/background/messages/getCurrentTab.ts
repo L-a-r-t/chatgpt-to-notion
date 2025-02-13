@@ -27,6 +27,10 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       model = "deepseek"
       await storage.set(STORAGE_KEYS.model, "deepseek")
     }
+    if (tab.url?.includes("chat.mistral.ai")) {
+      model = "mistral"
+      await storage.set(STORAGE_KEYS.model, "mistral")
+    }
 
     res.send({ tabId: tab.id, tabUrl: tab.url, model })
   } catch (err) {

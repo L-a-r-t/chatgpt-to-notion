@@ -13,7 +13,11 @@ import { STORAGE_KEYS } from "~utils/consts"
 import type { PopupEnum, SaveStatus, StoredDatabase } from "~utils/types"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://chat.openai.com/*", "https://chatgpt.com/*"]
+  matches: [
+    "https://chat.deepseek.com/*",
+    "https://chatgpt.com/*",
+    "https://chat.mistral.ai/*"
+  ]
 }
 
 chrome.runtime.onMessage.addListener((message) => {

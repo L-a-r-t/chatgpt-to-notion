@@ -5,6 +5,7 @@ import { generateToken } from "~api/generateToken"
 import { getDatabase } from "~api/getDatabase"
 import { searchNotion } from "~api/search"
 import { STORAGE_KEYS } from "~utils/consts"
+import type { ModelHeaders, SupportedModels } from "~utils/types"
 
 import {
   authenticate,
@@ -69,7 +70,16 @@ main()
 
 // let cacheHeaders: chrome.webRequest.HttpHeader[]
 
-const trackedURLs = ["https://chatgpt.com/*", "https://chat.deepseek.com/*"]
+const saveHeaders = (model: SupportedModels, headers: any) => {
+  session.set(STORAGE_KEYS.cacheHeaders, { model, headers } as ModelHeaders)
+  storage.set(STORAGE_KEYS.hasCacheHeaders, true)
+}
+
+const trackedURLs = [
+  "https://chatgpt.com/*",
+  "https://chat.deepseek.com/*",
+  "https://chat.mistral.ai/*"
+]
 
 const deepseekUrls = [
   "https://chat.deepseek.com/api/v0/chat/history_messages"
@@ -78,6 +88,7 @@ const deepseekUrls = [
 
 chrome.webRequest.onSendHeaders.addListener(
   (res) => {
+    // console.log(res.url)
     if (
       res.method == "POST" &&
       res.url == "https://chatgpt.com/backend-api/conversation"
@@ -86,31 +97,39 @@ chrome.webRequest.onSendHeaders.addListener(
       return
     }
 
-    if (
-      // cacheHeaders ||
-      !res.requestHeaders ||
-      !res.requestHeaders.some((h) => h.name.toLowerCase() === "authorization")
-    )
-      return
+    if (!res.requestHeaders) return
 
-    if (res.url.includes("chatgpt.com")) {
-      session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
-      storage.set(STORAGE_KEYS.hasCacheHeaders, true)
+    if (
+      res.requestHeaders.some(
+        (h) => h.name.toLowerCase() === "authorization"
+      ) &&
+      res.url.includes("chatgpt.com")
+    ) {
+      saveHeaders("chatgpt", res.requestHeaders)
       return
     }
 
-    if (deepseekUrls.some((url) => res.url.includes(url))) {
-      // console.log({ url: res.url, headers: res.requestHeaders })
-      // console.log("Setting cache headers")
+    if (
+      res.requestHeaders.some(
+        (h) => h.name.toLowerCase() === "authorization"
+      ) &&
+      deepseekUrls.some((url) => res.url.includes(url))
+    ) {
+      saveHeaders("deepseek", res.requestHeaders)
+      return
+    }
 
-      session.set(STORAGE_KEYS.cacheHeaders, res.requestHeaders)
-      storage.set(STORAGE_KEYS.hasCacheHeaders, true)
+    if (res.url.includes("mistral.ai")) {
+      saveHeaders("mistral", res.requestHeaders)
       return
     }
 
     // cacheHeaders = res.requestHeaders
   },
-  { urls: trackedURLs, types: ["xmlhttprequest"] },
+  {
+    urls: trackedURLs,
+    types: ["xmlhttprequest"]
+  },
   ["requestHeaders", "extraHeaders"]
 )
 

@@ -3,7 +3,7 @@ import { Storage } from "@plasmohq/storage"
 
 import { save } from "~background/functions"
 import { STORAGE_KEYS } from "~utils/consts"
-import type { SupportedModels } from "~utils/types"
+import type { ModelHeaders, SupportedModels } from "~utils/types"
 
 const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   try {
@@ -13,13 +13,19 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       secretKeyList: ["token", "cacheHeaders"]
     })
 
-    const cacheHeaders = await session.get<any>(STORAGE_KEYS.cacheHeaders)
+    const cacheHeaders = await session.get<ModelHeaders>(
+      STORAGE_KEYS.cacheHeaders
+    )
     const model = await storage.get<SupportedModels>(STORAGE_KEYS.model)
+
+    if (model != cacheHeaders.model) {
+      throw new Error("Model mismatch, please refresh this conversation's tab")
+    }
 
     const { convId, turn, saveBehavior, conflictingPageId, autoSave } = req.body
 
     const saveRes = await save(convId, model, {
-      rawHeaders: cacheHeaders,
+      rawHeaders: cacheHeaders.headers,
       turn,
       saveBehavior,
       conflictingPageId,

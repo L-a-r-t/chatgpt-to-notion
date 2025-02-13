@@ -1,6 +1,6 @@
 import { parseConversation as chatgptParseConversation } from "~models/chatgpt/functions"
 import { parseConversation as deepseekParseConversation } from "~models/deepseek/functions"
-import { parseConversation as mistralParseConversation } from "~utils/functions/mistral"
+import { parseConversation as mistralParseConversation } from "~models/mistral/functions"
 import type {
   Conversation,
   ConversationTextdocs,
