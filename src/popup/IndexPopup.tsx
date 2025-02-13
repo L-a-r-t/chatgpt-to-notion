@@ -129,8 +129,14 @@ function IndexPopup() {
         return
       }
       const database = db!
+
+      const modelsWithCustomTitle = ["chatgpt"]
+
       const checkRes = await checkSaveConflict({
-        title: currentTab.title ?? "",
+        title: modelsWithCustomTitle.includes(model ?? "")
+          ? currentTab.title
+          : undefined,
+        url: currentTab.url ?? "",
         database
       })
       if (checkRes.conflict) {

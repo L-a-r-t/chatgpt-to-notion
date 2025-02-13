@@ -8,10 +8,11 @@ import { generateTag } from "~utils/functions/notion"
 import type { StoredDatabase } from "~utils/types"
 
 /**
- * Verifies that there isn't already a page with the same title AND tag in the database
+ * Verifies that there isn't already a page with the same title AND url in the database
  */
 export const checkSaveConflict = async ({
   title,
+  url,
   database
 }: CheckConflictParams) => {
   try {
@@ -19,43 +20,49 @@ export const checkSaveConflict = async ({
 
     const notion = await getNotion()
     const { propertiesIds, tags, tagPropertyIndex, tagIndex } = database
-    const tag = generateTag(tags[tagPropertyIndex], tagIndex)
+    // const tag = generateTag(tags[tagPropertyIndex], tagIndex)
 
-    const tagType = tags[tagPropertyIndex]?.type
+    // const tagType = tags[tagPropertyIndex]?.type
+
+    const filters: any[] = [
+      {
+        property: propertiesIds.url,
+        url: {
+          equals: url
+        }
+      }
+    ]
+
+    if (title) {
+      filters.push({
+        property: propertiesIds.title,
+        title: {
+          equals: title
+        }
+      })
+    }
 
     const searchRes = await notion.databases.query({
       database_id: database.id,
-      filter: tag
-        ? {
-            and: [
-              {
-                property: propertiesIds.title,
-                title: {
-                  equals: title
-                }
-              },
-              tagType === "select"
-                ? {
-                    property: tags[tagPropertyIndex].id,
-                    select: {
-                      equals: tags[tagPropertyIndex].options[tagIndex].name
-                    }
-                  }
-                : {
-                    property: tags[tagPropertyIndex].id,
-                    multi_select: {
-                      contains: tags[tagPropertyIndex].options[tagIndex].name
-                    }
-                  }
-            ]
-          }
-        : {
-            property: propertiesIds.title,
-            title: {
-              equals: title
-            }
-          }
+      filter: {
+        and: filters
+        // tagType === "select"
+        //   ? {
+        //       property: tags[tagPropertyIndex].id,
+        //       select: {
+        //         equals: tags[tagPropertyIndex].options[tagIndex].name
+        //       }
+        //     }
+        //   : {
+        //       property: tags[tagPropertyIndex].id,
+        //       multi_select: {
+        //         contains: tags[tagPropertyIndex].options[tagIndex].name
+        //       }
+        //     }
+      }
     })
+
+    console.log({ searchRes, title, url })
 
     const conflict = searchRes.results.length > 0
 
@@ -70,6 +77,7 @@ export const checkSaveConflict = async ({
 }
 
 type CheckConflictParams = {
-  title: string
+  title?: string
+  url: string
   database: StoredDatabase
 }

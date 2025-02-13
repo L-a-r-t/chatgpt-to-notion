@@ -58,6 +58,7 @@ export default function SavePopup() {
   const [activeTrial] = useStorage(STORAGE_KEYS.activeTrial, false)
   const [ecoModeActive] = useStorage(STORAGE_KEYS.ecoModeActive, true)
   const [chatID, setChatID] = useStorage(STORAGE_KEYS.chatID)
+  const [model] = useStorage(STORAGE_KEYS.model)
   const [cacheHeaders] = useStorage<boolean>(
     STORAGE_KEYS.hasCacheHeaders,
     false
@@ -101,17 +102,22 @@ export default function SavePopup() {
     try {
       if (!toBeSaved) return
       setLoading(true)
-      let title = ""
-      if (titleType === "title") title = toBeSaved.title
+
+      const modelsWithCustomTitle = ["chatgpt"]
+
+      let title: string | undefined = undefined
+      if (titleType === "title" && modelsWithCustomTitle.includes(model))
+        title = toBeSaved.title
       else if (titleType === "prompt")
         title = prompt.length > 60 ? prompt.substring(0, 60) + "..." : prompt
-      else title = titleValue
+      else title = undefined
 
       const database = db!
       const checkRes = await sendToBackground({
         name: "checkSaveConflit",
         body: {
           title,
+          url: toBeSaved.url,
           database
         }
       })
