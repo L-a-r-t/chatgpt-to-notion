@@ -30,7 +30,7 @@ const saveHistory = async (
 
   await storage.set(STORAGE_KEYS.historySaveProgress, -1)
 
-  const database = databases[selectedDB]
+  const database = databases[selectedDB ?? 0]
 
   const headers = convertHeaders(rawHeaders)
   const _convs = await Promise.all(
@@ -42,7 +42,8 @@ const saveHistory = async (
     .filter((conv) => conv !== null)
     .map((conv) =>
       parseConversation({
-        model: "chatgpt",
+        model: model,
+        // @ts-ignore
         params: { rawConversation: conv, textDocs: [] }
       })
     )
@@ -58,6 +59,7 @@ const saveHistory = async (
     try {
       const { conflictingPageId } = await checkSaveConflict({
         title: convs[i].title,
+        url: convs[i].url,
         database
       })
 

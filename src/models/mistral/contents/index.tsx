@@ -24,6 +24,7 @@ export const config: PlasmoCSConfig = {
 }
 
 // Target the flex container that holds the Mistral logo and message content
+// @ts-ignore
 export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
   const messageContainers = document.querySelectorAll(
     ".group.flex.w-full.gap-3 .flex.min-w-0.flex-1.flex-col"

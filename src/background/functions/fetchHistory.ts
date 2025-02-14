@@ -8,27 +8,37 @@ const fetchHistory = async (
 ) => {
   // TODO: update le cookie probablement
   const headers = convertHeaders(rawHeaders)
-  const { data, ids } = await getHistory(headers)
+  const { data, ids } = await getHistory({
+    model: model as any,
+    params: headers
+  })
 
-  const { total } = data
+  if (["chatgpt", "claude"].includes(model)) {
+    const total = model == "chatgpt" ? data.total : 80
 
-  // Default OpenAI behavior is to return 50 conversations at a time
-  // we do the same to look less suspicious
-  const offset = new Array(Math.ceil(total / 50) - 1)
-    .fill(0)
-    .map((_, i) => (i + 1) * 50)
+    const offsetMap = {
+      chatgpt: 50,
+      claude: 8
+    }
+    // we model default limits and offsets to look less suspicious
+    const offset = new Array(Math.ceil(total / offsetMap[model]) - 1)
+      .fill(0)
+      .map((_, i) => (i + 1) * offsetMap[model])
 
-  const _history = await Promise.all(
-    offset.map(async (delta) =>
-      getHistory({ model: model as any, params: { headers, offset: delta } })
+    const _history = await Promise.all(
+      offset.map(async (delta) =>
+        getHistory({ model: model as any, params: { headers, offset: delta } })
+      )
     )
-  )
 
-  const history = _history
-    .reduce((acc, { ids }) => [...acc, ...ids], ids)
-    .reverse()
+    const history = _history
+      .reduce((acc, { ids }) => [...acc, ...ids], ids)
+      .reverse()
 
-  return history
+    return history
+  }
+
+  return ids
 }
 
 export default fetchHistory
