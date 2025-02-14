@@ -69,7 +69,7 @@ export default function Wrapper() {
       const urlObj = new URL(tabs[0].url!)
       if (
         !urlObj.hostname.match(
-          /((chatgpt.com)|(chat.deepseek.com)|(chat.mistral.ai))/
+          /((chatgpt.com)|(chat.deepseek.com)|(chat.mistral.ai)|(claude.ai))/
         )
       ) {
         if (!popup || popup === "index" || popup === "save")

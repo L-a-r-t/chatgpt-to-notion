@@ -78,7 +78,8 @@ const saveHeaders = (model: SupportedModels, headers: any) => {
 const trackedURLs = [
   "https://chatgpt.com/*",
   "https://chat.deepseek.com/*",
-  "https://chat.mistral.ai/*"
+  "https://chat.mistral.ai/*",
+  "https://claude.ai/*"
 ]
 
 const deepseekUrls = [
@@ -121,6 +122,14 @@ chrome.webRequest.onSendHeaders.addListener(
 
     if (res.url.includes("mistral.ai")) {
       saveHeaders("mistral", res.requestHeaders)
+      return
+    }
+
+    if (
+      res.requestHeaders.some((h) => h.name.toLowerCase() === "cookie") &&
+      res.url.includes("claude.ai")
+    ) {
+      saveHeaders("claude", res.requestHeaders)
       return
     }
 

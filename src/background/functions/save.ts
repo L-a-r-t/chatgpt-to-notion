@@ -49,7 +49,8 @@ const save = async (
 
     console.log({ rawHeaders })
     const headers = convertHeaders(
-      rawHeaders.filter((h) => h.name.toLowerCase() != "cookie")
+      // rawHeaders.filter((h) => h.name.toLowerCase() != "cookie")
+      rawHeaders
     )
     const rawConversation = await getConversation({
       model: model,
@@ -65,7 +66,11 @@ const save = async (
       textDocs =
         (await getConversationTextdocs({
           model: model as any,
-          params: { rawConversation, headers, includeVersions: true }
+          params: {
+            rawConversation,
+            headers,
+            includeVersions: true
+          }
         })) ?? []
     }
 

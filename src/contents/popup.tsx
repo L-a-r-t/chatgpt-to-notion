@@ -16,7 +16,8 @@ export const config: PlasmoCSConfig = {
   matches: [
     "https://chat.deepseek.com/*",
     "https://chatgpt.com/*",
-    "https://chat.mistral.ai/*"
+    "https://chat.mistral.ai/*",
+    "https://claude.ai/*"
   ]
 }
 

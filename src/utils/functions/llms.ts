@@ -1,4 +1,5 @@
 import { parseConversation as chatgptParseConversation } from "~models/chatgpt/functions"
+import { parseConversation as claudeParseConversation } from "~models/claude/functions"
 import { parseConversation as deepseekParseConversation } from "~models/deepseek/functions"
 import { parseConversation as mistralParseConversation } from "~models/mistral/functions"
 import type {
@@ -18,6 +19,8 @@ export const parseConversation = ({
       return deepseekParseConversation(params.rawConversation)
     case "mistral":
       return mistralParseConversation(params.rawConversation)
+    case "claude":
+      return claudeParseConversation(params.rawConversation)
     default:
       throw new Error("Model not supported")
   }
@@ -45,6 +48,13 @@ type ParseConversationParams =
         textDocs: null
       }
     }
+  | {
+      model: "claude"
+      params: {
+        rawConversation: Conversation["claude"]
+        textDocs: ConversationTextdocs
+      }
+    }
 
 export const getConversationIdFromUrl = (
   model: SupportedModels,
@@ -55,16 +65,8 @@ export const getConversationIdFromUrl = (
   let id: string | undefined
 
   switch (model) {
-    case "chatgpt":
-      id = urlObj.pathname.split("/").pop()
-      return id?.length != 36 ? null : id
-    case "deepseek":
-      id = urlObj.pathname.split("/").pop()
-      return id?.length != 36 ? null : id
-    case "mistral":
-      id = urlObj.pathname.split("/").pop()
-      return id?.length != 36 ? null : id
     default:
-      throw new Error("Model not supported")
+      id = urlObj.pathname.split("/").pop()
+      return id?.length != 36 ? null : id
   }
 }

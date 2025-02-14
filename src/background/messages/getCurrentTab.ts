@@ -31,6 +31,10 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       model = "mistral"
       await storage.set(STORAGE_KEYS.model, "mistral")
     }
+    if (tab.url?.includes("claude.ai")) {
+      model = "claude"
+      await storage.set(STORAGE_KEYS.model, "claude")
+    }
 
     res.send({ tabId: tab.id, tabUrl: tab.url, model })
   } catch (err) {
