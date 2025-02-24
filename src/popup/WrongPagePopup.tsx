@@ -15,12 +15,19 @@ function WrongPagePopup() {
 
   return (
     <>
-      <p className="text-center">
-        {i18n("wrongpage_goTo") + " "}
+      <p className="text-center py-2 flex justify-center gap-2 text-sm">
         <a href="https://chatgpt.com" target="_blank" className="link">
-          {i18n("wrongpage_chatgpt")}
+          ChatGPT
         </a>
-        {" " + i18n("wrongpage_toUse")}
+        <a href="https://claide.ai" target="_blank" className="link">
+          Claude
+        </a>
+        <a href="https://chat.deepseek.com" target="_blank" className="link">
+          Deepseek
+        </a>
+        <a href="https://chat.mistral.ai" target="_blank" className="link">
+          Mistral
+        </a>
       </p>
       <div className="grid gap-3 grid-cols-2">
         <button

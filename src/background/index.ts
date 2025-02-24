@@ -32,16 +32,16 @@ chrome.runtime.onInstalled.addListener((details) => {
     storage.set(STORAGE_KEYS.ecoModePopup, false)
   }
   if (details.reason === "update") {
-    // chrome.tabs.create({
-    //   url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
-    // })
-    storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
-      if (!isPremium) {
-        chrome.tabs.create({
-          url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
-        })
-      }
+    chrome.tabs.create({
+      url: `chrome-extension://${chrome.runtime.id}/tabs/update.html`
     })
+    // storage.get(STORAGE_KEYS.isPremium).then((isPremium) => {
+    //   if (!isPremium) {
+    //     chrome.tabs.create({
+    //       url: "https://www.extensions-hub.com/partners/updated?name=ChatGPT-to-Notion"
+    //     })
+    //   }
+    // })
   }
 
   refreshContentScripts()

@@ -1,9 +1,9 @@
 {
   "extensionName": {
-    "message": "ChatGPT vers Notion"
+    "message": "Chat vers Notion"
   },
   "extensionDescription": {
-    "message": "Sauvegardez vos discussions avec ChatGPT directement dans Notion!"
+    "message": "Sauvegardez vos discussions avec ChatGPT, Mistral, Deepseek et Claude directement dans Notion!"
   },
   "errConnect": {
     "message": "Conntectez-vous à notion en cliquant sur l'icône de l'extension."
@@ -270,7 +270,7 @@
     "message": "Désactiver sauvegarde auto"
   },
   "autosave_wrongpage": {
-    "message": "Démarrez une conversation avec ChatGPT et actualisez la page"
+    "message": "Démarrez une conversation et actualisez la page"
   },
   "autosave_error": {
     "message": "Il y a eu une erreur lors de la sauvegarde du dernier message"
@@ -312,7 +312,7 @@
     "message": "Sauvegarde complète"
   },
   "history_desc": {
-    "message": "ChatGPT vers Notion va enregistrer l'entièreté de votre historique de conversations. Cela prendra un certain temps."
+    "message": "Chat vers Notion va enregistrer l'entièreté de votre historique de conversations. Cela prendra un certain temps."
   },
   "history_desc_trial": {
     "message": "Passez à la version premium pour pourvoir enregistrer toutes vos conversations d'un coup."
@@ -363,7 +363,7 @@
     "message": "Réponse"
   },
   "notion_expandToSee": {
-    "message": "Voir le code utilisé par ChatGPT"
+    "message": "Voir le code utilisé"
   },
   "notion_gptWork": {
     "message": "Code d'interpréteur python, affichez-le avant d'enregistrer pour l'afficher ici"
@@ -372,7 +372,7 @@
     "message": "Voir le travail effectué par DALL-E 3"
   },
   "notion_dalleExplainer": {
-    "message": "Les images de DALL-E ne peuvent être enregistrées directement sans les héberger hors des serveurs d'OpenAI au préalable, ce qui ne sera pas fait par respect pour vos données. Vous pouvez télécharger les images depuis votre conversation avec ChatGPT puis les ajouter ici à postériori."
+    "message": "Les images ne peuvent être enregistrées directement sans les héberger sur un serveur dédié, ce qui ne sera pas fait par respect pour vos données. Vous pouvez télécharger les images depuis votre conversation puis les ajouter ici à postériori."
   },
   "eco_desc": {
     "message": "Le mode eco-friendly permet de planter des arbres via l'extension, tout en respectant vos données et en ne changeant rien à votre expérience du web."
@@ -389,56 +389,11 @@
   "update_heading": {
     "message": "ChatGPT to Notion a reçu une mise à jour! 🎉"
   },
-  "update_major": {
-    "message": "Il y a des changements majeurs, merci de lire cette page."
+  "update_desc": {
+    "message": "L'extension est renommée **Chat to Notion**, et un changement de logo aura lieu lors de la prochaine mise à jour.\n\nSi vous souhaitez soutenir le développement de Chat to Notion, devenez [abonné Premium](https://theolartigau.gumroad.com/l/chatgpt-to-notion) et profitez de fonctionnalités exclusives !\n\n# Journal des modifications (v 2.0.0)\n\n## Fonctionnalités\n\nPrise en charge de différentes familles de LLMs ! Les fournisseurs LLM actuellement pris en charge sont :\n\n - ChatGPT\n - Deepseek\n - Claude\n - Mistral\n\nD'autres fournisseurs LLM seront ajoutés à l'avenir. Les fonctionnalités manquantes, telles que l'enregistrement automatique (ou l'historique des conversations pour Le Chat de Mistral), seront également bientôt ajoutées.\n\n## Corrections  \n\nL'épingle est de retour sur ChatGPT !"
   },
-  "update_changelog_link": {
-    "message": "Lisez le changelog de chaque mise à jour ici"
-  },
-  "update_changelog_features": {
-    "message": "Fonctionnalités"
-  },
-  "update_changelog_features_1": {
-    "message": "Mode eco-friendly"
-  },
-  "update_changelog_features_2": {
-    "message": "Ouvrir une page fraichement enregistrée dans Notion"
-  },
-  "update_changelog_features_3": {
-    "message": "Prise en chage de la notation KaTeX"
-  },
-  "update_changelog_fixes": {
-    "message": "Corrections de bugs"
-  },
-  "update_changelog_fixes_1": {
-    "message": "Mauvaise prise en charge des prompts avec des sauts de lignes"
-  },
-  "update_changelog_fixes_2": {
-    "message": "Sauvegarde impossible des nouvelles conversations dans certains cas"
-  },
-  "update_eco_heading": {
-    "message": "Intégrer l'écologie"
-  },
-  "update_eco_1": {
-    "message": "A la création de ChatGPT to Notion, je ne m'attends pas à ce qu'elle devienne un tel succès! Je suis extrêmement reconnaissant d'avoir eu l'opportunité d'apporter un service utile à des dizaines de milliers de personnes. Cela-dit, alors que je progressais dans mes études, je n'ai pas eu autant de temps qu'espéré pour maintenir l'extension et créer des alternatives pour les autres LLM."
-  },
-  "update_eco_2": {
-    "message": "Pour me garder motivé et subvenir à certains de mes besoins durant mes études, j'ai alors implémenté un mode premium dont je souhaite de débarasser depuis des mois. Car j'ai conscience qu'avoir une plateforme d'envergure est une chance, je veux être aussi positif que possible. C'est pourquoi je m'associe à l'équipe d'allcolobri pour donner à ChatGPT to Notion la possibilité d'être également un plus pour l'environnement."
-  },
-  "update_eco_3": {
-    "message": "Le mode eco-friendly est une fonctionnalité entièrement optionnelle que j'ai conçue. Lors de la visite d'un site partenaire, une portion des revenus générés par votre visite servira à planter des arbres et à rémunérer le développement l'extention. Si ce partenariat s'avère fructueux, "
-  },
-  "update_eco_4": {
-    "message": "j'utiliserai ces revenus pour rendre les fonctionnalités de l'extension gratuites pour tous."
-  },
-  "update_eco_5": {
-    "message": "Merci pour votre intérêt dans ChatGPT to Notion,"
-  },
-  "update_eco_enable": {
-    "message": "Activer le mode eco-friendly"
-  },
-  "update_eco_enabled": {
-    "message": "Le mode eco-friendly est activé, félicitations ! 🌳"
+  "update_button": {
+    "message": "Soutenir le développement"
   },
   "eco_notification_title": { 
     "message": "🌱 Mode eco-friendly | ChatGPT to Notion"

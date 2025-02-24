@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "ChatGPT から Notion へ"
+    "message": "Chat から Notion へ"
   },
   "extensionDescription": {
     "message": "ChatGPT との会話を直接 Notion に保存しましょう！"
@@ -312,7 +312,7 @@
     "message": "履歴を保存"
   },
   "history_desc": {
-    "message": "ChatGPT to Notionはあなたの完全な会話履歴を保存します。このプロセスには時間がかかる場合があります。"
+    "message": "Chat to Notionはあなたの完全な会話履歴を保存します。このプロセスには時間がかかる場合があります。"
   },
   "history_desc_trial": {
     "message": "完全な会話履歴を保存できるようにプレミアムトライアルをアップグレードしてください。"
@@ -389,56 +389,8 @@
   "update_heading": {
     "message": "ChatGPT to Notionがアップデートされました！🎉"
   },
-  "update_major": {
-    "message": "大きな変更がありますので、このページを読んでください。"
-  },
-  "update_changelog_link": {
-    "message": "こちらで各アップデートの変更履歴を読む"
-  },
-  "update_changelog_features": {
-    "message": "機能"
-  },
-  "update_changelog_features_1": {
-    "message": "エコフレンドリーモード"
-  },
-  "update_changelog_features_2": {
-    "message": "保存したページをNotionで開く"
-  },
-  "update_changelog_features_3": {
-    "message": "KaTeX記法のサポート"
-  },
-  "update_changelog_fixes": {
-    "message": "修正"
-  },
-  "update_changelog_fixes_1": {
-    "message": "複数行のジャンプが含まれるプロンプトの不適切な処理"
-  },
-  "update_changelog_fixes_2": {
-    "message": "新しい会話でピン保存が失敗するエッジケース"
-  },
-  "update_eco_heading": {
-    "message": "エコフレンドリーを有効にする"
-  },
-  "update_eco_1": {
-    "message": "ChatGPT to Notionを初めて作成したとき、今日のような成功になるとは全く予想していませんでした！何万人もの人々に役立つものを提供できたことを本当に感謝しています。しかし、私が勉強を続けていくうちに、他のLLM用の代替品を開発したり、拡張機能を維持する時間が足りなくなってきました。"
-  },
-  "update_eco_2": {
-    "message": "このプロジェクトに取り組むモチベーションを維持し、勉強を通じて自分を支えるために、ずっと取り除きたかったプレミアムサブスクリプションを導入しました。大きなプラットフォームを持つことは稀であることを十分に理解しており、できるだけ前向きでありたいと思います。そのため、ChatGPT to Notionが環境にもネットでプラスになる機会を提供するために、allcolibriのチームと提携しています。"
-  },
-  "update_eco_3": {
-    "message": "エコフレンドリーモードは、実装に取り組んでいる完全に任意の機能です。パートナーウェブサイトを訪問すると、訪問から得られる収益の一部を使用して木を植え、拡張機能の開発を報酬することになります。このパートナーシップが成功すると、"
-  },
-  "update_eco_4": {
-    "message": "この収益を使用して、拡張機能の機能をすべての人に無料で提供します。"
-  },
-  "update_eco_5": {
-    "message": "ChatGPT to Notionへのご関心に感謝します、"
-  },
-  "update_eco_enable": {
-    "message": "エコフレンドリーモードを有効にする"
-  },
-  "update_eco_enabled": {
-    "message": "エコフレンドリーモードが有効になりました、おめでとうございます！🌳"
+  "update_desc": {
+    "message": "拡張機能の名前が **Chat to Notion** に変更され、次回のアップデートでロゴも変更されます。Chat to Notion の開発を支援したい場合は、[プレミアム会員](https://theolartigau.gumroad.com/l/chatgpt-to-notion) になり、限定機能を活用してください！\n\n# 更新履歴 (v 2.0.0)\n\n## 新機能\n\nさまざまなLLMファミリーをサポート！ 現在サポートされているLLMプロバイダーは以下の通りです：\n\n - ChatGPT\n - Deepseek\n - Claude\n - Mistral\n\n今後さらに多くのLLMプロバイダーが追加される予定です。また、MistralのLe Chatの履歴保存や自動保存などの不足している機能も、今後追加される予定です。\n\n## 修正点  \n\nChatGPT にピン機能が復活しました！"
   },
   "eco_notification_title": { 
     "message": "🌱 エコフレンドリーモード | ChatGPT to Notion"

@@ -7,13 +7,14 @@ import Disclosure from "~common/components/Disclosure"
 import DropdownPopup from "~common/components/Dropdown"
 import Spinner from "~common/components/Spinner"
 import useTags from "~hooks/useTags"
-import { STORAGE_KEYS } from "~utils/consts"
+import { STORAGE_KEYS, SUPPORTED_HISTORY_SAVE } from "~utils/consts"
 import { i18n } from "~utils/functions"
 import type { HistorySaveError, PopupEnum, StoredDatabase } from "~utils/types"
 
 function HistorySavePopup() {
   const [isPremium] = useStorage(STORAGE_KEYS.isPremium, false)
   const [popup, setPopup] = useStorage<PopupEnum>(STORAGE_KEYS.popup, "history")
+  const [model] = useStorage(STORAGE_KEYS.model, "chatgpt")
 
   const [cacheHeaders] = useStorage({
     key: STORAGE_KEYS.cacheHeaders,
@@ -55,6 +56,14 @@ function HistorySavePopup() {
         </button>
       </div>
     )
+
+  if (!SUPPORTED_HISTORY_SAVE.includes(model)) {
+    return (
+      <div>
+        <p>{i18n("history_unsupported")}</p>
+      </div>
+    )
+  }
 
   if (historySaveProgress === -1)
     return (
