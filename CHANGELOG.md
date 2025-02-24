@@ -1,3 +1,19 @@
+# 2.0.0
+
+Features
+
+- Now supports different LLM families! Currently supported LLM providers are :
+  - ChatGPT
+  - Deepseek
+  - Claude
+  - Mistral
+- More LLM providers will be added in the future, missing features such as autosave (or history save for Mistral's Le Chat) will be added soon
+
+Fixes
+
+- The pin is back on ChatGPT! 
+
+
 ## 1.11.0
 
 Features

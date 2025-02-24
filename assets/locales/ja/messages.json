@@ -3,7 +3,7 @@
     "message": "Chat から Notion へ"
   },
   "extensionDescription": {
-    "message": "ChatGPT との会話を直接 Notion に保存しましょう！"
+    "message": "ChatGPT、Deepseek、Claude、Mistral との会話を直接 Notion に保存できます！"
   },
   "errConnect": {
     "message": "拡張機能のアイコンをクリックして Notion に接続してください。"
