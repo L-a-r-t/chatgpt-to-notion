@@ -1,7 +1,7 @@
 {
   "name": "chat-to-notion",
   "displayName": "Chat to Notion",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "__MSG_extensionDescription__",
   "author": "Théo Lartigau",
   "scripts": {

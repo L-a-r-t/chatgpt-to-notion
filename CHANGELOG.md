@@ -1,3 +1,9 @@
+### 2.0.1
+
+Fixes
+
+- Rendering issues on various websites caused by rampant content scripts (they weren't contained to their respective pages)
+
 # 2.0.0
 
 Features
