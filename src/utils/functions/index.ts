@@ -125,10 +125,23 @@ const parseMarkdown = (md: string, fromHTML?: boolean) => {
         )
 }
 
+const getBulletedListItem = (bulletListItem: any) => {
+  if (bulletListItem.type !== "bulleted_list_item") return ""
+  const content = bulletListItem.bulleted_list_item.rich_text[0].text.content
+  return content
+}
+
 const getQuoteContent = (quoteBlock: any) => {
   if (quoteBlock.type !== "quote") return ""
-  const child = quoteBlock.quote.children?.[0]
-  const content: string = child.paragraph.rich_text[0].text.content
+  const children = quoteBlock.quote.children
+  const content = children.reduce((acc: string, child: any) => {
+    if (child.type == "bulleted_list_item") {
+      const childContent = getBulletedListItem(child)
+      return acc + "- " + childContent + "\n"
+    }
+    const childContent: string = child.paragraph.rich_text[0].text.content
+    return acc + childContent + " "
+  }, "")
   return content
 }
 
